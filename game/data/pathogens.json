@@ -1,0 +1,34 @@
+{
+  "swarm_coccus": {
+    "name_ru": "Кокк-рой",
+    "kind": "bacteria", "tier": 0,
+    "growth_rate": 0.15,
+    "resistance": 2.0,
+    "threshold": 25,
+    "weak_to": ["neutrophil", "macrophage"],
+    "reward": {"amino_acids": 5, "antigens": 1},
+    "color": "#9ef01a"
+  },
+  "shell_variant": {
+    "name_ru": "Оболочечный вариант",
+    "kind": "virus", "tier": 1,
+    "growth_rate": 0.12,
+    "resistance": 3.0,
+    "threshold": 20,
+    "weak_to": ["nk_cell", "b_cell", "cytotoxic_t"],
+    "resist_note": "нейтрофилы почти бесполезны",
+    "reward": {"atp": 5, "antigens": 2},
+    "color": "#c8b6ff"
+  },
+  "thread_bloom": {
+    "name_ru": "Нитчатое цветение",
+    "kind": "fungus", "tier": 1,
+    "growth_rate": 0.08,
+    "resistance": 5.0,
+    "threshold": 30,
+    "weak_to": ["macrophage", "neutrophil"],
+    "resist_note": "медленный, но очень прочный",
+    "reward": {"lipids": 10, "micronutrients": 3, "antigens": 2},
+    "color": "#f4a261"
+  }
+}

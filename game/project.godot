@@ -1,0 +1,30 @@
+; Engine configuration file.
+; Immune Empire: Internal Front — MVP (Godot 4.3+)
+config_version=5
+
+[application]
+
+config/name="Immune Empire: Internal Front"
+run/main_scene="res://scenes/Main.tscn"
+config/features=PackedStringArray("4.3")
+boot_background/color="2a0711"
+
+[autoload]
+
+Definitions="*res://autoload/Definitions.gd"
+GameState="*res://autoload/GameState.gd"
+SaveManager="*res://autoload/SaveManager.gd"
+Simulation="*res://systems/Simulation.gd"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+environment/defaults/default_clear_color=Color(0.164, 0.027, 0.066, 1)
