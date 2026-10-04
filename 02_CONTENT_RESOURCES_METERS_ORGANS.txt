@@ -1,0 +1,513 @@
+# Immune Empire: Internal Front — Content Tables Part 1
+# Resources, Meters, Organs / Buildings
+
+## Legend / Уровни контента
+
+T0 = Tutorial: первые 1–3 минуты.
+T1 = MVP: первые 15–30 минут, полный базовый цикл и первый престиж.
+T2 = Alpha: 1–3 часа, углубление веток, воспаление, память, барьеры.
+T3 = Beta: несколько дней, разные хозяева, вакцины, специализированные войны.
+T4 = Endgame / Live: долгая игра, синтетический иммунитет, фаги, нейро-контроль, редкие угрозы.
+
+---
+
+# 1. Resources
+
+## 1.1. Primary Resources
+
+- amino_acids / Аминокислоты
+  Tier: T0
+  Source: gut villi, diet events, protein digestion
+  Sinks: cell creation, antibodies, enzymes, liver proteins
+  Notes: базовый строительный материал для белков, рецепторов, ферментов и антител.
+
+- glucose / Глюкоза
+  Tier: T0
+  Source: gut villi, glycogen breakdown, sugar events
+  Sinks: ATP production, neutrophils, fever
+  Notes: быстрое топливо для активных иммунных клеток.
+
+- atp / АТФ
+  Tier: T0
+  Source: mitochondrial network, metabolism tech
+  Sinks: cell upkeep, organ operation, division, movement
+  Notes: универсальная клеточная энергия. Главный ограничитель армии.
+
+- stem_cells / Стволовые клетки
+  Tier: T0
+  Source: bone marrow
+  Sinks: training all leukocytes
+  Notes: сырьё для производства лейкоцитов. Фактически лимит роста армии.
+
+- lipids / Липиды
+  Tier: T1
+  Source: gut, liver, adipose tissue, microbiome events
+  Sinks: macrophages, membranes, barriers, mast cells
+  Notes: структурный ресурс для мембран, крупных клеток и барьеров.
+
+- micronutrients / Микронутриенты
+  Tier: T1
+  Source: liver, diet, microbiome, sun/events
+  Sinks: cell quality, enzyme cofactors, regulation
+  Notes: витамины и минералы, сгруппированные в один ранний ресурс.
+
+- antigens / Антигены
+  Tier: T1
+  Source: defeated pathogens, dendritic sampling, scans
+  Sinks: adaptive immunity, vaccines, codex, memory
+  Notes: фрагменты врагов. Ресурс знания, памяти и мета-прогресса.
+
+## 1.2. Secondary Resources
+
+- cytokines / Цитокины
+  Tier: T2
+  Source: activated immune cells, inflammation events
+  Sinks: coordination, tech unlocks, fever, activation
+  Notes: сигнальные молекулы. Усиливают иммунитет, но повышают риск шторма.
+
+- nucleotides / Нуклеотиды
+  Tier: T2
+  Source: liver, diet, rapid cell turnover
+  Sinks: clonal expansion, memory cells, B/T proliferation
+  Notes: материал для ДНК/РНК. Нужен для массового размножения лимфоцитов.
+
+- antibodies / Антитела
+  Tier: T2
+  Source: B cells, plasma cells, vaccines
+  Sinks: neutralization, opsonization, known-pathogen defense
+  Notes: могут накапливаться как запас защиты против изученных врагов.
+
+- complement / Комплемент
+  Tier: T2
+  Source: liver, innate activation
+  Sinks: bacterial lysis, opsonization, inflammation amplification
+  Notes: белковый каскад. Усиливает уничтожение бактерий и标记 для фагоцитов.
+
+- interferon / Интерферон
+  Tier: T2
+  Source: virus-infected tissues, NK activation, DC signals
+  Sinks: antiviral state, NK boost, MHC expression
+  Notes: ранняя анти-вирусная сигнализация.
+
+- microbiome_metabolites / Метаболиты микробиома
+  Tier: T2
+  Source: microbiome garden, fiber digestion
+  Sinks: barrier health, Treg support, vitamin synthesis
+  Notes: короткоцепочечные жирные кислоты и другие полезные вещества кишечника.
+
+- hormones / Гормоны
+  Tier: T3
+  Source: neuro-endocrine node, host states
+  Sinks: stress response, sleep, fever, appetite modulation
+  Notes: связь между состоянием хозяина и иммунитетом.
+
+- oxygen / Кислород
+  Tier: T3
+  Source: lungs, blood flow, breathing events
+  Sinks: oxidative burst, mitochondrial efficiency
+  Notes: может становиться лимитирующим при плотных инфекциях.
+
+- iron / Железо
+  Tier: T3
+  Source: diet, liver, hemoglobin recycling
+  Sinks: cell division, oxidative enzymes, pathogen competition
+  Notes: часть микронутриентов. Некоторые патогены крадут железо.
+
+- zinc / Цинк
+  Tier: T3
+  Source: diet, microbiome, mucosal turnover
+  Sinks: antiviral enzymes, T-cell function, barrier integrity
+  Notes: важен для Т-клеток и слизистых барьеров.
+
+- selenium / Селен
+  Tier: T3
+  Source: diet, soil/food events
+  Sinks: antioxidant defense, immune regulation
+  Notes: антиоксидантная защита и регуляция.
+
+- copper / Медь
+  Tier: T3
+  Source: diet, liver
+  Sinks: enzyme cofactors, antimicrobial peptides
+  Notes: кофактор ферментов и антимикробных пептидов.
+
+- toxin_load / Токсическая нагрузка
+  Tier: T3
+  Source: environmental events, pathogen toxins, metabolism
+  Sinks: detoxification, liver stress
+  Notes: негативный ресурс. Копится, если нет детокса.
+
+- scar_tissue / Рубцовая ткань
+  Tier: T3
+  Source: chronic inflammation, unresolved damage
+  Sinks: reduces organ efficiency, can be healed
+  Notes: долгосрочное последствие плохого баланса.
+
+- chimeric_receptors / Химерные рецепторы
+  Tier: T4
+  Source: synthetic immunity lab
+  Sinks: custom cell programming, engineered defenses
+  Notes: эндгейм-материал для конструирования клеток.
+
+- phage_particles / Фаговые частицы
+  Tier: T4
+  Source: phage library, bacterial harvesting
+  Sinks: targeted antibacterial attacks, microbiome engineering
+  Notes: полезные вирусы, охотящиеся на бактерии.
+
+---
+
+# 2. State Meters
+
+- inflammation / Воспаление
+  Range: 0–100+
+  Increases: active innate cells, cytokines, fever, tissue damage
+  Decreases: resolution tech, Treg, M2 macrophages, rest
+  Effects: +defense, +cell speed, -tissue efficiency, +autoimmune risk.
+
+- tolerance / Толерантность
+  Range: 0–100
+  Increases: Treg, resolution, microbiome metabolites, calm host
+  Decreases: high inflammation, repeated false alarms
+  Effects: -autoimmune risk, stabilizes organs, may reduce peak aggression.
+
+- barrier_integrity / Барьерная целостность
+  Range: 0–100
+  Increases: skin, mucosa, tight junctions, vitamins, microbiome
+  Decreases: pathogen enzymes, toxins, stress, inflammation
+  Effects: reduces pathogen entry and toxin leakage.
+
+- energy_balance / Энергетический баланс
+  Range: -100–100
+  Increases: ATP surplus
+  Decreases: ATP deficit, fever, dense army
+  Effects: modifies cell speed and organ output.
+
+- immune_diversity / Разнообразие иммунитета
+  Range: 0–100
+  Increases: many active cell types, balanced tech
+  Decreases: spamming one unit type
+  Effects: reduces pathogen adaptation, grants stability bonus.
+
+- immune_memory / Иммунная память
+  Range: 0+
+  Increases: defeated pathogens, vaccines, codex
+  Decreases: usually not spent directly
+  Effects: bonuses vs known pathogens, prestige currency.
+
+- stress / Стресс хозяина
+  Range: 0–100
+  Increases: host events, lack of sleep, pain, overload
+  Decreases: sleep, calm, neuro-immune tech
+  Effects: suppresses some immunity, increases cortisol effects.
+
+- sleep_quality / Качество сна
+  Range: 0–100
+  Increases: rest events, melatonin, low stress
+  Decreases: host activity, fever, stress
+  Effects: improves memory consolidation and repair.
+
+---
+
+# 3. Organs / Buildings
+
+## 3.1. General Cost Pattern
+
+cost(n) = base_cost * growth^n
+
+Рекомендуемые growth:
+- T0 extractors: 1.15
+- T0/T1 energy and marrow: 1.17–1.20
+- T1 refineries/training: 1.18–1.25
+- T2 powerful organs: 1.22–1.30
+- T3/T4 endgame organs: 1.30–1.40
+
+---
+
+## 3.2. T0 Starter Organs
+
+- gut_villi / Кишечные ворсинки
+  Tier: T0
+  Type: extraction
+  Base cost: 15 amino_acids, 10 glucose
+  Growth: 1.15
+  Output: +0.5 AA/s, +0.5 glucose/s, +0.05 lipids/s
+  Consumption: none initially
+  Unlock: start
+  Notes: основная «шахта» нутриентов.
+
+- mitochondrial_network / Митохондриальная сеть
+  Tier: T0
+  Type: energy
+  Base cost: 40 AA, 20 glucose, 10 micronutrients
+  Growth: 1.17
+  Output: +0.4 ATP/s
+  Consumption: 0.05 glucose/s, 0.01 lipids/s per level
+  Unlock: after first cells or first ATP need
+  Notes: превращает топливо в энергию. Критична для поддержки армии.
+
+- bone_marrow / Костный мозг
+  Tier: T0
+  Type: cell production
+  Base cost: 100 AA, 50 glucose, 20 micronutrients, 50 ATP
+  Growth: 1.20
+  Output: +0.03 stem_cells/s
+  Consumption: 0.02 AA/s, 0.01 micronutrients/s, 0.02 ATP/s per level
+  Unlock: after ATP exists
+  Notes: главный лимит производства лейкоцитов. Если не хватает ресурсов, эффективность падает.
+
+---
+
+## 3.3. T1 Core Progression Organs
+
+- liver / Печень
+  Tier: T1
+  Type: refinery
+  Base cost: 150 AA, 50 lipids, 30 micronutrients
+  Growth: 1.18
+  Output: +0.1 micronutrients/s, +0.08 lipids/s, detox capacity
+  Consumption: AA, ATP
+  Unlock: after macrophage or first toxin pressure
+  Notes: поддерживает комплемент, детокс, позже антитела и белки.
+
+- lymph_node / Лимфоузел
+  Tier: T1
+  Type: training
+  Base cost: 250 AA, 100 lipids, 50 ATP, 10 antigens
+  Growth: 1.25
+  Output: +20% antigen gain, unlocks B/T training
+  Consumption: ATP, antigens
+  Unlock: after dendritic cell
+  Notes: «академия» адаптивного иммунитета.
+
+- stomach_acid / Кислотный барьер желудка
+  Tier: T1
+  Type: barrier
+  Base cost: 80 AA, 40 lipids, 20 micronutrients
+  Growth: 1.18
+  Output: reduces bacterial entry from food events
+  Consumption: micronutrients, ATP
+  Unlock: diet events or early bacterial pressure
+  Notes: простой ранний барьер против кишечных бактерий.
+
+- blood_flow / Кровоток
+  Tier: T1
+  Type: logistics
+  Base cost: 120 AA, 60 glucose, 30 ATP
+  Growth: 1.20
+  Output: +10% cell response speed, connects organs
+  Consumption: ATP
+  Unlock: after second organ type
+  Notes: не боевой орган, но улучшает доставку клеток к очагам.
+
+---
+
+## 3.4. T2 Alpha Organs
+
+- skin_barrier / Кожный барьер
+  Tier: T2
+  Type: barrier
+  Base cost: 200 lipids, 80 micronutrients, 100 AA
+  Growth: 1.22
+  Output: +barrier_integrity, reduces physical pathogen entry
+  Consumption: lipids, ATP
+  Unlock: barrier tech
+  Notes: первая крупная физическая защита.
+
+- mucosal_layer / Слизистый слой
+  Tier: T2
+  Type: barrier
+  Base cost: 180 AA, 90 lipids, 60 micronutrients
+  Growth: 1.22
+  Output: reduces bacterial/viral entry in throat/gut
+  Consumption: micronutrients, water/metabolites
+  Unlock: barrier tech or respiratory/gut pathogens
+  Notes: хорош для предотвращения ранних вспышек.
+
+- microbiome_garden / Микробиомный сад
+  Tier: T2
+  Type: ecology
+  Base cost: 300 glucose, 150 AA, 100 lipids
+  Growth: 1.22
+  Output: +vitamin synthesis, +competition vs pathogens, microbiome metabolites
+  Consumption: glucose, AA
+  Unlock: microbiome tech
+  Notes: может быть повреждён антибиотиками или плохой диетой.
+
+- spleen / Селезёнка
+  Tier: T2
+  Type: filter/reserve
+  Base cost: 400 AA, 150 lipids, 80 stem_cells
+  Growth: 1.25
+  Output: blood filtration, emergency leukocyte reserve
+  Consumption: ATP
+  Unlock: blood sector
+  Notes: усиливает защиту кровотока и даёт аварийный резерв.
+
+- thymus / Тимус
+  Tier: T2
+  Type: T-cell maturation
+  Base cost: 500 AA, 120 micronutrients, 80 stem_cells, 100 ATP
+  Growth: 1.28
+  Output: unlocks/improves T-cell branches
+  Consumption: AA, micronutrients, ATP
+  Unlock: adaptive tech
+  Notes: критичен для helper T, cytotoxic T, Treg.
+
+- inflammatory_focus / Воспалительный очаг
+  Tier: T2
+  Type: control
+  Base cost: 250 AA, 100 cytokines, 80 ATP
+  Growth: 1.25
+  Output: allows controlled inflammation bursts
+  Consumption: ATP, cytokines
+  Unlock: innate swarm cluster
+  Notes: рискованный орган: даёт силу, но повышает damage.
+
+---
+
+## 3.5. T3 Beta Organs
+
+- hypothalamus_center / Центр жара и сна
+  Tier: T3
+  Type: control
+  Base cost: 800 AA, 300 hormones, 200 ATP
+  Growth: 1.30
+  Output: fever/sleep commands, global modifiers
+  Consumption: ATP, hormones
+  Unlock: neuro-immune tech
+  Notes: связывает состояние хозяина с иммунитетом.
+
+- malt / Слизистая лимфоидная ткань
+  Tier: T3
+  Type: local training
+  Base cost: 700 AA, 250 antigens, 200 lipids
+  Growth: 1.28
+  Output: faster local adaptive response in mucosa
+  Consumption: ATP, antigens
+  Unlock: advanced barrier or mucosal immunity
+  Notes: уменьшает тяжесть вспышек в горле/кишечнике.
+
+- alveolar_defense / Альвеолярная защита
+  Tier: T3
+  Type: organ-specific
+  Base cost: 900 AA, 300 lipids, 200 oxygen events
+  Growth: 1.30
+  Output: lung defense, gas exchange stability
+  Consumption: oxygen, ATP
+  Unlock: respiratory pathogens
+  Notes: важна против воздушно-капельных вирусов.
+
+- hepatic_detox / Детокс-пути печени
+  Tier: T3
+  Type: refinery
+  Base cost: 600 AA, 200 micronutrients, 150 ATP
+  Growth: 1.25
+  Output: reduces toxin_load, processes toxins
+  Consumption: ATP
+  Unlock: toxin content
+  Notes: предотвращает повреждение органов токсинами.
+
+- bone_marrow_niche / Ниша костного мозга
+  Tier: T3
+  Type: production upgrade
+  Base cost: 1000 AA, 300 stem_cells, 150 cytokines
+  Growth: 1.32
+  Output: +stem cell output, better emergency myelopoiesis
+  Consumption: ATP, micronutrients
+  Unlock: advanced innate
+  Notes: снимает ранний bottleneck армии.
+
+- germinative_center / Герминативный центр
+  Tier: T3
+  Type: memory training
+  Base cost: 1500 AA, 500 antigens, 300 nucleotides
+  Growth: 1.35
+  Output: affinity maturation, memory B quality
+  Consumption: ATP, nucleotides
+  Unlock: advanced adaptive
+  Notes: делает антитела сильнее против известных врагов.
+
+- tissue_repair_lobule / Доля восстановления тканей
+  Tier: T3
+  Type: repair
+  Base cost: 800 AA, 400 lipids, 200 stem_cells
+  Growth: 1.28
+  Output: heals scar_tissue, restores organ efficiency
+  Consumption: ATP, AA
+  Unlock: regulation cluster
+  Notes: важен после хронических воспалений.
+
+---
+
+## 3.6. T4 Endgame Organs
+
+- antigen_foundry / Антигенная литейная
+  Tier: T4
+  Type: processing
+  Base cost: 3000 AA, 1000 antigens, 500 cytokines
+  Growth: 1.35
+  Output: converts raw antigens into refined vaccine material
+  Consumption: ATP
+  Unlock: endgame vaccine tree
+  Notes: производственная база для вакцин и памяти.
+
+- phage_library / Фаговая библиотека
+  Tier: T4
+  Type: specialized
+  Base cost: 2500 AA, 1000 bacterial antigens, 500 phage_particles
+  Growth: 1.38
+  Output: targeted antibacterial phage attacks
+  Consumption: ATP, antigens
+  Unlock: endgame antibacterial
+  Notes: «дружественные вирусы» против бактерий.
+
+- synthetic_immunity_lab / Лаборатория синтетического иммунитета
+  Tier: T4
+  Type: endgame
+  Base cost: 5000 AA, 2000 nucleotides, 1000 chimeric_receptors
+  Growth: 1.40
+  Output: custom receptors, engineered cells
+  Consumption: massive ATP
+  Unlock: synthetic immunity cluster
+  Notes: открывает CAR-T, бронированные клетки, кастомные билды.
+
+- neural_immune_interface / Нейро-иммунный интерфейс
+  Tier: T4
+  Type: control
+  Base cost: 4000 hormones, 2000 cytokines, 1500 ATP
+  Growth: 1.40
+  Output: influence host sleep, appetite, stress resistance
+  Consumption: ATP
+  Unlock: neuro-endocrine endgame
+  Notes: позволяет частично управлять поведением хозяина.
+
+- living_fortress_core / Ядро живой крепости
+  Tier: T4
+  Type: capstone
+  Base cost: 10000 AA, 5000 lipids, 3000 stem_cells, 5000 ATP
+  Growth: 1.45
+  Output: all organs gain +25% efficiency
+  Consumption: high ATP
+  Unlock: most T4 techs
+  Notes: capstone-здание для финальной оптимизации.
+
+- symbiote_vault / Хранилище симбионтов
+  Tier: T4
+  Type: ecology endgame
+  Base cost: 6000 metabolites, 3000 AA, 1000 phage_particles
+  Growth: 1.40
+  Output: friendly organisms provide passive buffs
+  Consumption: glucose, metabolites
+  Unlock: endgame flora/fauna
+  Notes: развивает полезные бактерии, дрожжи, фагов.
+
+- memory_archive / Архив памяти
+  Tier: T4
+  Type: meta-storage
+  Base cost: 8000 antigens, 4000 nucleotides, 2000 cytokines
+  Growth: 1.42
+  Output: increases memory persistence after prestige
+  Consumption: ATP
+  Unlock: hereditary memory tech
+  Notes: усиливает перенос знаний между забегами.

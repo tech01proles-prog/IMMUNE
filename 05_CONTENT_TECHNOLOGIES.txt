@@ -1,0 +1,279 @@
+# Immune Empire: Internal Front — Content Tables Part 4
+# Technologies / Tech Web
+# File: 05_CONTENT_TECHNOLOGIES.txt
+
+## Legend / Уровни контента
+
+T0 = Tutorial: первые 1–3 минуты.
+T1 = MVP: первые 15–30 минут, полный базовый цикл и первый престиж.
+T2 = Alpha: 1–3 часа, углубление веток, воспаление, память, барьеры.
+T3 = Beta: несколько дней, разные хозяева, вакцины, специализированные войны.
+T4 = Endgame / Live: долгая игра, синтетический иммунитет, фаги, нейро-контроль, редкие угрозы.
+
+## General Tech Rules
+
+- Технологии в этом файле относятся к текущему забегу.
+- Постоянные мета-улучшения после престижа описаны отдельно.
+- Стоимость базовая, её можно масштабировать по прогрессу забега.
+- Требования для MVP лучше делать простыми: OR минимален, AND только для ключевых разблокировок.
+- Игрок должен иметь возможность развивать любую ветку, но узкие билды имеют сильные стороны и явные дыры.
+
+## Format
+
+id | Name | Tier | Cost | Effect | Requires | Notes
+
+---
+
+# 1. Innate Swarm / Врождённый рой
+
+Фокус: масса, скорость, фагоцитоз, воспаление, ранний ответ.
+
+- chemotaxis_1 | Хемотаксис I | T0 | 50 amino_acids, 20 glucose | Нейтрофилы +15% скорость поиска врагов | start | Самая ранняя технология врождённого билда.
+- oxidative_burst_1 | Окислительный взрыв I | T1 | 100 amino_acids, 50 atp, 10 micronutrients | Макрофаги +20% защита против бактерий | macrophage | Усиливает базовое уничтожение бактерий.
+- granulopoiesis_1 | Гранулопоэз I | T1 | 150 amino_acids, 50 stem_cells, 30 atp | Стоимость нейтрофила -10% | bone_marrow | Дешёвый спам ранней армии.
+- phagocyte_receptors | Фагоцитарные рецепторы | T1 | 200 amino_acids, 80 lipids | +15% эффективность против капсульных бактерий | macrophage | Ответ на capsule_staph.
+- trained_immunity | Тренированный иммунитет | T2 | 300 amino_acids, 50 antigens, 100 atp | Врождённые клетки +10% против ранее победённого типа патогена | dendritic_cell | Лёгкая память без полной адаптивной ветки.
+- emergency_myelopoiesis | Экстренный миелопоэз | T2 | 500 amino_acids, 100 stem_cells, 150 atp | Во время активной вспышки производство нейтрофилов +25% | bone_marrow | Бёрст-механика для кризисов.
+- neutrophil_netting | Нейтрофильные сети | T2 | 400 amino_acids, 100 lipids, 50 cytokines | Нейтрофилы ловят бактерий и снижают их распространение | chemotaxis_1 | Контроль толпы, замедляет рост инфекции.
+- macrophage_polarization | Поляризация макрофагов | T3 | 800 amino_acids, 200 lipids, 100 antigens | Открывает выбор M1/M2 для макрофагов | oxidative_burst_1 | Специализация врождённого иммунитета.
+- inflammasome_control | Контроль инфламмасомы | T3 | 1000 amino_acids, 150 cytokines, 200 atp | Прирост воспаления -15%, потеря защиты -5% | trained_immunity | Делает агрессивный билд безопаснее.
+- swarm_hive_signal | Рой-сигнал | T4 | 2500 amino_acids, 500 cytokines, 300 atp | Все врождённые клетки +20%, если активно используются минимум 3 типа | несколько врождённых технологий | Награда за разнообразие врождённой армии.
+
+---
+
+# 2. Adaptive Precision / Адаптивная точность
+
+Фокус: антигены, лимфоузлы, B/T-клетки, антитела, память, качество ответа.
+
+- antigen_presentation_1 | Представление антигена I | T1 | 200 amino_acids, 50 antigens, 100 atp | Дендритные клетки +25% получение антигенов | dendritic_cell | Ключ к адаптивной ветке.
+- clonal_expansion_1 | Клональная экспансия I | T1 | 300 amino_acids, 100 atp, 20 nucleotides | Стоимость B- и T-клеток -10% | lymph_node | Масштабирование адаптивной армии.
+- antibody_neutralization | Нейтрализация антителами | T2 | 500 amino_acids, 100 antigens, 50 antibodies | Антитела снижают рост патогена на 15% | b_cell | Делает изученных врагов медленнее.
+- affinity_maturation | Созревание аффинности | T2 | 800 amino_acids, 200 antigens, 100 nucleotides | +20% сила антител против известных патогенов | lymph_node | Качество вместо количества.
+- helper_t_coordination | Координация T-хелперов | T2 | 700 amino_acids, 150 cytokines, 100 atp | T-хелперы усиливают другие клетки на +15% | helper_t | Поддержка всей адаптивной системы.
+- cytotoxic_precision | Цитотоксическая точность | T2 | 900 amino_acids, 200 antigens, 150 atp | Цитотоксические T +25% против вирусов и изменённых клеток | thymus | Ответ на внутриклеточные угрозы.
+- memory_consolidation | Консолидация памяти | T3 | 1200 amino_acids, 300 antigens, 200 nucleotides | Клетки памяти сохраняются дольше, оффлайн-память +10% | memory_b или memory_t | Связь idle-механики и иммунной памяти.
+- cross_presentation | Перекрёстное представление | T3 | 1500 amino_acids, 250 antigens, 200 atp | Дендритные клетки улучшают обучение цитотоксических T на 20% | antigen_presentation_1 | Мост между врождённым и адаптивным.
+- adaptive_diversity | Адаптивное разнообразие | T3 | 2000 antigens, 500 nucleotides | +1% защиты за каждый уникальный активный адаптивный тип клеток | несколько адаптивных клеток | Наказывает monoculture.
+- receptor_editing | Редактирование рецепторов | T4 | 5000 amino_acids, 1000 antigens, 500 chimeric_receptors | Настроить один бонус для выбранного адаптивного типа | synthetic_immunity_lab | Эндгейм-кастомизация.
+
+---
+
+# 3. Barriers and Microbiome / Барьеры и микробиом
+
+Фокус: не пускать врага, кормить полезные бактерии, снижать входящие инфекции.
+
+- mucus_production | Продукция слизи | T1 | 100 amino_acids, 50 lipids, 20 micronutrients | +10% барьерной целостности | gut_villi или stomach_acid | Ранняя защита слизистых.
+- tight_junctions | Плотные контакты | T2 | 300 amino_acids, 100 lipids, 50 micronutrients | Утечка токсинов -20% | mucus_production | Стабильность кишечника и лёгких.
+- skin_lipid_armor | Липидная броня кожи | T2 | 400 lipids, 100 micronutrients | Проникновение физических патогенов -15% | skin_barrier | Внешняя защита.
+- competitive_exclusion | Конкурентное исключение | T2 | 500 glucose, 200 microbiome_metabolites | Полезные бактерии подавляют обычных патогенов на 10% | microbiome_garden | Экологическая ветка.
+- postbiotic_signaling | Постбиотическая сигнализация | T3 | 800 microbiome_metabolites, 200 micronutrients | Эффективность Treg +15% | microbiome_garden | Связь микробиома и регуляции.
+- fiber_fermentation | Ферментация клетчатки | T3 | 600 glucose, 150 amino_acids | Микробиом производит больше метаболитов | competitive_exclusion | Питание для полезных бактерий.
+- antibiotic_sparing | Антибиотикосбережение | T3 | 1000 amino_acids, 300 antigens | Вред микробиому от антибиотиков -25% | fiber_fermentation | Управление кризисами дисбиоза.
+- mucosal_memory | Слизистая память | T3 | 1200 antigens, 400 amino_acids, 200 antibodies | Локальные вспышки в слизистых проходят на 20% быстрее | malt | Секторная адаптивная защита.
+- barrier_regeneration | Регенерация барьеров | T4 | 2500 lipids, 1000 amino_acids, 500 microbiome_metabolites | Барьеры восстанавливаются после повреждения автоматически | tight_junctions | Долгосрочная стабильность.
+- symbiotic_shield | Симбиотический щит | T4 | 3000 microbiome_metabolites, 1000 antigens | Микробиом даёт глобальное снижение проникновения на 10% | несколько барьерных технологий | Эндгейм-экология.
+
+---
+
+# 4. Metabolic Forge / Метаболическая кузница
+
+Фокус: энергия, питание, лихорадка, выносливость армии.
+
+- glycolytic_flux | Гликолитический поток | T0 | 50 glucose, 20 amino_acids | АТФ из глюкозы +10% | mitochondrial_network | Самая ранняя энергетическая технология.
+- fatty_acid_reserve | Жирнокислотный резерв | T1 | 100 lipids, 50 amino_acids | Липиды конвертируются в АТФ при нехватке глюкозы | liver | Устойчивость экономики.
+- mitochondrial_biogenesis | Митохондриальный биогенез | T1 | 200 amino_acids, 100 glucose, 50 micronutrients | Производство АТФ +15% | glycolytic_flux | Масштабирование энергии.
+- glycogen_buffer | Гликогеновый буфер | T2 | 300 glucose, 100 amino_acids | Глюкоза запасается, оффлайн-доход становится стабильнее | liver | Сглаживание скачков ресурсов.
+- fever_setpoint | Точка жара | T2 | 500 atp, 100 cytokines | Открывает лихорадку: +защита, но больше расхода АТФ и воспаления | inflammatory_focus | Мощный тактический бафф.
+- oxidative_efficiency | Окислительная эффективность | T2 | 600 amino_acids, 200 oxygen, 150 atp | Меньше кислорода нужно для окислительного взрыва | mitochondrial_biogenesis | Продвинутый метаболизм фагоцитов.
+- immunometabolism_switch | Иммунный метаболический переключатель | T3 | 1000 amino_acids, 400 atp, 200 cytokines | Клетки могут переключаться между эффективностью и агрессией | fever_setpoint | Глубина билда.
+- nutrient_signaling | Питательная сигнализация | T3 | 1200 amino_acids, 500 micronutrients | Хозяин эффективнее усваивает еду +15% | улучшения gut_villi | Кормление армии через события хозяина.
+- stress_energy_shunt | Энергетический шунт стресса | T4 | 2000 hormones, 1000 atp | Стресс хозяина временно конвертируется в всплеск АТФ | neural_immune_interface | Риск/награда.
+- perpetual_forge | Вечная кузница | T4 | 5000 amino_acids, 2000 atp, 1000 micronutrients | Производство АТФ не падает полностью при небольшом дефиците | несколько метаболических технологий | QoL эндгейм.
+
+---
+
+# 5. Regulation and Tolerance / Регуляция и толерантность
+
+Фокус: не сожрать себя, управлять воспалением, долгосрочная стабильность.
+
+- anti_inflammatory_signals | Противовоспалительные сигналы | T1 | 200 amino_acids, 50 cytokines | Урон от воспаления -10% | macrophage | Ранняя безопасность.
+- treg_induction | Индукция Treg | T2 | 500 amino_acids, 100 antigens, 100 cytokines | Открывает Treg, риск аутоиммунности -10% | thymus | Ключ регуляции.
+- resolution_mediators | Резолвины | T2 | 600 lipids, 150 cytokines | Воспаление спадает быстрее | anti_inflammatory_signals | Восстановление после боёв.
+- tolerance_checkpoint | Толерантностный чекпоинт | T3 | 1000 amino_acids, 300 antigens, 200 cytokines | Агрессивные клетки реже атакуют свои ткани | treg_induction | Защита от self-damage.
+- tissue_repair_program | Программа восстановления тканей | T3 | 1200 amino_acids, 400 lipids, 200 stem_cells | Повреждённые органы постепенно восстанавливаются | resolution_mediators | Долгая кампания.
+- neuro_immune_calm | Нейро-иммунное успокоение | T3 | 1000 hormones, 300 atp | Эффекты стресса -20% | hypothalamus_center | Связь с состоянием хозяина.
+- autonomic_balance | Автономный баланс | T3 | 900 hormones, 250 atp | Стабилизирует колебания воспаления и толерантности | neuro_immune_calm | Против скачков метрик.
+- autoimmune_firewall | Аутоиммунный файрвол | T4 | 2500 antigens, 1000 cytokines, 500 treg_output | Крупные аутоиммунные события предотвращаются один раз за забег | tolerance_checkpoint | Страховка.
+- balanced_doctrine | Сбалансированная доктрина | T4 | 3000 amino_acids, 1500 antigens, 1000 atp | +10% ко всем кластерам, если ни одна ключевая метрика не запущена | несколько кластеров | Мастер-билд.
+- regulatory_memory | Регуляторная память | T4 | 2000 antigens, 800 nucleotides | Treg и клетки памяти сотрудничают, успокоение быстрее | memory_t + treg | Поздняя стабильность.
+- self_nonself_map | Карта своё/чужое | T4 | 5000 antigens, 2000 cytokines, 1000 chimeric_receptors | Минимум ложных срабатываний иммунитета | synthetic_immunity_lab | Эндгейм точность.
+
+---
+
+# 6. Specialized Warfare / Специализированная война
+
+Фокус: конкретные типы угроз — вирусы, бактерии, грибки, паразиты, токсины, изменённые клетки.
+
+- interferon_pathway | Интерфероновый путь | T1 | 200 amino_acids, 50 antigens, 100 atp | +25% анти-вирусной готовности | nk_cell | Первый ответ на вирусы.
+- complement_cascade | Каскад комплемента | T1 | 300 amino_acids, 100 lipids | +20% уничтожение бактерий | liver | Усиление врождённого иммунитета.
+- ige_response | IgE-ответ | T2 | 500 amino_acids, 200 lipids | +30% антипаразитарная защита | eosinophil | Th2-ветка.
+- detox_pathways | Детокс-пути | T2 | 400 amino_acids, 100 micronutrients | Урон от токсинов -25% | liver | Necessary против toxin threats.
+- immune_surveillance | Иммунный надзор | T2 | 600 amino_acids, 100 antigens | Обнаружение изменённых собственных клеток +25% | nk_cell | Cancer-lite механика.
+- antiviral_memory | Антивирусная память | T3 | 1000 antigens, 300 nucleotides | Известные вирусы слабее при реактивации | memory_t | Против латентных инфекций.
+- antifungal_peptides | Противогрибковые пептиды | T3 | 800 amino_acids, 300 lipids | Рост грибков -20% | th17 | Барьерно-врождённый гибрид.
+- anti_toxin_antibodies | Антитоксиновые антитела | T3 | 1200 antibodies, 400 antigens | Прямая нейтрализация токсинов | antibody_neutralization | Toxin bosses.
+- phage_hunting | Фаговая охота | T4 | 2000 phage_particles, 1000 bacterial antigens | Точечное удаление бактерий | phage_library | Эндгейм antibacterial.
+- receptor_armory | Арсенал рецепторов | T4 | 5000 chimeric_receptors, 2000 antigens | Настроить контр-средства для каждого семейства патогенов | receptor_editing | Полная специализация.
+
+---
+
+# 7. Memory and Vaccines / Память и вакцины
+
+Фокус: коллекционирование патогенов, ускорение повторных встреч, мета-прогрессия внутри забега.
+
+- codex_entry | Кодекс записей | T0 | бесплатно | Побеждённые патогены записываются в кодекс | первая победа | Коллекционная база.
+- antigen_archive | Архив антигенов | T1 | 200 antigens, 100 amino_acids | +5% сохранение антигенов | lymph_node | Экономика знания.
+- vaccine_slot_1 | Слот вакцины I | T2 | 500 antigens, 200 amino_acids, 100 nucleotides | Создать первую постоянную вакцину | antigen_archive | Мета-коллекционирование.
+- memory_b_longevity | Долголетие B-памяти | T2 | 800 amino_acids, 300 antigens | Клетки памяти B переживают больше событий | memory_b | Стабильность гуморальной памяти.
+- memory_t_speed | Скорость T-памяти | T2 | 900 amino_acids, 350 antigens | Клетки памяти T активируются быстрее | memory_t | Быстрый клеточный ответ.
+- cross_protective_immunity | Перекрёстная защита | T3 | 1500 antigens, 500 nucleotides | Родственные патогены частично распознаются | affinity_maturation | Широкая utility.
+- vaccine_boost | Бустер вакцины | T3 | 2000 antigens, 800 amino_acids | Существующие вакцины +15% эффективности | vaccine_slot_1 | Скалирование вакцин.
+- offline_consolidation | Оффлайн-консолидация | T3 | 1200 amino_acids, 400 sleep_quality, 300 antigens | Оффлайн-время улучшает память | sleep_signal или hypothalamus_center | Idle-синергия.
+- hereditary_memory_lite | Наследственная память | T4 | 5000 antigens, 2000 immune_memory | Часть памяти сильнее переносится к новому хозяину | несколько memory-технологий | Prestige synergy.
+- pan_pathogen_library | Пан-библиотека патогенов | T4 | 10000 antigens, 5000 codex_points | Частично открывает все бонусы кодекса | полный кодекс | Completionist capstone.
+
+---
+
+# 8. Neuro-Endocrine Interface / Нейро-эндокринный интерфейс
+
+Фокус: связь иммунитета с мозгом, сном, стрессом, аппетитом и поведением хозяина.
+
+- sleep_signal | Сигнал сна | T2 | 300 hormones, 100 atp | Улучшает эффекты качества сна | hypothalamus_center | Recovery mechanic.
+- appetite_signal | Сигнал аппетита | T2 | 300 hormones, 100 amino_acids | Запросить буфф белковой или волокнистой еды | nutrient_signaling | Экономика через хозяина.
+- cortisol_management | Управление кортизолом | T3 | 800 hormones, 300 atp | Подавление иммунитета от стресса -20% | neuro_immune_calm | Stability.
+- fever_command | Команда жара | T3 | 1000 cytokines, 500 atp | Вручную включать лихорадку | fever_setpoint | Tactical control.
+- circadian_rhythm | Циркадный ритм | T3 | 1200 hormones, 400 sleep_quality | Периодические бонусы в зависимости от расписания хозяина | sleep_signal | Idle rhythm.
+- pain_aversion | Болевое избегание | T4 | 2000 hormones, 1000 amino_acids | Хозяин дольше избегает вредных событий | stress systems | Risk reduction.
+- placebo_resonance | Плацебо-резонанс | T4 | 3000 hormones, 1500 cytokines | Временный глобальный бафф после периода спокойствия | neuro endgame | Fun meta.
+- host_habit_engine | Двигатель привычек хозяина | T4 | 5000 hormones, 2500 amino_acids | Выбрать долгосрочный модификатор поведения хозяина | все neuro core | Endgame management.
+- sleep_debt_recovery | Восстановление от недосыпа | T4 | 2500 hormones, 1000 amino_acids | Качество сна оффлайн падает медленнее | circadian_rhythm | Idle QoL.
+- neural_immune_sync | Нейро-иммунная синхронизация | T4 | 6000 hormones, 3000 cytokines, 2000 atp | Воспаление, стресс и сон влияют друг на друга предсказуемее | host_habit_engine | Control capstone.
+
+---
+
+# 9. Synthetic Immunity / Синтетический иммунитет
+
+Фокус: инженерные клетки, химерные рецепторы, кастомные билды, эндгейм.
+
+- chimeric_design | Химерный дизайн | T4 | 2000 nucleotides, 1000 amino_acids | Открывает CAR-T и инженерные клетки | synthetic_immunity_lab | База синтетики.
+- synthetic_dc_program | Синтетическая программа DC | T4 | 3000 antigens, 1500 cytokines | Модифицированные дендритные клетки обучают быстрее | engineered_dc | Support endgame.
+- armored_neutrophil | Бронированный нейтрофил | T4 | 4000 amino_acids, 2000 chimeric_receptors | Нейтрофилы получают устойчивость к капсулам и токсинам | нейтрофильные варианты | Innate endgame.
+- engineered_macrophage_program | Программа инженерного макрофага | T4 | 5500 amino_acids, 2500 chimeric_receptors | Макрофаги могут переключаться M1/M2 быстрее | macrophage_polarization | Flexible innate.
+- memory_forge | Кузница памяти | T4 | 5000 antigens, 2500 nucleotides | Создавать кастомные линии памяти | germinative_center | Collection endgame.
+- synthetic_vaccine_factory | Синтетическая вакцинная фабрика | T4 | 6000 antigens, 3000 nucleotides | Вакцины производятся быстрее и сильнее | antigen_foundry | Meta production.
+- immune_orchestration | Иммунная оркестрация | T4 | 8000 cytokines, 4000 atp | Автоматически подстраивать воспаление и толерантность | balanced_doctrine | QoL capstone.
+- biosensor_array | Биосенсорный массив | T4 | 7000 cytokines, 3000 antigens | Раннее предупреждение о вспышках в секторах | tissue_resident_sentinel | Information advantage.
+- genome_stabilizer | Геномный стабилизатор | T4 | 9000 nucleotides, 4000 chimeric_receptors | Снижает появление изменённых собственных клеток | immune_surveillance | Anti-cancer pressure.
+- living_fortress | Живая крепость | T4 | 12000 всех ключевых ресурсов | Все органы +25% эффективности | большинство T4 технологий | Final capstone.
+
+---
+
+# 10. Endgame Flora and Fauna / Эндгейм-флора и фауна
+
+Фокус: полезные организмы, фаги, симбиоз, экология тела, редкие угрозы.
+
+- symbiote_garden | Сад симбионтов | T4 | 5000 microbiome_metabolites, 2000 amino_acids | Полезные организмы дают пассивные баффы | symbiotic_shield | Ecology endgame.
+- phage_farming | Фаговое фермерство | T4 | 6000 phage_particles, 3000 bacterial antigens | Постоянное производство фагов | phage_hunting | Resource loop.
+- microbiome_domestication | Одомашнивание микробиома | T4 | 8000 microbiome_metabolites, 4000 amino_acids | Полезные штаммы лучше переживают антибиотики и события | competitive_exclusion | Stable ecology.
+- virome_management | Управление виромом | T4 | 9000 interferon, 5000 antigens | Комменсальные вирусы дают пользу, а не только риск | viral_landscape_commensal | Neutral virus mechanics.
+- tissue_niches | Тканевые ниши | T4 | 7000 stem_cells, 5000 amino_acids | Резидентные клетки специализируются по органам | mucosal_memory | Map depth.
+- organ_territory | Территория органов | T4 | 12000 stem_cells, 8000 amino_acids | Каждый орган даёт уникальный бонус при заполнении нишей | tissue_niches | Sector mastery.
+- evolutionary_pressure | Эволюционное давление | T4 | 10000 antigens, 5000 immune_memory | Патогены мутируют медленнее при высоком разнообразии иммунитета | adaptive_diversity | Anti-RNG.
+- ecosystem_balance | Баланс экосистемы | T4 | 15000 всех экологических ресурсов | Снижает адаптацию патогенов и стабилизирует микробиом | immune_diversity | Ecology capstone.
+- immortal_line | Бессмертная линия | T4 | 20000 прогресс кодекса | Один слот памяти идеально сохраняется после престижа | hereditary_memory_lite | Completionist.
+- living_library | Живая библиотека | T4 | 25000 antigens, 12000 codex_points | Открывает секретные записи о патогенах и специальные награды | pan_pathogen_library | Lore/endgame reward.
+
+---
+
+# 11. Tech Web Connection Notes
+
+## Recommended starter choices
+
+Для первых 10 минут игрок должен видеть не все технологии, а 3–5 доступных:
+
+- chemotaxis_1
+- glycolytic_flux
+- antigen_presentation_1 или oxidative_burst_1
+- mucus_production
+- anti_inflammatory_signals
+
+Остальное открывается по мере появления органов, клеток и типов угроз.
+
+## Soft counter system
+
+Технологии не должны быть обязательными для прохождения. Лучше сделать мягкие контр-связи:
+
+- бактерии: проще через innate swarm, complement, neutrophil/macrophage.
+- вирусы: проще через NK, interferon, cytotoxic T, memory T.
+- грибки: проще через macrophage, neutrophil, Th17, antifungal peptides.
+- паразиты: проще через eosinophil, mast cell, Th2, IgE.
+- токсины: проще через antibodies, detox, liver.
+- аутоиммунность: проще через Treg, resolution, tolerance.
+- изменённые клетки: проще через NK, CTL, immune surveillance, CAR-T.
+
+## Diversity bonus
+
+Хорошая базовая формула для поздней игры:
+
+diversity_bonus = 1 + 0.02 * unique_active_cell_types
+
+Но лучше ограничивать и делать нелинейно, чтобы игрок не собирал по одной клетке всех типов без смысла.
+
+Например:
+
+diversity_bonus = 1 + min(0.30, 0.03 * unique_active_cell_types)
+
+## Specialist penalty
+
+Если игрок использует только один тип клеток против патогена, который к нему адаптирован:
+
+adaptation_penalty = 0.60–0.85
+
+Если использует 3+ подходящих типа:
+
+adaptation_penalty = 1.00
+
+Это делает разнообразие ценным, но не обязательным до боли.
+
+---
+
+# 12. MVP Technology Set
+
+Для первой играбельной версии достаточно 12–15 технологий:
+
+1. chemotaxis_1
+2. oxidative_burst_1
+3. granulopoiesis_1
+4. glycolytic_flux
+5. mitochondrial_biogenesis
+6. antigen_presentation_1
+7. clonal_expansion_1
+8. interferon_pathway
+9. complement_cascade
+10. mucus_production
+11. anti_inflammatory_signals
+12. codex_entry
+13. antigen_archive
+14. trained_immunity
+15. vaccine_slot_1 — опционально, если хочешь ранний вкус мета-прогрессии.
+
+Этого хватит, чтобы показать:
+
+- рост врождённого иммунитета;
+- энергию;
+- антигены;
+- вирусы;
+- барьеры;
+- воспаление;
+- память;
+- первый вкус мета-прогрессии.

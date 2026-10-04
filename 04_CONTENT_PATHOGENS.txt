@@ -1,0 +1,230 @@
+# Immune Empire: Internal Front — Content Tables Part 3
+# Pathogens, Threats, Beneficial Organisms
+
+## Legend / Уровни контента
+
+T0 = Tutorial: первые 1–3 минуты.
+T1 = MVP: первые 15–30 минут, полный базовый цикл и первый престиж.
+T2 = Alpha: 1–3 часа, углубление веток, воспаление, память, барьеры.
+T3 = Beta: несколько дней, разные хозяева, вакцины, специализированные войны.
+T4 = Endgame / Live: долгая игра, синтетический иммунитет, фаги, нейро-контроль, редкие угрозы.
+
+## Format
+
+id / Display Name | Tier | Type | Stats | Weakness | Resistance | Reward | Notes
+
+Stats:
+- Для живых патогенов: growth/s, resistance, threshold.
+- Для токсинов и неживых угроз: damage/s, threshold.
+- Boss / Major: усиленная версия, обычно требует специализации.
+
+Weakness:
+- Какие клетки, ресурсы или технологии эффективны против угрозы.
+
+Resistance:
+- Что снижает эффективность игрока или какие обычные ответы работают плохо.
+
+Reward:
+- Что игрок получает после победы/нейтрализации.
+
+---
+
+# 1. Bacteria
+
+- swarm_coccus / Кокк-рой | T0 | bacteria | growth 0.15, resistance 2.0, threshold 25 | weak: neutrophil, macrophage, complement | resist: none basic | reward: 5 amino_acids, 1 antigen | notes: tutorial bacterium, teaches basic defense bar.
+- rod_bacillus / Палочка-бацилла | T1 | bacteria | growth 0.18, resistance 3.0, threshold 30 | weak: macrophage, neutrophil, complement | resist: mild toxin leak | reward: 8 amino_acids, 2 micronutrients, 1 antigen | notes: introduces pressure on liver/detox.
+- capsule_staph / Капсульный стафилококк | T1 | bacteria | growth 0.14, resistance 5.0, threshold 28 | weak: complement, opsonization, phagocyte_receptors, neutrophil_netting | resist: basic macrophage/phagocytosis | reward: 10 lipids, 2 antigens | notes: forces player to upgrade innate quality, not just quantity.
+- gut_opportunist / Кишечный opportunist | T1 | bacteria | growth 0.20, resistance 2.5, threshold 25 | weak: microbiome competition, stomach_acid, mucosal_layer | resist: grows fast after sugar meals or antibiotics | reward: 6 glucose, 1 antigen | notes: links diet events and barrier/ecology.
+- wound_pseudomonad / Раневой синегнойный | T2 | bacteria | growth 0.22, resistance 6.0, threshold 35 | weak: neutrophil, macrophage, skin_barrier, complement | resist: biofilm tendency, barrier damage | reward: 12 lipids, 3 antigens | notes: good early sector threat for skin/external wounds.
+- intracellular_listria / Внутриклеточная листерия | T2 | bacteria | growth 0.16, resistance 7.0, threshold 30 | weak: cytotoxic_t, nk_cell, th1, interferon | resist: neutrophils and macrophages much weaker | reward: 8 atp, 4 antigens | notes: bridges bacteria to antiviral/cellular immunity.
+- biofilm_colony / Биоплёнка | T2 | bacteria, mini-boss | growth 0.10, resistance 12.0, threshold 50 | weak: prolonged attack, dispersal enzymes, phage_hunting, complement | resist: burst damage, short fights | reward: 20 amino_acids, 8 antigens, codex_insight | notes: teaches patience and sustained defense.
+- toxin_clostridium / Токсичный клостридиум | T3 | bacteria | growth 0.12, resistance 8.0, threshold 35 | weak: antibodies, anti_toxin_antibodies, hepatic_detox | resist: killing bacteria does not instantly remove toxin | reward: 15 micronutrients, 6 antigens | notes: teaches toxin neutralization and antibody value.
+- iron_stealer / Железный вор | T3 | bacteria | growth 0.18, resistance 9.0, threshold 40 | weak: iron sequestration, lactoferrin tech, macrophage_m1, complement | resist: steals iron, boosts own growth | reward: 10 iron/micronutrients, 7 antigens | notes: creates mineral scarcity mechanic.
+- resistant_superbug / Устойчивый супербак | T3 | bacteria, major | growth 0.20, resistance 15.0, threshold 55 | weak: immune_diversity, phage_hunting, targeted antibodies, macrophage_m1 | resist: adapts to frequently used single cell type | reward: 25 antigens, codex_insight, rare AA | notes: anti-spam mechanic, punishes monoculture.
+- mycobacterial_shell / Микобактериальная оболочка | T4 | bacteria, endgame | growth 0.08, resistance 25.0, threshold 70 | weak: activated macrophage, granuloma tech, th1, long-term pressure | resist: waxy shell, slow immune penetration | reward: 50 antigens, chimeric_receptor material, codex_insight | notes: long persistent infection, requires strategic containment.
+- pandemic_bacterium / Пандемийная бактерия | T4 | bacteria, boss | growth 0.25, resistance 20.0, threshold 80 | weak: full balanced army, vaccines, phage, complement, Treg control | resist: mutates resistance during fight | reward: 100 antigens, universal_adjuvant material | notes: late-game stress test for all systems.
+
+---
+
+# 2. Viruses
+
+- shell_variant / Оболочечный вариант | T1 | virus | growth 0.12, resistance 3.0, threshold 20 | weak: nk_cell, interferon_pathway, b_cell if known | resist: neutrophils weak, hides inside cells | reward: 5 atp, 2 antigens | notes: first virus, teaches that mass phagocytes are not enough.
+- respiratory_rhino / Респираторный риновирус | T2 | virus | growth 0.18, resistance 5.0, threshold 25 | weak: interferon, mucosal IgA, alveolar_defense, nk_cell | resist: spreads fast through throat/lungs | reward: 6 cytokines, 3 antigens | notes: introduces mucosal sector and respiratory defense.
+- enteric_virus / Кишечный вирус | T2 | virus | growth 0.16, resistance 5.5, threshold 28 | weak: microbiome competition, antibodies, cytotoxic_t, mucosal_layer | resist: drains glucose, damages gut absorption | reward: 10 glucose lost event, 4 antigens | notes: economic threat, reduces nutrient income during infection.
+- latent_herpeslike / Латентный герпес-подобный | T3 | virus | growth 0.05 dormant, 0.22 reactivated, resistance 10.0, threshold 35 | weak: memory_t, nk_cell, sleep_quality, antiviral_memory | resist: hides during latency, normal defense sees little | reward: 12 antigens, codex_insight | notes: stress/sleep mechanic, reactivates under host stress.
+- mutating_flu / Мутирующий грипп | T3 | virus | growth 0.20, resistance 9.0, threshold 35 | weak: cross_protective_immunity, memory diversity, interferon, tfh | resist: standard antibody memory decays over time | reward: 15 antigens, vaccine_material | notes: anti-static build, forces updating vaccines and diverse immunity.
+- hepatotropic_virus / Гепатотропный вирус | T3 | virus | growth 0.14, resistance 11.0, threshold 40 | weak: cytotoxic_t, liver regeneration, th1, antibodies | resist: damages liver, reduces micronutrient/lipid production | reward: 12 micronutrients, 8 antigens | notes: organ-specific threat, punishes weak liver/refinery.
+- vector_borne_virus / Векторный вирус | T3 | virus | growth 0.17, resistance 10.0, threshold 38 | weak: skin_barrier, nk_cell, early interferon, travel host awareness | resist: introduced by host events, hard to prevent once inside | reward: 10 antigens, codex_insight | notes: ties to traveler host and external events.
+- neurotropic_virus / Нейротропный вирус | T4 | virus | growth 0.12, resistance 18.0, threshold 45 | weak: blood-brain barrier tech, memory_t, engineered CTL, sleep | resist: hides in nervous tissue, late symptoms | reward: 25 antigens, hormone material | notes: dangerous slow threat, affects stress/sleep meters.
+- retro_probe / Ретровирус-зонд | T4 | virus, endgame | growth 0.10, resistance 22.0, threshold 55 | weak: synthetic immunity, CAR-T, deep memory, receptor_editing | resist: integrates into host cells, alters production | reward: 40 antigens, chimeric_receptors | notes: changes save/run rules slightly, creates engineered defense demand.
+- oncovirus / Онковирус | T4 | virus | growth 0.09, resistance 17.0, threshold 50 | weak: immune_surveillance, nk_cell, cytotoxic_t, memory_t | resist: increases altered_self spawn rate | reward: 30 antigens, cancer codex entry | notes: bridges virus and tumor surveillance mechanics.
+- immune_evasion_retro / Ретровирус уклонения | T4 | virus, boss | growth 0.15, resistance 25.0, threshold 65 | weak: diversity, engineered DC, cross_presentation, vaccines | resist: suppresses antigen presentation randomly | reward: 80 antigens, universal_adjuvant | notes: late puzzle virus, forces adaptive infrastructure.
+- phantom_virus / Фантомный вирус | T4 | virus, secret | growth 0.18, resistance 30.0, threshold 70 | weak: perfect self_nonself_map, pan_pathogen_library, CAR-T | resist: mimics host signals, causes false negatives | reward: forbidden_antigen, codex completion | notes: endgame secret pathogen for completionists.
+
+---
+
+# 3. Fungi
+
+- thread_bloom / Нитчатое цветение | T1 | fungus | growth 0.08, resistance 5.0, threshold 30 | weak: macrophage, neutrophil, oxidative_burst | resist: high HP, slow but tough | reward: 10 lipids, 3 micronutrients, 2 antigens | notes: first fungus, teaches that slow enemies need sustained damage.
+- yeast_overgrowth / Дрожжевое разрастание | T2 | fungus | growth 0.14, resistance 6.0, threshold 32 | weak: microbiome competition, antifungal_peptides, macrophage | resist: explodes after antibiotics or sugar spikes | reward: 8 microbiome_metabolites, 4 antigens | notes: ecology threat, punishes bad microbiome management.
+- keratin_skin_fungus / Кожный кератиновый гриб | T2 | fungus | growth 0.10, resistance 7.0, threshold 35 | weak: skin_lipid_armor, macrophage, th17, barrier regen | resist: lives on dead tissue/barrier surfaces | reward: 12 lipids, 5 antigens | notes: barrier-focused fungal threat.
+- spore_cloud / Споровое облако | T3 | fungus | growth 0.12, resistance 9.0, threshold 40 | weak: alveolar_defense, mucosal_layer, th17, neutrophil | resist: periodically spawns secondary lung infection | reward: 10 oxygen event bonus, 7 antigens | notes: airborne sector threat.
+- mold_biofilm / Плесневая биоплёнка | T3 | fungus, mini-boss | growth 0.09, resistance 14.0, threshold 50 | weak: prolonged attack, dispersal, complement, scar healing | resist: hard to clear quickly, leaves scar_tissue | reward: 18 antigens, scar_tissue insight | notes: chronic damage mechanic.
+- aspergillus_air / Воздушный аспергилл | T3 | fungus | growth 0.13, resistance 11.0, threshold 42 | weak: th17, neutrophil_netting, alveolar macrophage, barrier | resist: damages lungs and oxygen flow | reward: 12 micronutrients, 8 antigens | notes: oxygen/economy pressure.
+- systemic_candida / Системная кандида | T4 | fungus, major | growth 0.16, resistance 20.0, threshold 60 | weak: neutrophil, complement, spleen, T cells, antifungal peptides | resist: spreads through blood if barriers fail | reward: 40 antigens, codex_insight | notes: late emergency if barrier and innate collapse.
+- deep_mycothreat / Глубокий микотический узел | T4 | fungus, boss | growth 0.10, resistance 28.0, threshold 75 | weak: granuloma control, macrophage_m1/m2 balance, th1/th17, repair | resist: hides in tissue pockets, recurs if inflammation uncontrolled | reward: 70 antigens, rare lipid, chimeric material | notes: endgame chronic fungal management.
+
+---
+
+# 4. Parasites
+
+- protozoan_swimmer / Протозойный пловец | T2 | parasite | growth 0.12, resistance 7.0, threshold 35 | weak: eosinophil, macrophage, cytotoxic_t, complement | resist: mobile, hides in tissues | reward: 10 amino_acids drained event, 5 antigens | notes: introduces parasite category.
+- gut_protozoan / Кишечный простейший | T2 | parasite | growth 0.14, resistance 6.5, threshold 33 | weak: mucosal_layer, microbiome competition, eosinophil, antibodies | resist: reduces nutrient absorption | reward: 8 glucose, 5 antigens | notes: economic parasite, hits gut production.
+- skin_larva / Кожная личинка | T2 | parasite | growth 0.10, resistance 8.0, threshold 36 | weak: mast_cell, eosinophil, skin_barrier, local inflammation | resist: burrows, causes barrier damage | reward: 10 lipids, 6 antigens | notes: barrier/external threat.
+- helminth_thread / Гельминтная нить | T3 | parasite | growth 0.09, resistance 14.0, threshold 45 | weak: eosinophil, mast_cell, ige_response, th2, barrier expulsion | resist: too large for normal phagocytosis | reward: 20 lipids, 10 antigens | notes: requires Th2/eosinophil branch, not generic army.
+- tissue_fluke / Тканевая двуустка | T3 | parasite | growth 0.08, resistance 16.0, threshold 50 | weak: coordinated th2, eosinophil, tissue_repair, mast_cell | resist: chronic organ damage, scar risk | reward: 15 micronutrients, 12 antigens | notes: long outbreak, damages organs if unresolved.
+- blood_protozoan / Кровяной простейший | T3 | parasite | growth 0.13, resistance 12.0, threshold 42 | weak: spleen, nk_cell, antibodies, complement, macrophage | resist: cycles through blood and cells | reward: 12 atp, 10 antigens | notes: bloodstream sector threat.
+- parasite_mimic / Паразит-мимик | T4 | parasite | growth 0.10, resistance 22.0, threshold 60 | weak: immune_diversity, memory, precision T/B, self_nonself_map | resist: disguises as host molecules | reward: 40 antigens, unique codex entry | notes: late puzzle parasite, false negatives.
+- neural_parasite / Нейропаразит | T4 | parasite, boss | growth 0.08, resistance 26.0, threshold 70 | weak: blood-brain barrier tech, mast/eosinophil control, memory_t, repair | resist: affects stress/sleep, hard to reach | reward: 60 antigens, hormone material | notes: endgame nervous-system threat.
+- colonial_parasite / Колониальный паразит | T4 | parasite, major | growth 0.12, resistance 24.0, threshold 65 | weak: phage-like targeted tools, CAR-T, diversity, barrier regeneration | resist: splits into subpopulations with different weaknesses | reward: 80 antigens, chimeric_receptors | notes: requires multi-target build.
+
+---
+
+# 5. Toxins, Waste, Environmental Threats
+
+- metabolic_waste / Метаболические отходы | T1 | toxin/waste | damage 0.05/s, threshold 30 | weak: liver, hepatic_detox, hydration events, atp | resist: immune cells cannot kill it directly | reward: 3 micronutrients on cleanup | notes: constant economic pressure, teaches detox.
+- environmental_toxin / Средовой токсин | T2 | toxin | damage 0.12/s, threshold 35 | weak: antibodies, detox_pathways, barrier_integrity | resist: sudden spike, not a living infection | reward: 6 micronutrients, toxin_antigen | notes: introduces neutralization instead of destruction.
+- bacterial_toxin / Бактериальный токсин | T2 | toxin | damage 0.10/s, threshold 32 | weak: anti_toxin_antibodies, liver, complement if linked to bacteria | resist: remains after bacteria killed | reward: 5 antigens, 8 AA | notes: pairs with toxin-producing bacteria.
+- mycotoxin / Микотоксин | T3 | toxin | damage 0.14/s, threshold 40 | weak: hepatic_detox, antioxidants, selenium, macrophage_m2 repair | resist: produced by fungi, damages organs slowly | reward: 10 micronutrients, 6 antigens | notes: links fungi and detox.
+- alcohol_burden / Спиртовая нагрузка | T3 | toxin/event | damage 0.18/s for short time, threshold 45 | weak: liver level, detox_pathways, sleep, antioxidants | resist: host event, suppresses immunity temporarily | reward: stress insight, micronutrient loss event | notes: host behavior event, not combat enemy.
+- heavy_metal / Тяжёлый металл | T3 | toxin | damage 0.09/s persistent, threshold 50 | weak: chelation tech, liver, barrier, antioxidant selenium | resist: accumulates, hard to purge | reward: rare micronutrients, codex_insight | notes: long-term contamination mechanic.
+- neurotoxin / Нейротоксин | T4 | toxin | damage 0.20/s, threshold 55 | weak: blood-brain barrier, detox, hormones, repair | resist: affects stress/sleep/control meters | reward: hormone material, 20 antigens | notes: late dangerous toxin.
+- radiation_damage / Радиационное повреждение | T4 | environmental/self | damage 0.07/s, threshold 60, increases altered_self | weak: antioxidant, repair, immune_surveillance, stem niche protection | resist: not a pathogen, damages DNA/cells | reward: rare antigens, scar/repair insight | notes: creates cancer-lite pressure.
+- pollutant_cloud / Облако загрязнителей | T3 | toxin/area | damage 0.11/s, threshold 42 | weak: alveolar_defense, mucosal_layer, antioxidant, detox | resist: affects lungs and barriers repeatedly | reward: 8 micronutrients, 5 antigens | notes: sector environmental threat.
+- venom_exposure / Яд/укус | T2 | acute toxin | damage 0.25/s burst, threshold 30 | weak: fast antibodies, detox, mast_cell regulation, barrier | resist: sudden event, little warning | reward: 10 antigens, rare lipid | notes: short intense event, rewards preparedness.
+
+---
+
+# 6. Altered Self, Autoimmunity, Immune Pathology
+
+- altered_self_cell / Изменённая собственная клетка | T2 | altered_self | growth 0.06, resistance 6.0, threshold 30 | weak: nk_cell, cytotoxic_t, immune_surveillance | resist: low inflammation helps it hide | reward: 4 rare_antigens, codex_insight | notes: cancer-lite mechanic, surveillance matters.
+- pre_malignant_cluster / Предраковый кластер | T3 | altered_self | growth 0.08, resistance 12.0, threshold 45 | weak: cytotoxic_t, memory_t, CAR-T, immune_surveillance | resist: suppresses local antigen display | reward: 12 rare_antigens, chimeric material | notes: requires advanced cellular immunity.
+- malignant_nodule / Злокачественный узел | T4 | altered_self, boss | growth 0.10, resistance 24.0, threshold 70 | weak: engineered CTL, CAR-T, NK, Th1, repair balance | resist: evades normal immunity, damages organ | reward: 50 rare_antigens, codex completion | notes: endgame tumor surveillance challenge.
+- autoimmune_flare / Аутоиммунный всплеск | T2 | self-threat | damage 0.10/s to own organs, threshold 35 | weak: treg, tolerance_checkpoint, macrophage_m2, resolution | resist: caused by player imbalance, not external enemy | reward: tolerance_insight, codex_insight | notes: punishment for too much aggression without regulation.
+- thyroid_mimicry / Тиреоидная мимикрия | T3 | autoimmune | damage 0.12/s, threshold 45 | weak: treg, self_nonself_map, tolerance, repair | resist: attacks specific organ, reduces production | reward: hormone material, 8 antigens | notes: organ-specific autoimmunity.
+- joint_inflammation / Суставное воспаление | T3 | autoimmune | damage 0.11/s, threshold 42 | weak: treg, resolution_mediators, M2 macrophage, repair | resist: chronic pain/stress feedback | reward: scar/repair insight | notes: long-term stability challenge.
+- allergen_dust / Аллергенная пыль | T3 | allergen | reaction 0.09/s, threshold 35 | weak: tolerance, regulatory IgG, controlled mast response | resist: high Th2/IgE makes it worse | reward: allergen codex, tolerance insight | notes: false-positive threat, teaches regulation.
+- pollen_storm / Пыльцевая буря | T3 | allergen event | reaction 0.15/s burst, threshold 40 | weak: mucosal_layer, barrier, treg, antihistamine tech | resist: seasonal/host event | reward: 6 micronutrients, codex_insight | notes: periodic environmental allergy event.
+- cytokine_storm / Цитокиновый шторм | T3 | immune pathology, major | global damage 0.20/s, inflammation runaway, threshold 60 | weak: treg, autoimmune_firewall, fever control, balance | resist: worsens if player spams aggressive cells | reward: rare memory, codex_insight | notes: major setback event, not normal enemy.
+- anaphylaxis_event / Анафилактический шок | T4 | acute immune pathology | damage 0.35/s burst, threshold 50 | weak: emergency epinephrine/hormone tech, mast control, barrier | resist: triggered by allergen/parasite mismanagement | reward: emergency protocol unlock | notes: dramatic failure-state event, recoverable.
+- chronic_granuloma / Хроническая гранулёма | T4 | containment pathology | damage 0.06/s persistent, threshold 65 | weak: patience, macrophage balance, repair, resolution | resist: contains pathogen but damages tissue over time | reward: scar insight, rare antigens | notes: endgame management of unresolved infections.
+- prion_shadow / Прионная тень | T4 | misfolded protein, secret | damage 0.08/s, threshold 75, corrupts proteins | weak: synthetic immunity, extreme detox, rare tech | resist: normal immunity almost useless | reward: forbidden_antigen, endgame lore | notes: weird late threat, intentionally difficult.
+- immunosenescence / Иммунное старение | T3 | host condition | reduces stem cell output, memory quality varies | weak: thymic support, senolytic tech, repair, host choice | resist: not an enemy, global debuff | reward: elder host mastery | notes: host archetype challenge, not infection.
+
+---
+
+# 7. Beneficial / Neutral Organisms
+
+- commensal_bacteria / Комменсалы | T2 | beneficial microbiome | effect: competes with pathogens, produces vitamins | interaction: feed fiber, avoid unnecessary antibiotics | risk: can become opportunistic if barriers break | reward: microbiome_metabolites, micronutrients | notes: friendly ecology faction.
+- beneficial_yeast / Полезные дрожжи | T3 | beneficial microbiome | effect: supports gut metabolism in moderation | interaction: manage population, avoid sugar overgrowth | risk: overgrowth if disbiosis | reward: metabolites, small vitamin boost | notes: balance organism, not pure ally.
+- probiotic_strain / Пробиотический штамм | T3 | beneficial cultivar | effect: targeted competition vs specific pathogen family | interaction: unlock via microbiome garden | risk: can be displaced by antibiotics/events | reward: barrier bonus, metabolites | notes: collectible friendly strain.
+- phage_symbiont / Фаговый симбионт | T4 | beneficial virus | effect: hunts specific bacteria | interaction: cultivate in phage_library | risk: may harm beneficial bacteria if too broad | reward: phage_particles, targeted antibacterial | notes: friendly virus mechanic.
+- fiber_eater_symbiont / Клетчаточный симбионт | T3 | beneficial microbiome | effect: converts fiber into postbiotics | interaction: meal_fiber events, gut upgrades | risk: starves without fiber diet | reward: microbiome_metabolites, tolerance support | notes: links diet and regulation.
+- tissue_resident_guard / Тканевый резидентный страж | T3 | beneficial resident cell | effect: faster local outbreak detection | interaction: assign to organ/sector | risk: expensive, immobile | reward: local antigen preview | notes: semi-unit, semi-building, sector defense.
+- engineered_symbiote / Инженерный симбионт | T4 | synthetic beneficial | effect: custom passive buff, detox, phage production | interaction: synthetic lab, symbiote vault | risk: instability events if overmodified | reward: chimeric materials, unique codex | notes: endgame ecology/synthesis hybrid.
+- viral_landscape_commensal / Комменсальный вирусный ландшафт | T4 | neutral virome | effect: trains immune baseline, occasional beneficial interference | interaction: maintain diversity | risk: can reactivate or recombine | reward: interferon, memory insight | notes: makes viruses not only enemies.
+
+---
+
+# 8. Outbreak Modifiers
+
+These are not pathogens themselves, but can attach to pathogens to create variety.
+
+- rapid_growth / Быстрый рост | applies to any | effect: growth +25%, reward +10% | notes: pressure variant.
+- capsule_bonus / Капсульный бонус | bacteria | effect: reduced phagocytosis | notes: forces complement/opsonization.
+- intracellular_hide / Внутриклеточное укрытие | bacteria/virus | effect: innate cells less effective | notes: adaptive/NK needed.
+- toxin_cloud / Токсическое облако | bacteria/fungus | effect: organ damage while active | notes: detox/antibodies needed.
+- spore_release / Споровый выброс | fungus | effect: periodically spawns new sector infection | notes: spread mechanic.
+- antigenic_drift / Антигенный дрейф | virus | effect: memory bonuses decay over time | notes: anti-static build.
+- biofilm_hardening / Упрочнение биоплёнки | bacteria/fungus | effect: resistance increases gradually | notes: DPS/sustain check.
+- immune_evasion / Иммунное уклонение | any | effect: randomly reduces one cell type effectiveness | notes: diversity check.
+- cytokine_trigger / Цитокиновый триггер | any | effect: high inflammation causes global debuff | notes: balance check.
+- latent_reactivation / Латентная реактивация | virus | effect: old defeated pathogen returns weakened | notes: memory check.
+- host_stress_fuel / Топливо стресса | any | effect: grows faster when host stress high | notes: neuro-immune check.
+- antibiotic_resistance / Антибиотикорезистентность | bacteria | effect: phage/targeted tools more valuable | notes: late antibacterial variant.
+- barrier_breaker / Разрушитель барьеров | bacteria/fungus/parasite | effect: reduces barrier_integrity on contact | notes: punishes weak skin/mucosa.
+- nutrient_thief / Пожиратель нутриентов | bacteria/parasite | effect: drains AA/glucose/lipids during infection | notes: economic threat.
+- iron_hunger / Железный голод | bacteria/fungus | effect: increases growth if iron available | notes: mineral management.
+- neural_hiding / Нейронное укрытие | virus/parasite | effect: hard to detect until late | notes: blood-brain barrier content.
+- chronic_persistence / Хроническое сохранение | any | effect: low growth but very high resistance | notes: long campaign threat.
+- mutational_split / Мутационное разделение | virus/bacteria | effect: splits into two weaker variants | notes: rewards area control.
+- symbiotic_hijack / Симбиотический захват | bacteria/parasite | effect: uses beneficial microbiome as shield | notes: ecology conflict.
+- phantom_signal / Фантомный сигнал | any | effect: creates false outbreak indicators | notes: late UI/analysis challenge.
+
+---
+
+# 9. Suggested MVP Pathogen Set
+
+For the first playable vertical slice, use only these:
+
+1. swarm_coccus — basic bacteria.
+2. shell_variant — basic virus.
+3. thread_bloom — basic fungus.
+4. metabolic_waste — basic toxin/detox pressure.
+5. altered_self_cell — early surveillance tease.
+6. commensal_bacteria — beneficial ecology tease.
+
+This gives the player five clear lessons:
+
+- bacteria: mass innate defense.
+- viruses: NK/adaptive cellular defense.
+- fungi: sustained macrophage/neutrophil pressure.
+- toxins: liver/detox/antibodies.
+- altered self: surveillance.
+- commensals: not all microbes are enemies.
+
+---
+
+# 10. Difficulty Curve Notes
+
+## T0 threats
+
+Should be beatable with 5–15 neutrophils and one basic organ economy.
+
+Goal: teach infection bar and resource cost.
+
+## T1 threats
+
+Should require mixing neutrophils and macrophages, or early NK for viruses.
+
+Goal: teach specialization.
+
+## T2 threats
+
+Should require one of:
+
+- dendritic/lymph node progression;
+- barrier investment;
+- microbiome management;
+- inflammation control.
+
+Goal: teach branching build.
+
+## T3 threats
+
+Should punish monoculture and neglect of tolerance/energy.
+
+Goal: teach long-term balance.
+
+## T4 threats
+
+Should require multiple systems working together:
+
+- memory;
+- vaccines;
+- engineered cells;
+- organ map;
+- host control;
+- phage/symbiote ecology.
+
+Goal: make the immune empire feel like a civilization, not a clicker.

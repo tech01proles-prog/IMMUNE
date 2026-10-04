@@ -1,0 +1,1699 @@
+# Immune Empire: Internal Front — MVP Development Plan
+# File: 10_MVP_DEVELOPMENT_PLAN.txt
+
+Purpose:
+- Turn the design documents into a realistic solo-dev build plan.
+- Optimize for Godot 4.x web export to itch.io / CrazyGames.
+- Validate the core loop before making large content or art.
+- Produce a publishable web alpha in 2–4 weeks.
+
+Main rule:
+Make the game fun as a spreadsheet with buttons first. Art, sound and polish amplify a working loop; they do not save a broken one.
+
+---
+
+# 1. MVP Scope Freeze
+
+## 1.1. MVP goal
+
+Create a playable web incremental where the player can:
+
+1. Produce basic nutrients.
+2. Convert fuel into ATP.
+3. Generate stem cells.
+4. Train immune cells.
+5. Fight bacterial and viral outbreaks.
+6. Collect antigens.
+7. Buy simple technologies.
+8. Perform first prestige: New Host.
+9. Save locally and receive offline progress.
+10. Understand the core fantasy within 5 minutes.
+
+## 1.2. MVP resources
+
+Include only these 7 resources:
+
+1. amino_acids
+2. glucose
+3. lipids
+4. micronutrients
+5. atp
+6. stem_cells
+7. antigens
+
+Do not add cytokines, nucleotides, antibodies, hormones, oxygen, iron, zinc, etc. to MVP. They can be data placeholders later, but not visible in early UI.
+
+## 1.3. MVP organs
+
+Include 5 organs:
+
+1. gut_villi
+2. mitochondrial_network
+3. bone_marrow
+4. liver
+5. lymph_node
+
+Optional if time allows:
+- stomach_acid as simple early barrier.
+
+Do not add full organ map in MVP.
+
+## 1.4. MVP cells
+
+Include 6 cells:
+
+1. neutrophil
+2. macrophage
+3. dendritic_cell
+4. nk_cell
+5. b_cell
+6. cytotoxic_t
+
+This is enough to teach:
+- innate mass defense;
+- antigen generation;
+- antiviral specialization;
+- adaptive precision.
+
+## 1.5. MVP pathogens
+
+Include 3 pathogens:
+
+1. swarm_coccus — bacteria
+2. shell_variant — virus
+3. thread_bloom — fungus
+
+Optional fourth:
+- metabolic_waste — toxin pressure
+
+Do not add parasites, altered self, autoimmune bosses, latent viruses, biofilms or endgame pathogens to MVP.
+
+## 1.6. MVP technologies
+
+Include 12–15 techs:
+
+1. chemotaxis_1
+2. oxidative_burst_1
+3. granulopoiesis_1
+4. glycolytic_flux
+5. mitochondrial_biogenesis
+6. antigen_presentation_1
+7. clonal_expansion_1
+8. interferon_pathway
+9. complement_cascade
+10. mucus_production
+11. anti_inflammatory_signals
+12. codex_entry
+13. antigen_archive
+14. trained_immunity
+15. vaccine_slot_1 optional
+
+## 1.7. MVP systems
+
+Required:
+- fixed-step simulation;
+- production;
+- defense calculation;
+- infection growth/clearing;
+- inflammation meter only;
+- tech purchase;
+- prestige;
+- save/load;
+- offline progress;
+- journal/log;
+- basic settings;
+- web export.
+
+Not required for MVP:
+- full tech web UI with clusters;
+- multiple host archetypes;
+- vaccines shop;
+- achievements;
+- microbiome;
+- barriers beyond one organ;
+- organ sectors;
+- rewarded ads;
+- CrazyGames SDK;
+- localization;
+- cloud saves;
+- music system;
+- complex animations.
+
+---
+
+# 2. Development Philosophy
+
+## 2.1. Build in layers
+
+Layer 1: Numbers
+- resources, costs, income, defense, infection load.
+
+Layer 2: Rules
+- bottlenecks, prestige, offline, save validity.
+
+Layer 3: Interface
+- readable buttons, bars, tooltips, journal.
+
+Layer 4: Feel
+- icons, particles, sounds, pulses, transitions.
+
+Layer 5: Content
+- more cells, pathogens, techs, hosts, events.
+
+Do not jump to Layer 4 or 5 before Layer 1–2 are stable.
+
+## 2.2. Data-driven from day one
+
+All content must come from JSON or Resources.
+
+Bad:
+    if organ_id == "gut_villi":
+        add_amino_acids(0.5 * level)
+
+Good:
+    var def = Definitions.organs[organ_id]
+    for res_id in def.output:
+        rates[res_id] += def.output[res_id] * level
+
+This allows balancing without recompiling logic.
+
+## 2.3. UI is a reader, not the brain
+
+Simulation must run even if UI is hidden. UI only displays state and sends commands:
+- buy_organ(id)
+- train_cell(id, amount)
+- buy_tech(id)
+- do_prestige()
+
+No gameplay decisions inside button handlers except input validation.
+
+## 2.4. Save base state only
+
+Save:
+- resource amounts;
+- organ levels;
+- cell counts;
+- tech flags;
+- infection state;
+- meters;
+- meta values;
+- timestamps.
+
+Do not save:
+- derived income;
+- total defense;
+- modifier cache;
+- UI scroll positions optional;
+- temporary visual effects.
+
+Rebuild derived state on load.
+
+## 2.5. No game over
+
+MVP should have soft failure:
+- infection symptoms reduce production;
+- inflammation damages organs;
+- resource deficits slow cells;
+- prestige remains possible.
+
+Avoid “you died” states. Incremental web players dislike hard loss.
+
+---
+
+# 3. 14-Day Solo Dev Plan
+
+Assumption:
+- 3–6 hours per day.
+- You already have Godot installed.
+- You can use placeholder rectangles/text.
+- Art generation happens in parallel or after core prototype.
+
+## Day 1: Project skeleton and definitions
+
+Goals:
+- Create Godot 4 project.
+- Set up autoloads.
+- Load JSON definitions.
+- Implement basic GameState.
+- Implement save/load with version.
+
+Tasks:
+1. Create project:
+   - Main.tscn
+   - scripts/autoload/Definitions.gd
+   - scripts/autoload/GameState.gd
+   - scripts/autoload/SaveManager.gd
+   - scripts/utils/SignalBus.gd
+
+2. Add data files:
+   - resources.json
+   - organs.json
+   - cells.json
+   - pathogens.json
+   - techs.json
+   - balance_constants.json
+
+3. Implement Definitions loader:
+   - load_json(path)
+   - validate ids
+   - store dictionaries
+
+4. Implement GameState:
+   - default resources
+   - empty organs/cells/techs
+   - meters
+   - helper functions:
+     - has_enough(cost)
+     - spend(cost)
+     - add_resource(id, amount)
+
+5. Implement SaveManager:
+   - save_game()
+   - load_game()
+   - delete_save()
+   - SAVE_VERSION
+   - normalize missing fields
+
+Acceptance:
+- Game starts without errors.
+- Can save and reload a basic state.
+- JSON definitions load successfully.
+
+Pitfalls:
+- Do not connect UI yet.
+- Do not make visuals.
+- Keep JSON small and valid.
+
+---
+
+## Day 2: Production loop
+
+Goals:
+- Organs produce/consume resources.
+- ResourceBar shows amounts and rates.
+- Player can buy organs.
+
+Tasks:
+1. Create ProductionSystem.gd.
+2. Calculate rates from organ levels.
+3. Apply simple global multiplier from balance_constants.
+4. Add net resources each fixed tick.
+5. Create ResourceBar.tscn:
+   - icon placeholder
+   - name
+   - amount
+   - rate/s
+6. Create OrganPanel.tscn:
+   - list organs
+   - level
+   - cost
+   - buy button
+   - disabled state
+
+Acceptance:
+- Buying gut_villi increases amino_acids and glucose.
+- Buying mitochondrial_network consumes glucose/lipids and produces ATP.
+- Rates update correctly.
+- Save/load preserves organ levels.
+
+Balance check:
+- First gut_villi affordable in 30–60 seconds.
+- First mitochondria affordable in 1–2 minutes.
+- No negative resources unless intended.
+
+---
+
+## Day 3: Cells, upkeep and ATP efficiency
+
+Goals:
+- Player can train immune cells.
+- Cells consume ATP.
+- ATP deficit reduces efficiency.
+
+Tasks:
+1. Create CellPanel.tscn.
+2. Implement train_cell(id, amount):
+   - check cost
+   - increase cell count
+   - update stats
+3. Implement DefenseSystem.recompute():
+   - base defense by pathogen type
+   - ATP efficiency
+   - store derived defense_by_type
+4. Implement cell upkeep:
+   - required_atp = sum(count * upkeep)
+   - efficiency = clamp(atp_income / required_atp, 0.25, 1.0)
+5. Show ATP balance in UI.
+
+Acceptance:
+- Neutrophil can be trained.
+- More cells increase bacteria defense.
+- If ATP income is too low, defense efficiency drops.
+- UI shows why: “ATP deficit”.
+
+Important:
+Cells should not die from upkeep. They become less effective. This is gentler and easier to balance.
+
+---
+
+## Day 4: Infections and first combat loop
+
+Goals:
+- Pathogens spawn.
+- Infection load grows or shrinks.
+- Player clears infection and receives rewards.
+
+Tasks:
+1. Create InfectionSystem.gd.
+2. Define active infection structure:
+   - uid
+   - pathogen_id
+   - sector optional
+   - load
+   - growth
+   - resistance
+   - threshold
+   - elapsed
+3. Spawn first infection after 30–60 seconds.
+4. Tick infections:
+   - suppression = defense / (defense + resistance)
+   - load += growth * (1 - suppression) * dt
+   - load -= clearance * suppression * dt
+   - clamp load >= 0
+5. On clear:
+   - grant rewards
+   - add codex entry
+   - emit SignalBus.infection_cleared
+6. Create ThreatPanel.tscn:
+   - active infections
+   - load bar
+   - pathogen type
+   - estimated status
+
+Acceptance:
+- swarm_coccus appears.
+- Neutrophils/macrophages reduce load.
+- Infection can be cleared.
+- Reward is granted once.
+- Save/load preserves active infection.
+
+Balance target:
+- First infection should be beatable with 5–15 neutrophils.
+- It should take 30–90 seconds to clear after first army.
+- It should not vanish instantly.
+
+---
+
+## Day 5: Antigens, dendritic cells and first virus
+
+Goals:
+- Introduce knowledge resource.
+- Make viruses feel different from bacteria.
+
+Tasks:
+1. Add antigens as reward from cleared infections.
+2. Add dendritic_cell:
+   - low combat
+   - antigen gain bonus
+3. Add lymph_node organ:
+   - unlock B/T training
+   - antigen gain multiplier
+4. Add shell_variant virus:
+   - neutrophil defense low
+   - NK/CT high
+5. Add nk_cell:
+   - antiviral defense
+6. Add TechPanel.tscn:
+   - list available techs
+   - buy tech
+   - apply simple effects
+
+Acceptance:
+- Player sees that bacteria and viruses require different answers.
+- Antigens accumulate.
+- Tech purchase changes numbers.
+- First virus cannot be solved efficiently by neutrophil spam alone.
+
+Key design moment:
+This is where the game stops being a generic clicker. Make the journal explicitly say:
+“Вирус скрывается внутри клеток. Обычные фагоциты малоэффективны.”
+
+---
+
+## Day 6: Inflammation, prestige and meta basics
+
+Goals:
+- Add first meaningful tradeoff.
+- Add reset loop.
+
+Tasks:
+1. Implement inflammation meter:
+   - innate cells add inflammation
+   - inflammation decays over time
+   - high inflammation boosts innate defense
+   - high inflammation damages organ efficiency
+2. Add simple symptom debuff:
+   - if infection load > threshold, reduce production by 10–20%
+3. Implement PrestigeSystem:
+   - calculate immune_memory from total_antigens_this_run
+   - confirm reset
+   - preserve meta
+   - reset run
+4. Add PrestigePanel:
+   - preview memory gain
+   - list what persists
+   - one permanent upgrade:
+     - start_aa_boost
+     - antigen_siphon
+     - marrow_headstart
+5. Add codex panel minimal:
+   - discovered pathogens
+   - rewards
+   - short description
+
+Acceptance:
+- Player can prestige.
+- Meta upgrade applies on new run.
+- Inflammation visibly helps and hurts.
+- Codex records first pathogen.
+
+Balance target:
+- First prestige available at 20–40 minutes active play.
+- First memory gain should feel useful: +5–10% global or starting bonus.
+
+---
+
+## Day 7: Offline progress and internal prototype checkpoint
+
+Goals:
+- Make idle loop real.
+- Stabilize save/load.
+- Evaluate core fun.
+
+Tasks:
+1. Save last_save_time.
+2. On load:
+   - compute offline_seconds
+   - clamp to 8 hours
+   - simulate in 60-second steps
+3. Process:
+   - production
+   - infection growth/clearing
+   - antigen rewards
+   - inflammation decay
+4. Show OfflineSummaryPopup:
+   - time away
+   - resources gained
+   - infections cleared
+   - antigens gained
+5. Add autosave every 30 seconds.
+6. Add save on visibility hidden if possible.
+7. Run full playtest yourself.
+
+Acceptance checklist:
+- Close and reopen game: progress continues reasonably.
+- No duplicated offline time.
+- No negative resources.
+- No infection NaNs.
+- Prestige does not corrupt save.
+- Core loop feels understandable.
+
+Decision gate:
+If the game is not interesting with text/buttons, do not spend days on art. Fix:
+- clearer goals;
+- faster first minute;
+- stronger virus/bacteria difference;
+- more readable infection bars;
+- better resource pacing.
+
+---
+
+# 4. Days 8–14: Vertical Slice and Web Polish
+
+## Day 8: Abstract body view
+
+Goals:
+- Replace pure lists with a readable central visual.
+
+Tasks:
+1. Create BodyView.tscn.
+2. Add background placeholder or generated dark tissue image.
+3. Place 5 organ nodes:
+   - gut
+   - mitochondria
+   - marrow
+   - liver
+   - lymph node
+4. Add infection markers:
+   - pulsing circle
+   - color by pathogen type
+5. Add CellVisualPool:
+   - 20–40 sprites max
+   - represent dominant cell types
+   - do not spawn one node per cell count
+6. Connect organ clicks to panels.
+
+Acceptance:
+- Player can see where organs are.
+- Infections appear as glowing threats.
+- Performance remains stable.
+
+Important:
+BodyView is not a simulator. It is a dashboard. Readability > anatomical accuracy.
+
+---
+
+## Day 9: AI art integration
+
+Goals:
+- Add first visual identity.
+
+Tasks:
+1. Generate MVP icon set with Qwen:
+   - 5 resources
+   - 5 organs
+   - 6 cells
+   - 3 pathogens
+   - 10 techs
+   - 1 background
+   - 1 UI panel
+2. Select best variants.
+3. Remove white backgrounds.
+4. Crop to square with padding.
+5. Normalize palette/brightness.
+6. Import into Godot.
+7. Replace placeholders.
+8. Add simple tint/category colors.
+
+Acceptance:
+- Icons readable at 64x64.
+- No embedded text.
+- Style feels cohesive enough.
+- Dark UI contrast is good.
+
+Do not:
+- generate 200 assets;
+- animate complex characters;
+- chase perfect art before gameplay metrics.
+
+---
+
+## Day 10: Journal, tooltips and event toasts
+
+Goals:
+- Teach without a tutorial wall.
+
+Tasks:
+1. Implement JournalLog:
+   - max 50 messages
+   - color-coded types:
+     - info
+     - danger
+     - success
+     - reward
+2. Add tooltips:
+   - resource description
+   - organ output/consumption
+   - cell defense profile
+   - tech effect
+3. Add EventToast for:
+   - first infection
+   - first antigen
+   - first virus
+   - prestige available
+4. Add early objective hints:
+   - “Train 5 neutrophils”
+   - “Clear Swarm Coccus”
+   - “Collect 10 antigens”
+   - “Unlock NK response”
+
+Acceptance:
+- New player can understand what to do without external instructions.
+- Journal explains why numbers changed.
+- Tooltips do not require reading paragraphs.
+
+---
+
+## Day 11: Settings, number formatting and performance
+
+Goals:
+- Make web build comfortable.
+
+Tasks:
+1. Add SettingsDialog:
+   - master/music/SFX volume if audio exists
+   - visual quality: low/medium/high
+   - number format: short/scientific optional
+   - save/reset buttons
+2. Implement NumberFormat:
+   - 1.2K, 3.4M, etc.
+3. Add quality options:
+   - low: no particles, fewer animations
+   - medium: limited particles
+   - high: full effects
+4. Optimize UI updates:
+   - throttle to 5 Hz
+   - avoid rebuilding lists every tick
+5. Add pause behavior:
+   - simulation continues or offline logic handles hidden tab
+   - no double counting
+
+Acceptance:
+- Game runs smoothly in browser.
+- Large numbers remain readable.
+- Settings persist.
+- Reset has confirmation.
+
+---
+
+## Day 12: Web export and iframe testing
+
+Goals:
+- Ensure itch.io / CrazyGames compatibility.
+
+Tasks:
+1. Export Godot 4 web release build.
+2. Test locally in browser.
+3. Test upload to itch.io private page.
+4. Test iframe behavior:
+   - resize
+   - fullscreen optional
+   - save after refresh
+   - audio after first click
+5. Test storage:
+   - user:// save
+   - fallback if needed
+6. Test visibility:
+   - switch tab 1 minute
+   - return
+   - offline summary correct
+7. Test mobile browser touch:
+   - button size
+   - scrolling
+   - tooltip behavior
+
+Acceptance:
+- No critical console errors.
+- Save persists in iframe.
+- Game does not duplicate offline time.
+- Layout is usable at 1280x720 and smaller.
+
+---
+
+## Day 13: Playtest and friction fixes
+
+Goals:
+- Find where players quit or get confused.
+
+Tasks:
+1. Invite 1–3 playtesters if possible.
+2. Ask them to play 10–15 minutes without help.
+3. Observe:
+   - where they stall;
+   - what they click;
+   - whether they understand ATP/stem cells;
+   - whether virus feels different;
+   - whether prestige is tempting.
+4. Record feedback:
+   - clarity 1–5
+   - fun 1–5
+   - pacing 1–5
+   - confusion points
+5. Fix top 3 issues only.
+
+Common fixes:
+- first organ too expensive;
+- infection bar too small;
+- not enough explanation of antigens;
+- NK cell unlock too late;
+- tech panel overwhelming;
+- offline summary unclear.
+
+Acceptance:
+- A new player reaches first antigen without asking.
+- A new player understands why neutrophils struggle vs virus.
+- At least one playtester wants to prestige or asks what comes next.
+
+---
+
+## Day 14: Publish alpha
+
+Goals:
+- Ship a small honest build.
+
+Tasks:
+1. Prepare store copy from file 09.
+2. Create cover/thumbnail from file 08.
+3. Capture 3 screenshots:
+   - early economy
+   - infection threat
+   - tech/prestige
+4. Record 10–20 second GIF if possible.
+5. Fill itch.io page:
+   - title
+   - short description
+   - tags
+   - controls
+   - status
+   - feedback request
+6. Upload web build.
+7. Post announcement:
+   - itch.io
+   - social media
+   - devlog
+8. Add changelog:
+   - “First Playable Immune Loop”
+
+Acceptance:
+- Public build works.
+- Feedback channel visible.
+- You know what to fix next.
+
+---
+
+# 5. 4-Week Extended Plan
+
+If 14 days is too aggressive, use 4 weeks.
+
+## Week 1: Core numbers
+
+Same as Days 1–7.
+
+Deliverable:
+- text-based prototype with save/load and first prestige.
+
+## Week 2: Readability and idle feel
+
+Focus:
+- BodyView;
+- tooltips;
+- journal;
+- offline summary;
+- early objectives;
+- performance.
+
+Deliverable:
+- understandable private alpha.
+
+## Week 3: Art and basic content expansion
+
+Focus:
+- Qwen icons;
+- unified palette;
+- add liver/lymph node deeper;
+- add B-cell or cytotoxic T if not already;
+- add thread_bloom fungus;
+- add 5 more techs;
+- add simple achievements.
+
+Deliverable:
+- visually presentable web demo.
+
+## Week 4: Platform polish and publish
+
+Focus:
+- itch.io/CrazyGames tests;
+- settings;
+- save export/import optional;
+- audio placeholders;
+- store page;
+- playtest fixes;
+- launch.
+
+Deliverable:
+- public alpha.
+
+---
+
+# 6. MVP Acceptance Criteria
+
+The MVP is ready when all these are true.
+
+## 6.1. Functional
+
+- New game starts correctly.
+- Resources accumulate.
+- Organs can be bought and leveled.
+- Cells can be trained.
+- Infections spawn and can be cleared.
+- Rewards are granted.
+- Techs can be purchased and apply effects.
+- Prestige resets run and preserves meta.
+- Save/load works.
+- Offline progress works.
+- Settings work.
+- Web export runs in iframe.
+
+## 6.2. Player comprehension
+
+Within 5 minutes, player can answer:
+- What do I produce?
+- Why do I need ATP?
+- Why do I need stem cells?
+- What is an infection?
+- Why are viruses different?
+- What are antigens for?
+
+Within 15 minutes, player can answer:
+- Which branch am I trying?
+- What happens if inflammation gets high?
+- What does prestige give?
+- What is my next short-term goal?
+
+## 6.3. Emotional loop
+
+Player should feel:
+- curiosity: “What is this virus doing?”
+- agency: “I chose NK over more neutrophils.”
+- tension: “My inflammation is rising.”
+- reward: “I cleared the outbreak and got antigens.”
+- anticipation: “Prestige will make the next run smarter.”
+
+If player only feels “numbers go up”, the immune theme is not strong enough.
+
+---
+
+# 7. Balance Targets
+
+## 7.1. Early timing
+
+Time | Expected state
+0:00–0:30 | See resources, buy first gut_villi
+0:30–1:30 | Buy mitochondria, understand ATP
+1:30–3:00 | Train first neutrophils
+3:00–5:00 | Clear first bacterial infection
+5:00–8:00 | Get first antigens, see virus
+8:00–12:00 | Unlock NK or dendritic path
+12:00–20:00 | Buy first meaningful techs
+20:00–40:00 | First prestige available
+
+Adjust if:
+- first neutrophil takes >2 minutes;
+- first infection takes >3 minutes after army;
+- virus appears before player has basic defense;
+- prestige takes >60 minutes in MVP.
+
+## 7.2. Resource pacing
+
+MVP target:
+- amino_acids and glucose should feel plentiful early.
+- ATP should become the first meaningful constraint.
+- stem_cells should limit army size.
+- antigens should feel rare but attainable.
+- lipids/micronutrients should support mid-game organs, not block first 5 minutes.
+
+## 7.3. Defense scaling
+
+Avoid:
+- defense growing so fast that infections disappear instantly;
+- infections growing so fast that player cannot react.
+
+Good formula:
+- pathogen growth scales slowly with run time/prestige;
+- player defense scales faster early, then requires specialization;
+- resistance prevents infinite one-unit spam.
+
+## 7.4. Inflammation
+
+Target:
+- At inflammation 20–40: mild innate bonus, little damage.
+- At 50–70: strong innate bonus, noticeable organ efficiency loss.
+- At 80+: dangerous, symptoms, possible autoimmune warning.
+- Resolution should be possible without resetting.
+
+## 7.5. Prestige
+
+First prestige should grant:
+- enough memory to notice improvement;
+- not so much that second run is trivial.
+
+MVP suggestion:
+- 1 immune_memory = +2% global resource income
+or
+- permanent upgrades have clear discrete effects.
+
+Avoid exponential prestige in MVP. Keep it simple.
+
+---
+
+# 8. Cut List: What Not to Do Before Alpha
+
+Do not spend time on:
+
+1. Full organ map.
+2. Dozens of hormones.
+3. Realistic immunology simulation.
+4. Complex cell pathfinding.
+5. Thousands of visible cells.
+6. Animated characters.
+7. Story cutscenes.
+8. Multi-language UI.
+9. Cloud saves.
+10. CrazyGames SDK before core loop.
+11. Aggressive monetization.
+12. Endgame synthetic immunity.
+13. Phage ecology.
+14. Host archetype variety beyond default.
+15. Complete tech web.
+16. Massive pathogen codex.
+17. Custom music score.
+18. Shader-heavy effects.
+19. Mobile-native app.
+20. Marketing site.
+
+If a feature does not help the first 15 minutes, cut it from MVP.
+
+---
+
+# 9. Technical Task Breakdown
+
+## 9.1. Autoloads
+
+Definitions.gd:
+- load JSON
+- validate ids
+- expose dictionaries
+
+GameState.gd:
+- run state
+- meta state
+- helper methods
+- derived cache non-saved
+
+SaveManager.gd:
+- serialize/deserialize
+- version migration
+- autosave
+- export/import optional
+
+EventManager.gd:
+- scheduled outbreaks
+- host events later
+- cooldowns
+
+AudioManager.gd:
+- buses
+- SFX pool
+- music placeholder
+
+PlatformBridge.gd:
+- web visibility
+- storage fallback
+- ad stubs
+
+SignalBus.gd:
+- decouple UI and systems
+
+## 9.2. Systems
+
+Simulation.gd:
+- fixed step accumulator
+- calls systems in order
+
+ProductionSystem.gd:
+- organ output
+- consumption
+- resource rates
+
+DefenseSystem.gd:
+- cell defense by type
+- ATP efficiency
+- inflammation modifier
+- tech modifiers
+
+InfectionSystem.gd:
+- spawn
+- tick
+- symptom
+- clear
+- rewards
+
+StatusSystem.gd:
+- inflammation
+- tolerance optional later
+- barrier optional later
+- energy balance
+
+TechSystem.gd:
+- purchase
+- rebuild modifier cache
+- unlock flags
+
+PrestigeSystem.gd:
+- memory calculation
+- reset
+- meta application
+
+OfflineSystem.gd:
+- elapsed time
+- coarse simulation
+- summary
+
+AchievementSystem.gd:
+- optional after core
+
+## 9.3. UI
+
+ResourceBar.gd:
+- display resources and rates
+
+OrganPanel.gd:
+- buy organs
+- show cost/output
+
+CellPanel.gd:
+- train cells
+- show defense/upkeep
+
+TechPanel.gd:
+- buy techs
+- show requirements
+
+ThreatPanel.gd:
+- active infections
+- load bars
+
+CodexPanel.gd:
+- discovered pathogens
+
+PrestigePanel.gd:
+- reset preview
+- meta shop
+
+JournalLog.gd:
+- messages
+
+SettingsDialog.gd:
+- volumes, quality, save/reset
+
+OfflineSummaryPopup.gd:
+- show offline results
+
+## 9.4. Gameplay visuals
+
+BodyView.gd:
+- organ nodes
+- infection markers
+
+CellVisualPool.gd:
+- pooled sprites
+- simple drift
+
+ParticleLayer.gd:
+- CPUParticles2D
+- quality toggle
+
+---
+
+# 10. Godot-Specific Implementation Notes
+
+## 10.1. Fixed step
+
+Use:
+    const FIXED_STEP := 0.1
+
+Do not tie simulation to render FPS.
+
+For idle games, 10 Hz is enough. Visuals can interpolate or simply animate separately.
+
+## 10.2. UI throttling
+
+Update UI at 5 Hz:
+    const UI_UPDATE_INTERVAL := 0.2
+
+Avoid updating every label every frame.
+
+## 10.3. Object pooling
+
+For cell visuals:
+- pre-create 30–50 nodes;
+- show/hide based on dominant cell types;
+- do not instantiate per cell count.
+
+## 10.4. Web audio
+
+Start audio after first user input.
+
+Godot may require an interaction before AudioStreamPlayer works in browser.
+
+## 10.5. Visibility handling
+
+On web:
+- save timestamp when hidden;
+- pause expensive visuals;
+- on visible, compute offline elapsed once;
+- avoid processing both real-time delta and offline delta for same period.
+
+## 10.6. Storage
+
+Primary:
+- user://save.json
+
+Fallback:
+- JavaScript localStorage via bridge if needed.
+
+Test in private mode and iframe.
+
+## 10.7. Export presets
+
+Use release web export.
+Strip unused plugins.
+Keep assets compressed.
+Avoid huge PNGs.
+Prefer SVG icons if possible.
+Test final build size.
+
+Target:
+- ideally under 50 MB total web build;
+- lower is better for CrazyGames/itch.
+
+---
+
+# 11. Playtest Questions
+
+Ask testers these exact questions.
+
+## 11.1. First 5 minutes
+
+1. What is your main goal right now?
+2. What does ATP do?
+3. Why did you buy the first organ?
+4. Did any message confuse you?
+5. Rate clarity from 1 to 5.
+
+## 11.2. First infection
+
+1. Did you notice the infection?
+2. Did you understand how to fight it?
+3. Did it feel too slow, too fast or fair?
+4. What did you do first after seeing it?
+
+## 11.3. Virus
+
+1. Did you notice neutrophils were less effective?
+2. Did you understand why?
+3. Did you find NK/dendritic/adaptive path without help?
+4. Did it feel clever or annoying?
+
+## 11.4. Prestige
+
+1. Did you understand what resets?
+2. Did you understand what persists?
+3. Did the reward feel worth it?
+4. Would you reset immediately or wait?
+
+## 11.5. Overall
+
+1. What was the most interesting moment?
+2. What was the most boring moment?
+3. What would you add next?
+4. Would you play again tomorrow?
+
+Do not argue with feedback. Look for patterns.
+
+---
+
+# 12. Metrics to Track Manually
+
+For alpha, simple local logging is enough.
+
+Track:
+- time to first organ;
+- time to first cell;
+- time to first infection clear;
+- time to first antigen;
+- time to first virus;
+- time to first tech;
+- time to prestige;
+- number of resets before quitting;
+- most purchased organ;
+- most trained cell;
+- infections failed/symptoms;
+- average session length;
+- offline return frequency.
+
+If possible, log to a local JSON or print to console for self-testing.
+
+Do not send player data unless you have privacy policy and explicit need.
+
+---
+
+# 13. Risk Register
+
+## Risk 1: Too complex for casual web players
+
+Symptoms:
+- players quit before first antigen;
+- too many resources shown;
+- tooltips ignored.
+
+Mitigation:
+- hide advanced resources;
+- first 5 minutes only 4 visible resources;
+- strong journal hints;
+- one active tutorial objective at a time.
+
+## Risk 2: Biology feels like a lecture
+
+Symptoms:
+- players skip text;
+- no emotional reaction to pathogens.
+
+Mitigation:
+- short punchy messages;
+- visual color coding;
+- make cells feel like units, not textbook terms;
+- use metaphors: swarm, hunters, archivists, furnace.
+
+## Risk 3: One strategy dominates
+
+Symptoms:
+- everyone spams neutrophils;
+- viruses trivial;
+- adaptive branch unused.
+
+Mitigation:
+- virus resistance to neutrophils;
+- antigen bonus for dendritic/macrophage;
+- diversity bonus;
+- pathogen modifiers.
+
+## Risk 4: Prestige feels punishing
+
+Symptoms:
+- players refuse reset;
+- loss aversion.
+
+Mitigation:
+- show clear preview;
+- preserve codex and vaccines;
+- make first memory bonus noticeable;
+- allow “soft reset” only when beneficial.
+
+## Risk 5: Web save issues
+
+Symptoms:
+- progress lost after refresh;
+- iframe storage blocked.
+
+Mitigation:
+- test early;
+- export/import save;
+- warn player if storage unavailable;
+- autosave frequently.
+
+## Risk 6: Art delays release
+
+Symptoms:
+- generating hundreds of images;
+- perfectionism.
+
+Mitigation:
+- 30-image MVP asset list;
+- palette shader unifies imperfect assets;
+- ship alpha with simple icons if needed.
+
+---
+
+# 14. Daily Development Routine
+
+Use this routine to avoid scope creep.
+
+## Morning
+
+1. Pick one deliverable for the day.
+2. Write it in a note:
+   - “Today: infection system clear rewards”
+3. Do not start art unless planned.
+
+## Work blocks
+
+Use 45–60 minute blocks:
+- implement;
+- test immediately;
+- commit/save scene;
+- write one-line changelog.
+
+## End of day
+
+Check:
+- Does project run?
+- Is save valid?
+- What is broken?
+- What is tomorrow’s one deliverable?
+
+Never end a day with:
+- corrupted save;
+- unsaved scene;
+- undefined JSON;
+- “I'll fix it tomorrow” core crash.
+
+---
+
+# 15. Definition of Done per Feature
+
+A feature is done only when:
+
+1. It works from fresh start.
+2. It survives save/load.
+3. It does not break offline simulation.
+4. It has UI feedback.
+5. It has tooltip or journal explanation if needed.
+6. It is balanced enough for MVP.
+7. It is data-driven, not hardcoded.
+8. It has no console errors.
+9. It works in web export.
+10. It does not require a tutorial paragraph.
+
+---
+
+# 16. MVP Content Implementation Order
+
+Implement in this exact order:
+
+1. resources.json
+2. organs.json: gut_villi
+3. production tick
+4. ResourceBar
+5. OrganPanel
+6. mitochondrial_network
+7. ATP efficiency placeholder
+8. cells.json: neutrophil
+9. CellPanel
+10. pathogens.json: swarm_coccus
+11. InfectionSystem
+12. ThreatPanel
+13. rewards and codex
+14. antigens
+15. dendritic_cell
+16. lymph_node
+17. shell_variant virus
+18. nk_cell
+19. techs.json first 5
+20. TechPanel
+21. inflammation
+22. macrophage
+23. b_cell or cytotoxic_t
+24. prestige
+25. offline
+26. BodyView
+27. art
+28. settings
+29. web tests
+30. publish
+
+Do not add thread_bloom until the bacteria/virus contrast works.
+
+---
+
+# 17. First 10 Minutes Script
+
+This is the experience you are trying to create.
+
+## 0:00–0:20
+
+Player sees:
+- dark biological background;
+- 4 resources: amino acids, glucose, ATP, stem cells;
+- one organ: Gut Villi;
+- journal: “Кишечные ворсинки усваивают питание.”
+
+Action:
+- buy Gut Villi.
+
+Feedback:
+- numbers start rising;
+- soft pulse sound/visual.
+
+## 0:20–1:00
+
+Player sees:
+- Mitochondrial Network available;
+- tooltip: “Превращает топливо в АТФ.”
+
+Action:
+- buy mitochondria.
+
+Feedback:
+- ATP appears;
+- resource bar highlights energy.
+
+## 1:00–2:00
+
+Player sees:
+- Bone Marrow available;
+- stem cells begin slowly.
+
+Action:
+- buy marrow when affordable.
+
+Feedback:
+- journal: “Костный мозг выпускает стволовые клетки.”
+
+## 2:00–3:00
+
+Player sees:
+- Neutrophil trainable;
+- first infection warning.
+
+Action:
+- train 5–10 neutrophils.
+
+Feedback:
+- infection bar starts decreasing.
+
+## 3:00–5:00
+
+Player sees:
+- first infection cleared;
+- antigen reward;
+- codex entry.
+
+Action:
+- read journal:
+  “Вспышка подавлена. Организм запоминает врага.”
+
+Emotion:
+- small victory, knowledge unlocked.
+
+## 5:00–8:00
+
+Player sees:
+- virus appears;
+- neutrophil effectiveness low;
+- NK or dendritic path hinted.
+
+Action:
+- realize mass cells are not enough.
+
+Emotion:
+- “Ah, this is not just a clicker.”
+
+## 8:00–15:00
+
+Player sees:
+- first tech choices;
+- antigen economy;
+- inflammation begins.
+
+Action:
+- choose small branch.
+
+Emotion:
+- “I can build a style.”
+
+---
+
+# 18. Post-MVP Next Steps
+
+After public alpha, prioritize based on feedback.
+
+## If players love theme but find it shallow
+
+Add:
+- tolerance meter;
+- barriers;
+- microbiome garden;
+- more pathogen types.
+
+## If players find it confusing
+
+Add:
+- better first-time objectives;
+- simplified early UI;
+- interactive tooltip guide;
+- slower resource unlock.
+
+## If players want more idle depth
+
+Add:
+- offline memory consolidation;
+- host events;
+- vaccines;
+- codex rewards.
+
+## If players want more strategy
+
+Add:
+- sectors/organs;
+- pathogen modifiers;
+- diversity bonus;
+- specialized cells.
+
+## If players want progression spectacle
+
+Add:
+- visual fleet of cells;
+- organ map;
+- prestige animations;
+- host archetypes.
+
+---
+
+# 19. Solo Dev Motivation Rules
+
+1. Ship ugly prototype first.
+2. Do not rebuild engine twice.
+3. Do not make 100 cells before 6 work.
+4. Do not generate art until core loop is readable.
+5. Do not add monetization before retention.
+6. Do not add SDK before web save works.
+7. Do not promise full immunology simulation.
+8. Do not compare to completed games.
+9. Commit daily.
+10. Playtest weekly.
+
+Mantra:
+“A boring loop made playable is better than a brilliant loop never finished.”
+
+---
+
+# 20. Final MVP Checklist
+
+Before calling it MVP, tick all boxes.
+
+## Core
+
+[ ] Resources produce and consume correctly.
+[ ] Organs can be bought.
+[ ] Cells can be trained.
+[ ] Infections spawn.
+[ ] Infections can be cleared.
+[ ] Rewards are granted.
+[ ] Antigens work.
+[ ] Techs apply effects.
+[ ] Inflammation affects defense and damage.
+[ ] Prestige works.
+[ ] Meta upgrade applies.
+
+## Idle
+
+[ ] Save/load works.
+[ ] Offline progress works.
+[ ] No double-counting.
+[ ] Autosave works.
+[ ] Offline summary shows.
+
+## Web
+
+[ ] Godot web export runs.
+[ ] itch.io iframe tested.
+[ ] CrazyGames-like iframe tested.
+[ ] Save persists after refresh.
+[ ] Audio starts after click.
+[ ] Layout resizes reasonably.
+[ ] Touch targets are usable.
+[ ] Performance is acceptable.
+
+## UX
+
+[ ] First 60 seconds are clear.
+[ ] First infection is readable.
+[ ] Virus feels different.
+[ ] Tooltips explain key terms.
+[ ] Journal gives feedback.
+[ ] Settings exist.
+[ ] Reset has confirmation.
+
+## Content
+
+[ ] 7 resources.
+[ ] 5 organs.
+[ ] 6 cells.
+[ ] 3 pathogens.
+[ ] 12+ techs.
+[ ] 1 prestige currency.
+[ ] 3+ permanent upgrades.
+[ ] Basic codex.
+
+## Launch
+
+[ ] Title/subtitle set.
+[ ] Cover image ready.
+[ ] Screenshots ready.
+[ ] Store copy ready.
+[ ] Tags ready.
+[ ] Feedback method ready.
+[ ] Changelog ready.
+[ ] AI art disclosure if needed.
+
+---
+
+# 21. Recommended First Build Name
+
+Use:
+
+Immune Empire: Internal Front — Alpha 0.1
+
+Changelog title:
+
+First Playable Immune Loop
+
+Description:
+
+This is the first web prototype. The goal is to test whether building an immune civilization feels interesting: nutrients, organs, leukocytes, outbreaks, antigens and first prestige.
+
+---
+
+# 22. What Success Looks Like
+
+MVP success is not “everyone loves it.”
+
+MVP success is:
+
+- 10 people play 10 minutes;
+- at least 5 understand the core loop;
+- at least 3 reach first prestige;
+- at least 2 ask for more pathogens/builds;
+- you identify the top 3 friction points;
+- you know whether to expand or pivot.
+
+If nobody reaches antigens, the problem is pacing/clarity.
+If they reach antigens but do not care, the problem is fantasy/reward.
+If they care but quit at virus, the problem is difficulty/teaching.
+If they prestige but feel nothing, the problem is meta reward.
+
+---
+
+# 23. Final Development Priority Stack
+
+When in doubt, choose in this order:
+
+1. Core loop stability
+2. Readability
+3. Save/offline reliability
+4. Balance
+5. Web compatibility
+6. Art coherence
+7. Sound/juice
+8. Extra content
+9. Monetization
+10. Marketing polish
+
+Do not invert this stack.
+
+---
+
+# 24. One-Sentence MVP Target
+
+Build a browser idle game where a new player can grow from nutrients to first immune memory in under 30 minutes and immediately want to try a different defense doctrine.

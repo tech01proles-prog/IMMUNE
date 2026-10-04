@@ -1,0 +1,1813 @@
+# Immune Empire: Internal Front — Godot Project Architecture
+# File: 07_GODOT_PROJECT_ARCHITECTURE.txt
+
+Target:
+- Godot 4.x, preferably 4.3+
+- PC + Web export
+- itch.io HTML5
+- CrazyGames web build
+- incremental / idle simulation
+- one developer, limited art, data-driven design
+
+Core principles:
+1. Data-driven content.
+   All organs, cells, pathogens, technologies, events, vaccines, hosts and meta upgrades should live in JSON or Godot Resources, not hardcoded in scenes.
+
+2. Simulation separated from UI.
+   Game logic must not depend on nodes being visible. UI only reads state and sends commands.
+
+3. Fixed-step simulation.
+   Use an accumulator and simulate in stable steps. This makes offline progress, balancing and debugging easier.
+
+4. Web-friendly performance.
+   Do not create thousands of nodes for cells. Use numbers for logic and a small visual pool for feedback.
+
+5. Versioned saves.
+   Always include save version and migration path. Incremental games live for months or years.
+
+6. Soft failure.
+   No game over in MVP. Bad balance should cause setbacks, debuffs, autoimmune flares, resource loss, but not permanent death.
+
+---
+
+# 1. Recommended Project Tree
+
+res://
+  project.godot
+  export_presets.cfg
+
+  scenes/
+    main/
+      Main.tscn
+      MainMenu.tscn
+      LoadingScreen.tscn
+
+    ui/
+      ResourceBar.tscn
+      OrganPanel.tscn
+      CellPanel.tscn
+      TechPanel.tscn
+      ThreatPanel.tscn
+      CodexPanel.tscn
+      PrestigePanel.tscn
+      SettingsDialog.tscn
+      EventToast.tscn
+      OfflineSummaryPopup.tscn
+      ConfirmDialog.tscn
+
+    gameplay/
+      BodyView.tscn
+      OrganNode.tscn
+      InfectionMarker.tscn
+      CellVisualPool.tscn
+      ParticleLayer.tscn
+      BackgroundAmbience.tscn
+
+  scripts/
+    autoload/
+      Definitions.gd
+      GameState.gd
+      SaveManager.gd
+      EventManager.gd
+      AudioManager.gd
+      PlatformBridge.gd
+
+    systems/
+      Simulation.gd
+      ProductionSystem.gd
+      DefenseSystem.gd
+      InfectionSystem.gd
+      StatusSystem.gd
+      TechSystem.gd
+      PrestigeSystem.gd
+      OfflineSystem.gd
+      AchievementSystem.gd
+
+    ui/
+      ResourceBar.gd
+      OrganPanel.gd
+      CellPanel.gd
+      TechPanel.gd
+      ThreatPanel.gd
+      CodexPanel.gd
+      PrestigePanel.gd
+      EventToast.gd
+      OfflineSummaryPopup.gd
+
+    gameplay/
+      BodyView.gd
+      OrganNode.gd
+      InfectionMarker.gd
+      CellVisualPool.gd
+
+    utils/
+      NumberFormat.gd
+      MathUtils.gd
+      SignalBus.gd
+      JsonUtils.gd
+      EffectUtils.gd
+
+  data/
+    resources.json
+    organs.json
+    cells.json
+    pathogens.json
+    pathogen_modifiers.json
+    techs.json
+    events.json
+    hosts.json
+    doctrines.json
+    vaccines.json
+    meta_upgrades.json
+    achievements.json
+    journal_messages.json
+    balance_constants.json
+
+  assets/
+    icons/
+      resources/
+      organs/
+      cells/
+      pathogens/
+      techs/
+      events/
+      ui/
+    cards/
+    backgrounds/
+    fonts/
+    sfx/
+    music/
+    shaders/
+
+---
+
+# 2. Autoload Setup
+
+Add these autoloads in Project Settings > Globals:
+
+1. Definitions
+2. GameState
+3. SaveManager
+4. EventManager
+5. AudioManager
+6. PlatformBridge
+7. SignalBus optional
+
+Recommended order matters:
+- Definitions first because GameState may validate ids.
+- GameState before SaveManager.
+- SaveManager before scenes that load save.
+- EventManager can depend on GameState.
+- PlatformBridge should be safe to call even if SDK is absent.
+
+SignalBus is optional but useful for decoupling UI and systems.
+
+Example SignalBus.gd:
+
+extends Node
+
+signal resources_updated
+state_tick
+infection_started
+infection_cleared
+outbreak_symptom
+event_triggered
+tech_purchased
+cell_trained
+organ_upgraded
+prestige_available
+prestige_completed
+offline_processed
+achievement_unlocked
+
+---
+
+# 3. Data Flow
+
+High-level flow:
+
+1. Definitions loads all JSON content at startup.
+2. GameState holds current run state and meta state.
+3. Simulation runs fixed steps and mutates GameState.
+4. Systems read Definitions and GameState, write derived values back into GameState.
+5. UI polls GameState or listens to SignalBus, throttled to 5–10 updates per second.
+6. SaveManager serializes GameState, not derived cache values.
+7. OfflineSystem simulates elapsed time when game loads.
+8. PlatformBridge handles web-specific behavior, ads, pause/resume, storage fallback.
+
+Important rule:
+Do not store calculated values like “total defense” or “income per second” in the save unless needed for debugging. Recalculate them from base state.
+
+---
+
+# 4. GameState Structure
+
+GameState.gd should be the single source of truth for current run and meta progression.
+
+Suggested fields:
+
+extends Node
+
+const SAVE_VERSION := 1
+
+var resources := {}
+var organs := {}
+var cells := {}
+var techs := {}
+var active_infections := []
+var completed_infections := {}
+var codex := {}
+var vaccines := {}
+var meters := {}
+var stats := {}
+var meta := {}
+var settings := {}
+var last_save_time := 0
+var run_start_time := 0
+var current_host_id := "host_default"
+var current_doctrine_id := "doctrine_swarm"
+var prestige_count := 0
+var total_antigens_this_run := 0
+var total_antigens_all_runs := 0
+var unlocked_hosts := {}
+var unlocked_doctrines := {}
+var achievements := {}
+
+func _ready() -> void:
+    reset_run_defaults()
+    reset_meta_defaults()
+
+func reset_run_defaults() -> void:
+    resources = {
+        "amino_acids": 20.0,
+        "glucose": 20.0,
+        "lipids": 5.0,
+        "micronutrients": 5.0,
+        "atp": 10.0,
+        "stem_cells": 0.0,
+        "antigens": 0.0
+    }
+
+    organs = {}
+    cells = {}
+    techs = {}
+    active_infections = []
+    meters = {
+        "inflammation": 0.0,
+        "tolerance": 50.0,
+        "barrier_integrity": 30.0,
+        "energy_balance": 0.0,
+        "immune_diversity": 0.0,
+        "stress": 20.0,
+        "sleep_quality": 70.0
+    }
+    stats = {
+        "cells_trained": 0,
+        "outbreaks_cleared": 0,
+        "toxins_cleared": 0,
+        "autoimmune_flares": 0,
+        "playtime_seconds": 0.0
+    }
+
+func reset_meta_defaults() -> void:
+    meta = {
+        "immune_memory": 0.0,
+        "codex_insight": 0.0,
+        "permanent_upgrades": {},
+        "unlocked_hosts": {"host_default": true},
+        "unlocked_doctrines": {"doctrine_swarm": true},
+        "persistent_vaccines": {},
+        "achievements": {}
+    }
+
+Useful helper functions:
+
+func has_resource_enough(cost: Dictionary) -> bool:
+    for id in cost.keys():
+        if resources.get(id, 0.0) < float(cost[id]):
+            return false
+    return true
+
+func spend_cost(cost: Dictionary) -> bool:
+    if not has_resource_enough(cost):
+        return false
+    for id in cost.keys():
+        resources[id] -= float(cost[id])
+    return true
+
+func add_resource(id: String, amount: float) -> void:
+    if not resources.has(id):
+        resources[id] = 0.0
+    resources[id] += amount
+    if resources[id] < 0.0:
+        resources[id] = 0.0
+
+func get_organ_level(id: String) -> int:
+    return int(organs.get(id, 0))
+
+func get_cell_count(id: String) -> int:
+    return int(cells.get(id, 0))
+
+func has_tech(id: String) -> bool:
+    return bool(techs.get(id, false))
+
+---
+
+# 5. Definitions Loader
+
+Definitions.gd loads JSON content and validates it.
+
+extends Node
+
+var resources := {}
+var organs := {}
+var cells := {}
+var pathogens := {}
+var pathogen_modifiers := {}
+var techs := {}
+var events := {}
+var hosts := {}
+var doctrines := {}
+var vaccines := {}
+var meta_upgrades := {}
+var achievements := {}
+var journal_messages := {}
+var balance := {}
+
+func _ready() -> void:
+    load_all()
+    validate_all()
+
+func load_all() -> void:
+    resources = load_json("res://data/resources.json")
+    organs = load_json("res://data/organs.json")
+    cells = load_json("res://data/cells.json")
+    pathogens = load_json("res://data/pathogens.json")
+    pathogen_modifiers = load_json("res://data/pathogen_modifiers.json")
+    techs = load_json("res://data/techs.json")
+    events = load_json("res://data/events.json")
+    hosts = load_json("res://data/hosts.json")
+    doctrines = load_json("res://data/doctrines.json")
+    vaccines = load_json("res://data/vaccines.json")
+    meta_upgrades = load_json("res://data/meta_upgrades.json")
+    achievements = load_json("res://data/achievements.json")
+    journal_messages = load_json("res://data/journal_messages.json")
+    balance = load_json("res://data/balance_constants.json")
+
+func load_json(path: String) -> Dictionary:
+    var file := FileAccess.open(path, FileAccess.READ)
+    if file == null:
+        push_error("Cannot open %s" % path)
+        return {}
+    var text := file.get_as_text()
+    var parsed = JSON.parse_string(text)
+    if typeof(parsed) != TYPE_DICTIONARY:
+        push_error("Invalid JSON dictionary in %s" % path)
+        return {}
+    return parsed
+
+func validate_all() -> void:
+    validate_collection(resources, "resource")
+    validate_collection(organs, "organ")
+    validate_collection(cells, "cell")
+    validate_collection(pathogens, "pathogen")
+    validate_collection(techs, "tech")
+
+func validate_collection(dict: Dictionary, type_name: String) -> void:
+    for id in dict.keys():
+        var def: Dictionary = dict[id]
+        if not def.has("id"):
+            push_warning("%s %s missing id field" % [type_name, id])
+        elif def.id != id:
+            push_warning("%s %s id mismatch: %s" % [type_name, id, def.id])
+
+---
+
+# 6. JSON Data Schema Examples
+
+## resources.json
+
+{
+  "amino_acids": {
+    "id": "amino_acids",
+    "name": "Аминокислоты",
+    "icon": "res://assets/icons/resources/amino_acids.svg",
+    "color": "#7ee8fa",
+    "tier": 0
+  },
+  "glucose": {
+    "id": "glucose",
+    "name": "Глюкоза",
+    "icon": "res://assets/icons/resources/glucose.svg",
+    "color": "#ffd166",
+    "tier": 0
+  }
+}
+
+## organs.json
+
+{
+  "gut_villi": {
+    "id": "gut_villi",
+    "name": "Кишечные ворсинки",
+    "tier": 0,
+    "category": "extraction",
+    "base_cost": {
+      "amino_acids": 15,
+      "glucose": 10
+    },
+    "cost_growth": 1.15,
+    "output": {
+      "amino_acids": 0.5,
+      "glucose": 0.5,
+      "lipids": 0.05
+    },
+    "consumption": {},
+    "unlock": "start",
+    "description": "Основная добыча нутриентов из пищи хозяина.",
+    "icon": "res://assets/icons/organs/gut_villi.svg"
+  }
+}
+
+## cells.json
+
+{
+  "neutrophil": {
+    "id": "neutrophil",
+    "name": "Нейтрофил",
+    "tier": 0,
+    "category": "innate",
+    "base_cost": {
+      "stem_cells": 1,
+      "amino_acids": 10,
+      "glucose": 5,
+      "atp": 5
+    },
+    "cost_growth": 1.12,
+    "defense": {
+      "bacteria": 1.0,
+      "viruses": 0.1,
+      "fungi": 0.2,
+      "parasites": 0.05,
+      "toxins": 0.0,
+      "altered_self": 0.1
+    },
+    "upkeep": {
+      "atp": 0.005
+    },
+    "inflammation_per_second": 0.02,
+    "unlock": "start",
+    "description": "Быстрый массовый ответ на бактерии.",
+    "icon": "res://assets/icons/cells/neutrophil.svg"
+  }
+}
+
+## pathogens.json
+
+{
+  "swarm_coccus": {
+    "id": "swarm_coccus",
+    "name": "Кокк-рой",
+    "tier": 0,
+    "type": "bacteria",
+    "growth": 0.15,
+    "resistance": 2.0,
+    "threshold": 25.0,
+    "clearance_base": 0.05,
+    "reward": {
+      "amino_acids": 5,
+      "antigens": 1
+    },
+    "weakness_tags": ["innate", "phagocyte", "complement"],
+    "sectors": ["blood", "skin", "throat"],
+    "description": "Обычная бактериальная вспышка.",
+    "icon": "res://assets/icons/pathogens/swarm_coccus.svg"
+  }
+}
+
+## techs.json
+
+{
+  "chemotaxis_1": {
+    "id": "chemotaxis_1",
+    "name": "Хемотаксис I",
+    "tier": 0,
+    "cluster": "innate_swarm",
+    "cost": {
+      "amino_acids": 50,
+      "glucose": 20
+    },
+    "requires": [],
+    "effects": [
+      {
+        "type": "mult_cell_defense",
+        "target": "neutrophil",
+        "stat": "search_speed",
+        "value": 0.15
+      }
+    ],
+    "description": "Нейтрофилы быстрее находят врагов.",
+    "icon": "res://assets/icons/techs/chemotaxis_1.svg"
+  }
+}
+
+---
+
+# 7. Simulation Architecture
+
+Use a dedicated Simulation node as root of gameplay scene or autoload.
+
+Recommended:
+- Main.tscn contains Simulation node.
+- Simulation calls systems in fixed order.
+- Systems are plain RefCounted objects or Node children.
+
+Simulation.gd skeleton:
+
+extends Node
+
+const FIXED_STEP := 0.1 # 10 Hz logic
+const UI_UPDATE_INTERVAL := 0.2 # 5 Hz UI
+
+var accumulator := 0.0
+var ui_timer := 0.0
+
+@onready var production := $ProductionSystem
+@onready var defense := $DefenseSystem
+@onready var infection := $InfectionSystem
+@onready var status := $StatusSystem
+@onready var events := $EventRunner
+@onready var achievements := $AchievementSystem
+
+func _process(delta: float) -> void:
+    if get_tree().paused:
+        return
+
+    accumulator += delta
+
+    var max_steps := 20
+    var steps := 0
+    while accumulator >= FIXED_STEP and steps < max_steps:
+        step_simulation(FIXED_STEP)
+        accumulator -= FIXED_STEP
+        steps += 1
+
+    if steps >= max_steps:
+        accumulator = 0.0
+
+    ui_timer += delta
+    if ui_timer >= UI_UPDATE_INTERVAL:
+        ui_timer = 0.0
+        SignalBus.state_tick.emit()
+
+func step_simulation(dt: float) -> void:
+    GameState.stats.playtime_seconds += dt
+
+    production.tick(dt)
+    defense.recompute()
+    infection.tick(dt)
+    status.tick(dt)
+    events.tick(dt)
+    achievements.tick(dt)
+
+Why fixed step:
+- stable resource math
+- easier offline simulation
+- less FPS-dependent bugs
+- predictable infection growth
+
+For idle games, 10 Hz logic is usually enough. Visual animation can run at render FPS.
+
+---
+
+# 8. ProductionSystem
+
+Responsibilities:
+- calculate resource income
+- calculate resource consumption
+- apply organ levels and tech multipliers
+- handle bottlenecks like ATP or stem cells
+
+Basic algorithm:
+
+1. Start with zero rates.
+2. For each owned organ:
+   - add base output * level
+   - subtract base consumption * level
+3. Apply tech/resource multipliers.
+4. Apply global meta multipliers.
+5. If consumption exceeds available income, reduce efficiency of dependent systems.
+6. Add net rates * dt to resources.
+
+Pseudo-code:
+
+func tick(dt: float) -> void:
+    var rates := {}
+    var consumption := {}
+
+    for organ_id in GameState.organs.keys():
+        var level := int(GameState.organs[organ_id])
+        if level <= 0:
+            continue
+        var def := Definitions.organs[organ_id]
+        for res_id in def.output.keys():
+            rates[res_id] = rates.get(res_id, 0.0) + float(def.output[res_id]) * level
+        for res_id in def.consumption.keys():
+            consumption[res_id] = consumption.get(res_id, 0.0) + float(def.consumption[res_id]) * level
+
+    apply_tech_resource_multipliers(rates)
+    apply_meta_multipliers(rates)
+
+    for res_id in rates.keys():
+        GameState.resources[res_id] = GameState.resources.get(res_id, 0.0) + rates[res_id] * dt
+
+    for res_id in consumption.keys():
+        var needed := consumption[res_id] * dt
+        if GameState.resources[res_id] >= needed:
+            GameState.resources[res_id] -= needed
+        else:
+            GameState.resources[res_id] = 0.0
+            GameState.meters.energy_balance -= 1.0
+
+Store rates in GameState or a derived cache for UI:
+
+GameState.derived.resource_rates = rates
+GameState.derived.atp_deficit = ...
+
+Do not save derived cache.
+
+---
+
+# 9. DefenseSystem
+
+Responsibilities:
+- calculate total defense per pathogen type
+- account for cell counts, techs, ATP efficiency, inflammation, memory, diversity, host modifiers
+
+Defense formula:
+
+total_defense(pathogen_type) =
+    base_cell_defense
+    * atp_efficiency
+    * inflammation_multiplier
+    * memory_multiplier
+    * diversity_multiplier
+    * tech_multipliers
+    * host_multipliers
+    * event_multipliers
+
+Base cell defense:
+
+for each cell_id:
+    count = GameState.cells[cell_id]
+    defense_value = Definitions.cells[cell_id].defense[pathogen_type]
+    total += count * defense_value
+
+ATP efficiency:
+
+required_upkeep = sum(cell_count * cell.upkeep.atp)
+atp_income = derived.atp_rate
+if required_upkeep <= 0:
+    efficiency = 1.0
+else:
+    efficiency = clamp(atp_income / required_upkeep, 0.25, 1.0)
+
+If ATP is deficient, cells do not die immediately. They become slower/less effective. This is gentler for idle.
+
+Inflammation multiplier:
+
+innate_bonus = 1.0 + clamp(GameState.meters.inflammation * 0.004, 0.0, 0.6)
+adaptive_penalty = 1.0 - clamp(GameState.meters.inflammation * 0.001, 0.0, 0.15)
+
+Use innate_bonus for innate cells, adaptive_penalty or neutral for adaptive cells.
+
+Memory multiplier:
+
+if pathogen is known:
+    memory_bonus = 1.0 + min(0.5, codex_entry.memory_level * 0.05)
+else:
+    memory_bonus = 1.0
+
+Diversity multiplier:
+
+unique_active_cell_types = count cells with count > 0
+diversity_bonus = 1.0 + min(0.30, unique_active_cell_types * 0.03)
+
+Store results:
+
+GameState.derived.defense_by_type = {
+    "bacteria": ...,
+    "viruses": ...,
+    "fungi": ...,
+    "parasites": ...,
+    "toxins": ...,
+    "altered_self": ...
+}
+
+---
+
+# 10. InfectionSystem
+
+Active infection object structure:
+
+{
+  "uid": 12,
+  "pathogen_id": "swarm_coccus",
+  "sector": "blood",
+  "load": 8.4,
+  "growth": 0.15,
+  "resistance": 2.0,
+  "threshold": 25.0,
+  "elapsed": 12.3,
+  "modifiers": ["rapid_growth"],
+  "symptom_active": false
+}
+
+Tick algorithm:
+
+for infection in active_infections:
+    def = Definitions.pathogens[infection.pathogen_id]
+    ptype = def.type
+    defense = GameState.derived.defense_by_type.get(ptype, 0.0)
+    resistance = infection.resistance * get_modifier_resistance(infection)
+
+    suppression = defense / (defense + resistance)
+    suppression = clamp(suppression, 0.0, 0.99)
+
+    growth = infection.growth * get_growth_multiplier(infection)
+    clearance = def.clearance_base * suppression
+
+    infection.load += growth * (1.0 - suppression) * dt
+    infection.load -= clearance * dt
+    infection.load = max(infection.load, 0.0)
+    infection.elapsed += dt
+
+    if infection.load >= infection.threshold and not infection.symptom_active:
+        activate_symptom(infection)
+
+    if infection.load <= 0.0:
+        clear_infection(infection)
+
+Important:
+Do not let suppression reach exactly 1.0 too easily. Use defense / (defense + resistance) so growth never fully stops unless defense is extremely high. This keeps tension.
+
+Clear infection:
+
+- remove from active_infections
+- add rewards
+- update codex
+- increase immune memory stat
+- emit SignalBus.infection_cleared
+- maybe spawn antigen resource
+- increment stats.outbreaks_cleared
+
+Symptom activation:
+
+- apply temporary debuff to sector organ
+- increase inflammation
+- reduce production by 10–30%
+- add journal warning
+- do not destroy save
+
+Pathogen spawning:
+
+Use EventManager or InfectionScheduler.
+
+Simple MVP scheduler:
+
+- first infection scripted after 30–60 seconds
+- then random every 60–180 seconds
+- choose pathogen tier based on player progress
+- avoid same type too often
+- respect host archetype and sector unlocks
+
+Weighted selection example:
+
+weight = base_weight
+if player has weak defense vs type:
+    weight *= 1.2
+if player recently fought same type:
+    weight *= 0.6
+if pathogen tier > current allowed tier:
+    weight = 0
+
+---
+
+# 11. StatusSystem
+
+Updates meters:
+
+- inflammation
+- tolerance
+- barrier_integrity
+- energy_balance
+- immune_diversity
+- stress
+- sleep_quality
+
+Each meter has base drift, sources and sinks.
+
+Example inflammation:
+
+inflammation_gain = 0
+for cell_id in cells:
+    inflammation_gain += cell_count * cell.inflammation_per_second
+inflammation_gain *= tech_inflammation_mult
+inflammation_gain += event_inflammation_delta
+
+inflammation_decay = balance.inflammation_decay_base
+inflammation_decay += tolerance * 0.001
+inflammation_decay += resolution_tech_bonus
+
+GameState.meters.inflammation += (inflammation_gain - inflammation_decay) * dt
+clamp 0..100+
+
+Tolerance:
+
+tolerance_gain = treg_count * 0.01 + microbiome_bonus + rest_bonus
+tolerance_decay = inflammation * 0.002 + stress * 0.001
+
+Barrier integrity:
+
+gain from skin/mucosa organs, vitamins, repair tech
+decay from pathogens with barrier_breaker, toxins, inflammation
+
+Energy balance:
+
+energy_balance = atp_income - atp_upkeep
+normalize to -100..100 for UI, but internal can be raw float.
+
+Immune diversity:
+
+count unique active cell categories or cell ids.
+Can be smoothed over time to avoid flicker.
+
+Stress/sleep:
+- mostly event-driven in MVP
+- later circadian rhythm and host actions
+
+Status effects:
+- high inflammation: +innate defense, -organ efficiency, +autoimmune risk
+- low tolerance: chance of autoimmune flare
+- low barrier: higher pathogen entry chance
+- negative energy: cell efficiency penalty
+- high stress: latent virus reactivation chance
+- low sleep: memory consolidation penalty
+
+---
+
+# 12. TechSystem
+
+Avoid applying tech effects every tick by scanning all techs. Instead rebuild a modifier cache when techs change.
+
+GameState.derived.modifiers should include:
+
+{
+  "resource_rate_mult": {},
+  "cell_defense_mult": {},
+  "cell_cost_mult": {},
+  "organ_cost_mult": {},
+  "meter_rate_mult": {},
+  "unlock_flags": {},
+  "pathogen_growth_mult": {},
+  "reward_mult": {},
+  "event_weight_mult": {}
+}
+
+Rebuild triggers:
+- game load
+- tech purchase
+- prestige
+- doctrine change
+- meta upgrade purchase
+- vaccine applied
+
+Example:
+
+func rebuild_modifiers() -> void:
+    var mods := create_default_modifiers()
+
+    for tech_id in GameState.techs.keys():
+        if GameState.techs[tech_id]:
+            apply_effects(mods, Definitions.techs[tech_id].effects)
+
+    for vaccine_id in GameState.vaccines.keys():
+        if GameState.vaccines[vaccine_id].active:
+            apply_effects(mods, Definitions.vaccines[vaccine_id].effects)
+
+    apply_meta_upgrade_effects(mods)
+    apply_host_effects(mods)
+    apply_doctrine_effects(mods)
+
+    GameState.derived.modifiers = mods
+
+Effect types for MVP:
+
+- add_resource_rate
+- mult_resource_rate
+- mult_cell_defense
+- mult_cell_type_defense
+- reduce_cell_cost
+- reduce_organ_cost
+- unlock_cell
+- unlock_organ
+- unlock_tech
+- set_meter_rate
+- mult_meter_rate
+- mult_pathogen_growth
+- mult_reward
+- add_event_weight
+- flag
+
+Example effect:
+
+{
+  "type": "mult_cell_defense",
+  "target": "macrophage",
+  "against": "bacteria",
+  "value": 0.20
+}
+
+---
+
+# 13. EventManager
+
+EventManager handles:
+- host events
+- sector events
+- scheduled outbreaks
+- timed buffs/debuffs
+- daily bonuses
+- offline return summary
+
+Active event structure:
+
+{
+  "uid": 3,
+  "event_id": "meal_protein",
+  "started_at": 123.4,
+  "duration": 0.0,
+  "remaining": 0.0,
+  "effects": [],
+  "source": "random"
+}
+
+Event runner tick:
+
+- decrement remaining timers
+- remove expired events
+- apply ongoing effects to modifiers or meters
+- trigger scheduled events based on cooldowns and weights
+
+Event triggers:
+- timer
+- resource threshold
+- infection cleared
+- tech purchased
+- host action
+- daily login
+- offline return
+- manual player button
+
+For MVP, keep events simple:
+- instant resource bursts
+- temporary multipliers
+- temporary meter changes
+- one pathogen spawn
+
+Do not create complex branching narrative yet.
+
+---
+
+# 14. OfflineSystem
+
+Offline progress is essential for idle games.
+
+On load:
+
+1. Read last_save_time.
+2. Compute offline_seconds = now - last_save_time.
+3. Clamp to cap:
+   - MVP: 8 hours
+   - later: 24 hours
+   - donation/ad could temporarily increase cap
+4. Simulate in coarse steps.
+5. Show summary popup.
+
+Coarse simulation options:
+
+Option A: simple analytic
+- resources += net_rate * offline_seconds
+- infections updated with average defense
+- fast but less accurate
+
+Option B: step simulation
+- run step_simulation(60.0) for each minute
+- cap iterations, e.g. 480 steps for 8 hours
+- more accurate, still cheap
+
+Recommended MVP:
+- use 60-second steps
+- max 480 steps
+- disable expensive UI updates
+- disable random events except scheduled ones
+- process infections and resources
+- consolidate memory based on sleep_quality
+
+Offline summary data:
+
+{
+  "seconds": 14400,
+  "resources_gained": {},
+  "infections_cleared": 3,
+  "infections_started": 2,
+  "antigens_gained": 12,
+  "memory_consolidated": 4,
+  "damage_events": 1
+}
+
+Important:
+If browser tab is hidden but game process still running, do not double-count offline time. Use either:
+- pause logic and rely on real-time delta, or
+- save timestamp on visibility change and compute offline on resume.
+
+For web, safest:
+- on visibility hidden: save timestamp, pause simulation
+- on visibility visible: compute elapsed and run offline simulation
+- also autosave periodically
+
+---
+
+# 15. SaveManager
+
+Save format should be JSON.
+
+File path:
+- res://user://save.json
+
+For web:
+- Godot user:// usually maps to browser storage, but test on itch.io and CrazyGames.
+- Optional fallback to localStorage via JavaScriptBridge.
+- For more reliability, IndexedDB can be used through JS bridge.
+
+Save data structure:
+
+{
+  "version": 1,
+  "timestamp": 1730000000,
+  "run": {
+    "host_id": "host_default",
+    "doctrine_id": "doctrine_swarm",
+    "resources": {},
+    "organs": {},
+    "cells": {},
+    "techs": {},
+    "active_infections": [],
+    "completed_infections": {},
+    "codex": {},
+    "vaccines": {},
+    "meters": {},
+    "stats": {},
+    "total_antigens_this_run": 0
+  },
+  "meta": {
+    "immune_memory": 0,
+    "codex_insight": 0,
+    "permanent_upgrades": {},
+    "unlocked_hosts": {},
+    "unlocked_doctrines": {},
+    "persistent_vaccines": {},
+    "achievements": {},
+    "total_antigens_all_runs": 0,
+    "prestige_count": 0
+  },
+  "settings": {
+    "master_volume": 1.0,
+    "music_volume": 0.7,
+    "sfx_volume": 1.0,
+    "visual_quality": "medium",
+    "number_format": "short"
+  }
+}
+
+SaveManager functions:
+
+func save_game() -> void
+func load_game() -> bool
+func delete_save() -> void
+func export_save_text() -> String
+func import_save_text(text: String) -> bool
+func migrate_save(data: Dictionary) -> Dictionary
+
+Autosave:
+- every 30 seconds
+- on visibility hidden
+- on tree NOTIFICATION_WM_CLOSE_REQUEST
+- after prestige
+- after purchase if wanted
+- before showing rewarded ad
+
+Migration:
+if data.version < SAVE_VERSION:
+    apply migrations sequentially
+Never break old saves silently. Add default values for missing fields.
+
+Example safe loading:
+
+func normalize_loaded_state(data: Dictionary) -> void:
+    for res_id in Definitions.resources.keys():
+        if not GameState.resources.has(res_id):
+            GameState.resources[res_id] = 0.0
+    for meter_id in default_meters.keys():
+        if not GameState.meters.has(meter_id):
+            GameState.meters[meter_id] = default_meters[meter_id]
+
+---
+
+# 16. PlatformBridge
+
+PlatformBridge isolates web/platform-specific code.
+
+For MVP, it can be a stub.
+
+Functions:
+
+func is_web() -> bool
+func pause_for_background() -> void
+func resume_from_background() -> void
+func show_rewarded_ad(id: String, callback: Callable) -> void
+func report_gameplay_start() -> void
+func report_gameplay_stop() -> void
+func get_local_storage_item(key: String) -> String
+func set_local_storage_item(key: String, value: String) -> void
+
+CrazyGames SDK:
+- optional
+- integrate after core game works
+- use rewarded ads only
+- call gameplay_start on first meaningful interaction
+- call gameplay_stop on blur/pause
+
+itch.io:
+- usually no SDK required
+- ensure iframe resizing works
+- provide fullscreen button optional
+- avoid relying on top-window APIs
+
+Web visibility:
+
+get_tree().get_root().get_window().connect("size_changed", ...)
+Use JavaScript bridge or Godot 4 window events if available.
+
+Safe pattern:
+
+func _notification(what: int) -> void:
+    if what == NOTIFICATION_WM_CLOSE_REQUEST:
+        SaveManager.save_game()
+
+For web, close request may not fire reliably. Therefore autosave and visibility save are critical.
+
+---
+
+# 17. UI Architecture
+
+Main screen layout for web:
+
+- Top bar: resources, income/sec, ATP balance, inflammation, threat level
+- Center: BodyView with organs and infection markers
+- Left or bottom tabs: Organs, Cells, Techs
+- Right or modal tabs: Threats, Codex, Prestige, Settings
+- Bottom log: short journal messages
+
+Use TabContainer or custom sidebar. For small browser windows, make panels collapsible.
+
+UI update policy:
+- do not update every frame
+- listen to SignalBus.state_tick at 5 Hz
+- update numbers with formatted strings
+- only rebuild lists when unlocked items change
+
+ResourceBar.gd:
+- shows each unlocked resource
+- icon + amount + rate
+- tooltip with description and sources/sinks
+- color-coded positive/negative rate
+
+OrganPanel.gd:
+- list organs
+- show level, cost, output, consumption
+- buy button disabled if cannot afford
+- highlight bottleneck organs
+
+CellPanel.gd:
+- list trainable cells
+- show cost, defense profile, upkeep, inflammation
+- show current count and contribution
+- “Train x1 / x10 / max” buttons
+
+TechPanel.gd:
+- cluster tabs or grid
+- locked/available/purchased states
+- show requirements clearly
+- avoid overwhelming player: only show techs whose prerequisites are visible or nearly met
+
+ThreatPanel.gd:
+- active infections
+- load bars
+- type, sector, estimated time to clear or worsen
+- recommended defense hints
+
+CodexPanel.gd:
+- discovered pathogens
+- memory level
+- rewards
+- lore short text
+- vaccine availability
+
+PrestigePanel.gd:
+- current immune memory gain preview
+- what resets/persists
+- permanent upgrades shop
+- host selection if unlocked
+
+SettingsDialog.gd:
+- volume
+- visual quality
+- number format
+- save/export/import
+- reset confirmation
+- credits / AI art disclosure if needed
+
+---
+
+# 18. Number Formatting
+
+Incremental games need readable large numbers.
+
+utils/NumberFormat.gd:
+
+static func format(value: float, decimals: int = 1) -> String:
+    var abs_value := abs(value)
+    if abs_value < 1000.0:
+        return String.num(value, decimals)
+    var suffixes := ["K", "M", "B", "T", "Qa", "Qi", "Sx", "Sp", "Oc", "No", "Dc"]
+    var tier := int(floor(log(abs_value) / log(1000.0)))
+    tier = clamp(tier, 1, suffixes.size())
+    var scaled := value / pow(1000.0, tier)
+    return String.num(scaled, decimals) + suffixes[tier - 1]
+
+For very late game, consider scientific notation or custom suffix table.
+
+UI should show:
+- current amount
+- net rate per second
+- deficit warnings
+- “can afford” highlighting
+
+---
+
+# 19. BodyView and Visual Feedback
+
+BodyView is not a full anatomical simulator. It is a readable abstract map.
+
+Recommended MVP:
+- one background image
+- 5–8 organ nodes
+- infection markers as pulsing circles
+- cell visuals as a small pooled set
+
+Do not create one node per cell count.
+
+CellVisualPool.gd:
+- pre-create 20–50 Sprite2D or TextureRect
+- assign visuals based on dominant cell types
+- animate simple wandering using sin/cos or Tween
+- if cell count is huge, show badge “x1.2K” instead of individual sprites
+
+InfectionMarker:
+- ColorRect or TextureRect with shader pulse
+- size/opacity based on load / threshold
+- color by pathogen type:
+  - bacteria: green
+  - viruses: magenta/purple
+  - fungi: orange
+  - parasites: red-brown
+  - toxins: acid yellow
+  - altered self: pale white/red
+  - autoimmune: cracked red
+
+OrganNode:
+- Button or Area2D
+- icon
+- level badge
+- warning icon if infection/symptom
+- click opens detail panel
+
+Performance:
+- use CPUParticles2D for web compatibility
+- avoid heavy GPU shaders on low-end browsers
+- limit particles when visual_quality = low
+- pause visuals when tab hidden
+
+---
+
+# 20. Audio Architecture
+
+AudioManager autoload:
+- MusicStreamPlayer
+- SFX pool: 8–12 AudioStreamPlayers
+- bus layout: Master, Music, SFX, UI
+
+Suggested sounds:
+- soft pulse for resource tick
+- bubble/pop for cell trained
+- alarm for outbreak
+- clean chime for infection cleared
+- low rumble for inflammation high
+- warm tone for sleep/offline return
+- glitch/tear for autoimmune flare
+
+Music:
+- ambient biomedical loops
+- intensity layer increases with outbreak severity
+- keep CPU load low
+
+For web:
+- audio may require user gesture before playing
+- start music after first click
+- provide mute settings
+
+---
+
+# 21. Effects and Modifier Cache
+
+A central modifier cache prevents spaghetti.
+
+GameState.derived.modifiers default:
+
+{
+  "resource_rate_mult": {},
+  "cell_defense_mult": {},
+  "cell_cost_mult": {},
+  "organ_cost_mult": {},
+  "meter_rate_mult": {},
+  "pathogen_growth_mult": {},
+  "pathogen_resistance_mult": {},
+  "reward_mult": {},
+  "unlock_flags": {},
+  "event_weight_mult": {},
+  "global_income_mult": 1.0
+}
+
+When systems need a value:
+
+func get_cell_defense_mult(cell_id: String, against: String) -> float:
+    var mods := GameState.derived.modifiers
+    var base := 1.0
+    base *= mods.global_income_mult
+    base *= mods.cell_defense_mult.get(cell_id, {}).get(against, 1.0)
+    base *= mods.cell_defense_mult.get(cell_id, {}).get("all", 1.0)
+    return base
+
+This makes tech effects data-driven and easy to balance.
+
+---
+
+# 22. PrestigeSystem
+
+Prestige should be a clean reset with explicit persistence.
+
+Available when:
+- total_antigens_this_run >= threshold
+- or cleared required outbreaks
+- or reached organ/tech milestone
+
+Preview memory gain:
+
+func calculate_memory_gain() -> float:
+    var base := floor(GameState.total_antigens_this_run / 50.0)
+    var codex_bonus := 1.0 + min(0.5, GameState.codex.size() * 0.02)
+    var diversity_bonus := 1.0 + min(0.25, get_unique_pathogen_families_cleared() * 0.05)
+    return floor(base * codex_bonus * diversity_bonus)
+
+Perform prestige:
+
+1. Save meta values.
+2. Add immune_memory.
+3. Unlock hosts/doctrines if thresholds met.
+4. Persist codex and vaccines if allowed.
+5. Reset run state.
+6. Apply meta starting bonuses.
+7. Rebuild modifiers.
+8. Emit prestige_completed.
+9. Save immediately.
+
+Do not reset:
+- settings
+- achievements
+- codex
+- meta currency
+- permanent upgrades
+- unlocked content
+
+---
+
+# 23. AchievementSystem
+
+Achievements should be checked periodically, not every frame.
+
+Tick at 1 Hz or on relevant signals.
+
+Examples:
+- first_neutrophil on cell_trained
+- first_outbreak_cleared on infection_cleared
+- first_virus when pathogen.type == virus cleared
+- tolerance_sager when run ends with zero autoimmune flares
+- balanced_empire when unique active cell categories >= 5
+
+Achievement rewards:
+- small permanent bonus
+- cosmetic
+- journal lore
+- title
+- discount on related purchase
+
+Avoid rewards that break balance too hard.
+
+---
+
+# 24. Web Export Settings
+
+For Godot 4 web export:
+
+- Use Release template.
+- Disable debug collision/paths in final build.
+- Keep export single executable? For web, use HTML5 export.
+- Enable “Variant” with release only.
+- Do not include unused plugins.
+- Compress textures.
+- Prefer SVG or small PNG icons.
+- Use .ogg or .mp3 carefully; web support varies. OGG/Vorbis is usually okay, but test.
+- Keep total build size modest, ideally under 30–60 MB for web, lower is better.
+- For Godot 4, WebAssembly can be large. Use export options to strip unused classes if available.
+- Test in Chrome/Firefox/Edge and mobile browser.
+
+Project Settings suggestions:
+- Rendering > Textures > Default Texture Filter: Canvas Items or Nearest for pixel-ish style
+- Rendering > 2D > Snap Controls to Pixels: optional
+- Application > Run > Low Processor Mode: can enable, but ensure idle logic still runs
+- Engine > Max FPS: 60 or 30 for web
+- Audio > Driver: depending on compatibility, default usually fine
+
+For low-end web:
+- visual_quality setting:
+  - low: no particles, fewer animations, 30 fps
+  - medium: limited particles
+  - high: full effects
+
+---
+
+# 25. iframe and Storage Testing
+
+Must test:
+- itch.io embedded page
+- CrazyGames embedded page
+- direct HTML5 export in browser
+- mobile browser iframe
+- private mode / blocked storage
+
+Potential issues:
+- localStorage blocked in third-party iframe
+- IndexedDB quota or availability
+- audio autoplay blocked
+- fullscreen not allowed
+- clipboard API restricted
+
+Mitigations:
+- use Godot user:// first
+- fallback to PlatformBridge localStorage
+- gracefully degrade if save storage unavailable: warn player, keep session in memory
+- require first click before audio
+- do not depend on fullscreen
+- do not depend on clipboard except optional export/import save
+
+---
+
+# 26. Save Export / Import
+
+Useful for web players who fear losing progress.
+
+Settings menu:
+- Export Save: copies JSON text to clipboard or downloads file
+- Import Save: paste JSON text
+- Delete Save: double confirmation
+
+For web download:
+- can use JavaScript bridge to create blob download
+- optional for MVP
+
+Import validation:
+- parse JSON
+- check version
+- sanitize ids
+- clamp values
+- reject unknown structures safely
+- do not execute code from save
+
+---
+
+# 27. Testing Checklist
+
+Core loop:
+- New game starts with correct resources.
+- Buying organ increases level and cost.
+- Resources accumulate correctly.
+- ATP consumption works.
+- Stem cell bottleneck works.
+- Training cell costs resources and increases count.
+- Cell upkeep reduces ATP efficiency when deficient.
+- Infection spawns and load changes correctly.
+- Defense clears infection when high enough.
+- Reward granted on clear.
+- Codex entry created.
+- Tech purchase applies effect.
+- Prestige resets run and preserves meta.
+- Offline simulation produces reasonable summary.
+- Save/load preserves all state.
+- Settings persist.
+
+Web:
+- No console errors on load.
+- First click enables audio.
+- Tab hidden then resumed does not duplicate time.
+- Autosave happens.
+- Save works in iframe.
+- Resize layout remains usable.
+- Touch targets are large enough.
+- Performance stays acceptable on low-end device.
+
+Balance:
+- First neutrophil affordable within 1–2 minutes.
+- First outbreak threatening but beatable.
+- First virus forces NK/adaptive thought within 5–10 minutes.
+- First prestige reachable in 20–40 minutes.
+- No resource becomes useless.
+- No single cell type dominates forever.
+- Inflammation has clear pros and cons.
+- Tolerance prevents disaster without feeling mandatory punishment.
+
+---
+
+# 28. Development Milestones
+
+## Milestone 1: Printable Prototype
+
+Goal: prove core numbers are fun without art.
+
+Implement:
+- Definitions loader
+- GameState
+- Simulation fixed step
+- ResourceBar with text only
+- gut_villi, mitochondrial_network, bone_marrow
+- neutrophil, macrophage
+- swarm_coccus
+- infection bar text
+- save/load JSON
+
+Acceptance:
+- player can grow resources, train cells, clear one infection, save and reload.
+
+## Milestone 2: Vertical Slice
+
+Add:
+- virus pathogen
+- nk_cell
+- dendritic_cell
+- antigens
+- lymph_node
+- 5–10 techs
+- inflammation meter
+- simple BodyView with organ buttons
+- journal log
+- offline summary
+
+Acceptance:
+- 10–15 minutes of meaningful progression.
+- player understands specialization.
+
+## Milestone 3: Prestige Loop
+
+Add:
+- immune memory
+- New Host reset
+- 5 permanent upgrades
+- codex panel
+- basic achievements
+- settings
+- audio placeholders
+
+Acceptance:
+- player wants to reset and try another path.
+
+## Milestone 4: Web Polish
+
+Add:
+- AI icons/cards
+- visual pool
+- particles
+- responsive UI
+- itch.io/CrazyGames export tests
+- save export/import
+- number formatting
+- performance options
+
+Acceptance:
+- stable web build ready for public alpha.
+
+## Milestone 5: Alpha Content
+
+Add:
+- barriers
+- microbiome
+- B/T cells
+- more pathogens
+- events
+- vaccines
+- host archetypes
+
+Acceptance:
+- multiple viable builds.
+
+---
+
+# 29. Suggested Minimal Script Skeletons
+
+## Simulation.tscn node structure
+
+Simulation (Node)
+  ProductionSystem (Node)
+  DefenseSystem (Node)
+  InfectionSystem (Node)
+  StatusSystem (Node)
+  EventRunner (Node)
+  AchievementSystem (Node)
+
+Each system extends Node and has:
+
+func tick(dt: float) -> void:
+    pass
+
+DefenseSystem may have:
+
+func recompute() -> void:
+    pass
+
+Call recompute before infection tick.
+
+## Main.tscn
+
+Main (Control)
+  MarginContainer
+    VBoxContainer
+      ResourceBar (instance)
+      HBoxContainer
+        BodyView (instance)
+        SideTabs (TabContainer)
+          Organs (instance)
+          Cells (instance)
+          Techs (instance)
+          Threats (instance)
+          Codex (instance)
+          Prestige (instance)
+      JournalLog (RichTextLabel)
+  Simulation (instance)
+  CanvasLayer
+    ToastLayer
+    PopupLayer
+
+## OrganPanel item pattern
+
+For each organ definition:
+- create row scene dynamically or use ItemList/Tree
+- row contains:
+  - Icon
+  - Name
+  - Level
+  - Output summary
+  - Cost summary
+  - Buy button
+
+Do not rebuild entire list every UI tick. Update labels only.
+
+---
+
+# 30. Common Pitfalls
+
+Pitfall 1: Hardcoding content in scenes.
+Fix: all ids come from JSON.
+
+Pitfall 2: UI driving simulation.
+Fix: simulation runs independently; UI is read-only.
+
+Pitfall 3: Creating a node per cell.
+Fix: logic uses counts, visuals use pool.
+
+Pitfall 4: Saving derived values.
+Fix: save base state only, rebuild derived on load.
+
+Pitfall 5: No save version.
+Fix: always include version and migration.
+
+Pitfall 6: Offline double-counting.
+Fix: pause on hidden, save timestamp, simulate once on resume.
+
+Pitfall 7: Too many resources at start.
+Fix: unlock resources gradually with organs and pathogens.
+
+Pitfall 8: Inflammation only negative.
+Fix: make it a powerful but risky multiplier.
+
+Pitfall 9: Adaptive immunity too complex early.
+Fix: show dendritic/lymph node only after first antigen need.
+
+Pitfall 10: Web build too heavy.
+Fix: small assets, release export, limited particles, optional quality settings.
+
+---
+
+# 31. Recommended MVP Scope in Code
+
+For first technical prototype, implement only:
+
+Resources:
+- amino_acids
+- glucose
+- atp
+- stem_cells
+- antigens
+
+Organs:
+- gut_villi
+- mitochondrial_network
+- bone_marrow
+
+Cells:
+- neutrophil
+- macrophage
+- nk_cell
+- dendritic_cell
+
+Pathogens:
+- swarm_coccus
+- shell_variant
+
+Techs:
+- chemotaxis_1
+- oxidative_burst_1
+- granulopoiesis_1
+- glycolytic_flux
+- antigen_presentation_1
+- interferon_pathway
+
+Systems:
+- ProductionSystem
+- DefenseSystem
+- InfectionSystem
+- StatusSystem only inflammation
+- SaveManager
+- OfflineSystem simple
+- PrestigeSystem minimal
+
+UI:
+- ResourceBar
+- OrganPanel
+- CellPanel
+- TechPanel
+- ThreatPanel
+- JournalLog
+
+This is enough to validate the idea before making 100+ content entries.
+
+---
+
+# 32. Final Architecture Summary
+
+Use this stack:
+
+- Godot 4
+- JSON data definitions
+- Autoload singletons for state and services
+- Fixed-step simulation
+- Derived modifier cache
+- UI throttled updates
+- Object-pooled visuals
+- Versioned JSON saves
+- Offline coarse simulation
+- PlatformBridge for web/SDK stubs
+- Data-driven effects for techs, vaccines, hosts, meta upgrades
+
+The most important technical decision:
+Keep the game as a simulation of numbers and states first, visuals second.
+
+If the core loop is fun with colored rectangles and text, it will become much better after adding Qwen-generated icons, particles, sound and polish.

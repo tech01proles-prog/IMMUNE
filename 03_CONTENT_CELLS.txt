@@ -1,0 +1,1530 @@
+# Immune Empire: Internal Front — Content Tables Part 2
+# Immune Cells / Defenders
+
+## Legend / Уровни контента
+
+T0 = Tutorial: первые 1–3 минуты.
+T1 = MVP: первые 15–30 минут, полный базовый цикл и первый престиж.
+T2 = Alpha: 1–3 часа, углубление веток, воспаление, память, барьеры.
+T3 = Beta: несколько дней, разные хозяева, вакцины, специализированные войны.
+T4 = Endgame / Live: долгая игра, синтетический иммунитет, фаги, нейро-контроль, редкие угрозы.
+
+---
+
+## General Rules
+
+### Defense profile
+
+Каждая клетка имеет базовую эффективность против типов угроз:
+
+- bacteria
+- viruses
+- fungi
+- parasites
+- toxins
+- altered_self
+
+Значения — это базовая защита одной клетки до глобальных множителей.
+
+Пример:
+
+defense = {
+  bacteria: 2.0,
+  viruses: 0.3,
+  fungi: 0.8,
+  parasites: 0.1,
+  toxins: 0.2,
+  altered_self: 0.4
+}
+
+### Total defense formula
+
+total_defense_vs_pathogen =
+  sum(unit_count * unit_defense[pathogen_type])
+  * global_multipliers
+  * atp_efficiency
+  * inflammation_multiplier
+  * memory_multiplier
+  * diversity_multiplier
+  * tech_multipliers
+  * host_multipliers
+
+### Cost growth
+
+Для большинства клеток:
+
+unit_cost(n) = base_cost * cost_growth^n
+
+Рекомендуемые значения:
+
+- T0/T1 массовые клетки: 1.12–1.15
+- T1/T2 спецклетки: 1.15–1.18
+- T2/T3 адаптивные и регуляторные: 1.16–1.20
+- T3/T4 эндгейм-варианты: 1.20–1.28
+
+### Upkeep
+
+upkeep — потребление АТФ в секунду одной клеткой.
+
+Если АТФ не хватает, клетки не исчезают сразу, но их эффективность падает.
+
+Пример:
+
+efficiency = clamp(current_atp_income / required_atp, 0.25, 1.0)
+
+### Inflammation
+
+inflammation_per_second — сколько воспаления добавляет одна клетка в секунду.
+
+Отрицательные значения означают, что клетка помогает гасить воспаление.
+
+---
+
+# 1. Innate Immune Cells
+
+## 1.1. neutrophil / Нейтрофил
+
+Tier: T0  
+Category: innate, mass responder  
+Role: fast early defense against bacteria and fungi  
+Base cost:
+- 1 stem_cells
+- 10 amino_acids
+- 5 glucose
+- 5 atp
+Cost growth: 1.12  
+Defense:
+- bacteria: 1.0
+- viruses: 0.1
+- fungi: 0.2
+- parasites: 0.05
+- toxins: 0.0
+- altered_self: 0.1
+Upkeep:
+- atp: 0.005/s
+Inflammation:
+- +0.02/s per unit
+Unlock:
+- start
+Notes:
+- Первая массовая защитная клетка.
+- Дешёвая, быстрая, но короткоживущая по лору.
+- Плохо работает против вирусов, прячущихся внутри клеток.
+- Сильно повышает воспаление.
+- Хорош против обычных бактерий и ранних грибковых угроз.
+
+---
+
+## 1.2. monocyte / Моноцит
+
+Tier: T1  
+Category: innate, precursor  
+Role: flexible early cell, can support macrophage/dendritic paths  
+Base cost:
+- 1 stem_cells
+- 15 amino_acids
+- 5 lipids
+- 8 atp
+Cost growth: 1.12  
+Defense:
+- bacteria: 0.6
+- viruses: 0.3
+- fungi: 0.4
+- parasites: 0.1
+- toxins: 0.1
+- altered_self: 0.2
+Upkeep:
+- atp: 0.006/s
+Inflammation:
+- +0.012/s per unit
+Unlock:
+- bone_marrow
+Notes:
+- Переходная клетка между нейтрофилом и более специализированными фагоцитами.
+- Может использоваться как дешёвый резерв.
+- В позднем геймплее может быть конвертирован в макрофага или дендритную клетку через технологии.
+
+---
+
+## 1.3. macrophage / Макрофаг
+
+Tier: T1  
+Category: innate, eater, presenter  
+Role: strong bacterial cleanup and antigen generation  
+Base cost:
+- 2 stem_cells
+- 25 amino_acids
+- 10 lipids
+- 5 micronutrients
+- 10 atp
+Cost growth: 1.14  
+Defense:
+- bacteria: 2.0
+- viruses: 0.3
+- fungi: 0.8
+- parasites: 0.1
+- toxins: 0.2
+- altered_self: 0.4
+Upkeep:
+- atp: 0.01/s
+Inflammation:
+- +0.01/s per unit
+Special effects:
+- +5% antigens from cleared outbreaks per 10 macrophages, capped or scaled by tech
+Unlock:
+- monocyte or liver
+Notes:
+- Ключевая клетка врождённого иммунитета.
+- Хорошо поедает бактерии и обломки клеток.
+- Даёт антигены, поэтому важен для перехода к адаптивному иммунитету.
+- Дороже нейтрофила, но эффективнее.
+
+---
+
+## 1.4. dendritic_cell / Дендритная клетка
+
+Tier: T1  
+Category: innate, scout, teacher  
+Role: antigen collection and adaptive unlocking  
+Base cost:
+- 3 stem_cells
+- 40 amino_acids
+- 20 lipids
+- 25 atp
+Cost growth: 1.16  
+Defense:
+- bacteria: 0.3
+- viruses: 0.5
+- fungi: 0.2
+- parasites: 0.1
+- toxins: 0.1
+- altered_self: 0.2
+Upkeep:
+- atp: 0.012/s
+Inflammation:
+- +0.005/s per unit
+Special effects:
+- +25% antigen gain
+- unlocks or accelerates B/T-cell training
+Unlock:
+- macrophage or lymph_node prerequisite
+Notes:
+- Не главный боец, но критичный прогрессивный юнит.
+- Переносит информацию о враге в лимфоузлы.
+- Без дендритных клеток адаптивная ветка развивается медленно.
+- Хорош для билда Adaptive Archivist.
+
+---
+
+## 1.5. nk_cell / NK-клетка, Natural Killer
+
+Tier: T1  
+Category: innate, antiviral, surveillance  
+Role: early defense against viruses and altered self  
+Base cost:
+- 2 stem_cells
+- 30 amino_acids
+- 10 micronutrients
+- 20 atp
+Cost growth: 1.15  
+Defense:
+- bacteria: 0.5
+- viruses: 2.0
+- fungi: 0.3
+- parasites: 0.2
+- toxins: 0.1
+- altered_self: 1.5
+Upkeep:
+- atp: 0.012/s
+Inflammation:
+- +0.008/s per unit
+Special effects:
+- works without prior antigen learning
+- effective against intracellular threats
+Unlock:
+- first virus encounter or interferon_pathway
+Notes:
+- Ответ на проблему: вирусы прячутся внутри клеток, и обычные фагоциты слабы.
+- Даёт игроку ранний инструмент против скрытых угроз.
+- Также важен против изменённых собственных клеток, то есть лёгкой версии ракового надзора.
+
+---
+
+## 1.6. eosinophil / Эозинофил
+
+Tier: T2  
+Category: innate, anti-parasite  
+Role: specialized defense against parasites and some fungi  
+Base cost:
+- 3 stem_cells
+- 45 amino_acids
+- 20 lipids
+- 15 micronutrients
+- 25 atp
+Cost growth: 1.16  
+Defense:
+- bacteria: 0.3
+- viruses: 0.2
+- fungi: 0.4
+- parasites: 3.0
+- toxins: 0.1
+- altered_self: 0.2
+Upkeep:
+- atp: 0.015/s
+Inflammation:
+- +0.012/s per unit
+Special effects:
+- allergy risk increase
+- synergizes with mast cells and Th2
+Unlock:
+- parasite encounter or ige_response
+Notes:
+- Узкая, но мощная антипаразитарная клетка.
+- Плохо подходит как универсальная защита.
+- Может усиливать аллергические реакции, если игрок перекачает Th2/IgE ветку.
+
+---
+
+## 1.7. mast_cell / Тучная клетка, мастоцит
+
+Tier: T2  
+Category: innate, barrier alarm  
+Role: rapid local response, parasite defense, histamine effects  
+Base cost:
+- 3 stem_cells
+- 35 amino_acids
+- 30 lipids
+- 20 atp
+Cost growth: 1.17  
+Defense:
+- bacteria: 0.4
+- viruses: 0.3
+- fungi: 0.5
+- parasites: 2.0
+- toxins: 0.3
+- altered_self: 0.2
+Upkeep:
+- atp: 0.014/s
+Inflammation:
+- +0.02/s per unit
+Special effects:
+- increases local response speed
+- can disrupt barrier integrity if overused
+- histamine burst event potential
+Unlock:
+- skin_barrier or mucosal_layer
+Notes:
+- Очень тематичная клетка для барьерной/паразитарной ветки.
+- Даёт мощный локальный ответ, но может ухудшать барьеры.
+- Интересный риск/награда билд.
+
+---
+
+## 1.8. basophil / Базофил
+
+Tier: T3  
+Category: innate, allergic amplifier  
+Role: late innate parasite/allergy specialist  
+Base cost:
+- 4 stem_cells
+- 50 amino_acids
+- 30 lipids
+- 25 micronutrients
+Cost growth: 1.18  
+Defense:
+- bacteria: 0.3
+- viruses: 0.2
+- fungi: 0.3
+- parasites: 2.5
+- toxins: 0.1
+- altered_self: 0.2
+Upkeep:
+- atp: 0.016/s
+Inflammation:
+- +0.015/s per unit
+Special effects:
+- amplifies IgE response
+- increases allergen sensitivity
+Unlock:
+- eosinophil or Th2 branch
+Notes:
+- Нишевая поздняя врождённая клетка.
+- Усиливает антипаразитарный ответ, но делает аллергены опаснее.
+- Хороша для специализированного билда, плоха для универсального.
+
+---
+
+## 1.9. ilc / Врождённая лимфоидная клетка
+
+Tier: T3  
+Category: innate lymphoid, bridge  
+Role: cytokine production and barrier immunity  
+Base cost:
+- 4 stem_cells
+- 60 amino_acids
+- 25 cytokines
+- 30 atp
+Cost growth: 1.18  
+Defense:
+- bacteria: 1.0
+- viruses: 0.8
+- fungi: 1.5
+- parasites: 1.0
+- toxins: 0.2
+- altered_self: 0.5
+Upkeep:
+- atp: 0.018/s
+Inflammation:
+- +0.01/s per unit
+Special effects:
+- +10% cytokine production
+- boosts nearby innate cells
+Unlock:
+- barrier cluster or innate/adaptive bridge tech
+Notes:
+- Мост между врождённым и адаптивным иммунитетом.
+- Не самая сильная боевая клетка, но отличная поддержка.
+- Хорошо вписывается в билды барьеров и слизистой защиты.
+
+---
+
+## 1.10. macrophage_m1 / Макрофаг M1
+
+Tier: T3  
+Category: innate specialization  
+Role: aggressive inflammatory macrophage  
+Base cost:
+- conversion from 1 macrophage
+- 50 amino_acids
+- 20 cytokines
+- 30 atp
+Cost growth: 1.20  
+Defense:
+- bacteria: 3.0
+- viruses: 1.0
+- fungi: 1.2
+- parasites: 0.5
+- toxins: 0.3
+- altered_self: 0.8
+Upkeep:
+- atp: 0.02/s
+Inflammation:
+- +0.025/s per unit
+Special effects:
+- high pathogen clearance
+- increased tissue damage risk
+Unlock:
+- macrophage_polarization
+Notes:
+- Агрессивная версия макрофага.
+- Сильно бьёт по бактериям и грибкам.
+- Повышает риск повреждения тканей и аутоиммунных всплесков.
+- Хорош для Swarm Sovereign и ранних боссов-бактерий.
+
+---
+
+## 1.11. macrophage_m2 / Макрофаг M2
+
+Tier: T3  
+Category: innate specialization  
+Role: repair and resolution macrophage  
+Base cost:
+- conversion from 1 macrophage
+- 40 amino_acids
+- 30 lipids
+- 20 atp
+Cost growth: 1.20  
+Defense:
+- bacteria: 1.0
+- viruses: 0.5
+- fungi: 0.8
+- parasites: 0.3
+- toxins: 0.4
+- altered_self: 0.3
+Upkeep:
+- atp: 0.015/s
+Inflammation:
+- -0.01/s per unit
+Special effects:
+- tissue repair
+- reduces scar_tissue accumulation
+- improves tolerance slightly
+Unlock:
+- macrophage_polarization or resolution_mediators
+Notes:
+- Восстановительная версия макрофага.
+- Слабее M1 в бою, но критична для долгосрочной стабильности.
+- Отлично подходит для Tolerance Diplomat и поздних хронических инфекций.
+
+---
+
+## 1.12. neutrophil_n1 / Нейтрофил N1
+
+Tier: T4  
+Category: engineered innate  
+Role: pro-inflammatory engineered neutrophil  
+Base cost:
+- conversion from 1 neutrophil
+- 100 amino_acids
+- 50 chimeric_receptors
+- 80 atp
+Cost growth: 1.22  
+Defense:
+- bacteria: 4.0
+- viruses: 0.5
+- fungi: 1.0
+- parasites: 0.2
+- toxins: 0.2
+- altered_self: 1.0
+Upkeep:
+- atp: 0.03/s
+Inflammation:
+- +0.035/s per unit
+Special effects:
+- extreme bacterial clearance
+- high tissue damage risk
+Unlock:
+- synthetic immunity lab or armored_neutrophil tech
+Notes:
+- Эндгейм-версия нейтрофила для агрессивного билда.
+- Очень силён против бактерий, но опасен для хозяина.
+- Требует регуляции, иначе вызывает цитокиновые проблемы.
+
+---
+
+## 1.13. neutrophil_n2 / Нейтрофил N2
+
+Tier: T4  
+Category: engineered innate  
+Role: regulatory engineered neutrophil  
+Base cost:
+- conversion from 1 neutrophil
+- 80 amino_acids
+- 40 chimeric_receptors
+- 60 atp
+Cost growth: 1.22  
+Defense:
+- bacteria: 2.0
+- viruses: 0.3
+- fungi: 0.8
+- parasites: 0.1
+- toxins: 0.3
+- altered_self: 0.8
+Upkeep:
+- atp: 0.022/s
+Inflammation:
+- -0.008/s per unit
+Special effects:
+- lower damage to self
+- helps resolve inflammation
+Unlock:
+- synthetic immunity lab or neutrophil variant tech
+Notes:
+- Более безопасная инженерная версия нейтрофила.
+- Жертвует пиковым уроном ради стабильности.
+- Хорош для поздней игры, где важно не сожрать собственный организм.
+
+---
+
+# 2. Adaptive Immune Cells
+
+## 2.1. b_cell / B-клетка
+
+Tier: T1/T2  
+Category: adaptive, humoral  
+Role: antibody production against known threats  
+Base cost:
+- 4 stem_cells
+- 50 amino_acids
+- 20 lipids
+- 30 atp
+- 10 antigens
+Cost growth: 1.15  
+Defense:
+- bacteria: 1.5
+- viruses: 1.5
+- fungi: 0.8
+- parasites: 0.5
+- toxins: 1.0
+- altered_self: 0.5
+Upkeep:
+- atp: 0.015/s
+Inflammation:
+- +0.004/s per unit
+Special effects:
+- requires antigen exposure for full efficiency
+- produces antibodies if lymph_node or plasma path unlocked
+- much stronger against already studied pathogens
+Unlock:
+- dendritic_cell and lymph_node
+Notes:
+- Первая крупная адаптивная клетка.
+- Слаба против совершенно неизвестных врагов, но сильна против изученных.
+- Основа билда Adaptive Archivist.
+
+---
+
+## 2.2. plasma_cell / Плазматическая клетка
+
+Tier: T2  
+Category: adaptive, antibody factory  
+Role: mass antibody production  
+Base cost:
+- conversion from 1 b_cell
+- 100 amino_acids
+- 50 nucleotides
+- 40 atp
+Cost growth: 1.20  
+Defense:
+- bacteria: 2.0
+- viruses: 2.0
+- fungi: 1.0
+- parasites: 0.8
+- toxins: 2.0
+- altered_self: 0.5
+Upkeep:
+- atp: 0.02/s
+Inflammation:
+- +0.003/s per unit
+Special effects:
+- produces antibodies passively
+- antibodies can be stockpiled
+- neutralizes toxins if anti_toxin_antibodies unlocked
+Unlock:
+- b_cell and antibody_neutralization
+Notes:
+- Фабрика антител.
+- Не столько боец, сколько производитель ресурса antibodies.
+- Критична против токсинов и повторяющихся вирусных угроз.
+
+---
+
+## 2.3. memory_b / Клетка памяти B
+
+Tier: T2  
+Category: adaptive, memory  
+Role: long-term humoral memory  
+Base cost:
+- conversion from 1 b_cell
+- 80 antigens
+- 50 nucleotides
+- 30 atp
+Cost growth: 1.25  
+Defense:
+- known bacteria: +50%
+- known viruses: +50%
+- known fungi: +30%
+- known toxins: +40%
+Upkeep:
+- atp: 0.004/s
+Inflammation:
+- 0/s
+Special effects:
+- faster response to previously defeated pathogens
+- can persist through major outbreak cycles
+- some variants persist after prestige via tech
+Unlock:
+- vaccine_slot_1 or affinity_maturation
+Notes:
+- Коллекционный и мета-прогрессивный юнит.
+- Делает повторные встречи с врагами легче.
+- Хорошо синергирует с вакцинами и кодексом патогенов.
+
+---
+
+## 2.4. helper_t / T-хелпер
+
+Tier: T2  
+Category: adaptive, coordinator  
+Role: boosts other immune cells  
+Base cost:
+- 5 stem_cells
+- 60 amino_acids
+- 25 micronutrients
+- 40 atp
+- 20 antigens
+Cost growth: 1.16  
+Defense:
+- bacteria: 0.8
+- viruses: 1.0
+- fungi: 0.8
+- parasites: 0.5
+- toxins: 0.5
+- altered_self: 0.8
+Upkeep:
+- atp: 0.02/s
+Inflammation:
+- +0.008/s per unit
+Special effects:
+- +15% defense to nearby or selected immune cells
+- enables Th1/Th2/Th17/Tfh specializations
+- produces cytokines
+Unlock:
+- thymus
+Notes:
+- Поддерживающая клетка.
+- Сама не самый сильный боец, но усиливает всю армию.
+- Ключевая для глубокой адаптивной ветки.
+
+---
+
+## 2.5. cytotoxic_t / Цитотоксический T-киллер
+
+Tier: T2  
+Category: adaptive, cellular killer  
+Role: destroys virus-infected and altered cells  
+Base cost:
+- 5 stem_cells
+- 70 amino_acids
+- 20 micronutrients
+- 50 atp
+- 25 antigens
+Cost growth: 1.17  
+Defense:
+- bacteria: 0.5
+- viruses: 4.0
+- fungi: 0.5
+- parasites: 1.0
+- toxins: 0.2
+- altered_self: 2.5
+Upkeep:
+- atp: 0.022/s
+Inflammation:
+- +0.01/s per unit
+Special effects:
+- highly effective against intracellular threats
+- requires antigen presentation for maximum efficiency
+Unlock:
+- antigen_presentation_1 or thymus
+Notes:
+- Ответ на вирусы и изменённые клетки.
+- Точечный уничтожитель.
+- Без дендритных клеток и лимфоузлов развивается медленно.
+
+---
+
+## 2.6. memory_t / Клетка памяти T
+
+Tier: T2  
+Category: adaptive, memory  
+Role: faster cellular recall  
+Base cost:
+- conversion from 1 cytotoxic_t or helper_t
+- 100 antigens
+- 60 nucleotides
+- 40 atp
+Cost growth: 1.25  
+Defense:
+- known viruses: +75%
+- known altered_self: +60%
+- intracellular bacteria: +40%
+Upkeep:
+- atp: 0.005/s
+Inflammation:
+- 0/s
+Special effects:
+- faster CTL activation
+- improves latent virus suppression
+- can reduce reactivation of old pathogens
+Unlock:
+- antiviral_memory or memory_consolidation
+Notes:
+- Критична против латентных вирусов и повторяющихся угроз.
+- Даёт ощущение, что организм действительно учится.
+
+---
+
+## 2.7. treg / Регуляторная T-клетка
+
+Tier: T2  
+Category: adaptive, regulation  
+Role: suppresses overreaction and autoimmunity  
+Base cost:
+- 6 stem_cells
+- 80 amino_acids
+- 30 lipids
+- 40 atp
+- 15 antigens
+Cost growth: 1.18  
+Defense:
+- bacteria: 0.2
+- viruses: 0.2
+- fungi: 0.2
+- parasites: 0.2
+- toxins: 0.5
+- altered_self: 0.5
+Upkeep:
+- atp: 0.018/s
+Inflammation:
+- -0.02/s per unit
+Special effects:
+- +tolerance
+- reduces autoimmune flare chance
+- reduces inflammation damage
+- may slightly reduce peak aggression
+Unlock:
+- treg_induction or tolerance_checkpoint
+Notes:
+- Одна из самых важных клеток для баланса.
+- Не даёт игроку просто бесконечно качать агрессию.
+- Обязательна для поздних стадий, где воспаление и аутоиммунность становятся проблемой.
+
+---
+
+## 2.8. th1 / Th1-хелпер
+
+Tier: T3  
+Category: adaptive specialization  
+Role: intracellular pathogen coordination  
+Base cost:
+- conversion from 1 helper_t
+- 100 cytokines
+- 50 antigens
+- 60 atp
+Cost growth: 1.20  
+Defense:
+- bacteria: 1.5
+- viruses: 2.0
+- fungi: 1.0
+- parasites: 0.5
+- toxins: 0.5
+- altered_self: 1.5
+Upkeep:
+- atp: 0.025/s
+Inflammation:
+- +0.012/s per unit
+Special effects:
+- boosts macrophages
+- boosts cytotoxic T
+- enhances interferon response
+Unlock:
+- helper_t
+Notes:
+- Специалист по внутриклеточным угрозам.
+- Хорош против вирусов, некоторых бактерий и изменённых клеток.
+- Умеренно повышает воспаление.
+
+---
+
+## 2.9. th2 / Th2-хелпер
+
+Tier: T3  
+Category: adaptive specialization  
+Role: anti-parasite and allergic response  
+Base cost:
+- conversion from 1 helper_t
+- 80 cytokines
+- 60 lipids
+- 50 atp
+Cost growth: 1.20  
+Defense:
+- bacteria: 0.5
+- viruses: 0.5
+- fungi: 0.8
+- parasites: 3.0
+- toxins: 0.8
+- altered_self: 0.5
+Upkeep:
+- atp: 0.025/s
+Inflammation:
+- +0.014/s per unit
+Special effects:
+- boosts eosinophils
+- boosts mast cells
+- enables or amplifies IgE response
+- increases allergen sensitivity
+Unlock:
+- helper_t and parasite encounter
+Notes:
+- Антипаразитарная специализация.
+- Очень силён против гельминтов и крупных паразитов.
+- Опасен при аллергенах, если не прокачана толерантность.
+
+---
+
+## 2.10. th17 / Th17-хелпер
+
+Tier: T3  
+Category: adaptive specialization  
+Role: barrier, antifungal, antibacterial defense  
+Base cost:
+- conversion from 1 helper_t
+- 120 cytokines
+- 50 micronutrients
+- 70 atp
+Cost growth: 1.20  
+Defense:
+- bacteria: 2.5
+- viruses: 0.8
+- fungi: 2.5
+- parasites: 0.5
+- toxins: 0.5
+- altered_self: 0.8
+Upkeep:
+- atp: 0.026/s
+Inflammation:
+- +0.018/s per unit
+Special effects:
+- boosts neutrophils at barriers
+- improves mucosal defense
+- strong against extracellular fungi and bacteria
+Unlock:
+- helper_t and barrier/fungal tech
+Notes:
+- Специалист по барьерным инфекциям.
+- Отличен против грибков и внеклеточных бактерий.
+- Сильно повышает воспаление, поэтому требует регуляции.
+
+---
+
+## 2.11. tfh / Фолликулярный T-хелпер
+
+Tier: T3  
+Category: adaptive specialization  
+Role: B-cell affinity and memory support  
+Base cost:
+- conversion from 1 helper_t
+- 100 antigens
+- 80 nucleotides
+- 60 atp
+Cost growth: 1.20  
+Defense:
+- bacteria: 0.5
+- viruses: 0.8
+- fungi: 0.5
+- parasites: 0.3
+- toxins: 0.8
+- altered_self: 0.5
+Upkeep:
+- atp: 0.024/s
+Inflammation:
+- +0.005/s per unit
+Special effects:
+- boosts germinative_center efficiency
+- improves memory_b quality
+- increases antibody strength vs known pathogens
+Unlock:
+- helper_t and germinative_center
+Notes:
+- Поддерживающая клетка для вакциной и памятной ветки.
+- Не про урон, а про качество адаптивного ответа.
+- Ключевая для коллекционера/архивиста.
+
+---
+
+## 2.12. gamma_delta_t / γδ T-клетка
+
+Tier: T3  
+Category: adaptive/innate bridge  
+Role: rapid tissue sentinel  
+Base cost:
+- 4 stem_cells
+- 65 amino_acids
+- 30 micronutrients
+- 45 atp
+- 15 antigens
+Cost growth: 1.19  
+Defense:
+- bacteria: 1.5
+- viruses: 2.0
+- fungi: 1.2
+- parasites: 1.0
+- toxins: 0.5
+- altered_self: 1.5
+Upkeep:
+- atp: 0.02/s
+Inflammation:
+- +0.009/s per unit
+Special effects:
+- less dependent on classical antigen presentation
+- fast response in tissues
+- good early adaptive bridge
+Unlock:
+- thymus special slot or cross_presentation
+Notes:
+- Необычная адаптивная клетка, ведущая себя почти как врождённая.
+- Хороша для игроков, которые хотят адаптивную силу раньше обычного.
+- Отличный вариант для смешанных билдов.
+
+---
+
+## 2.13. mait / MAIT-клетка
+
+Tier: T4  
+Category: adaptive, mucosal specialist  
+Role: fast antibacterial/antifungal defense at mucosa  
+Base cost:
+- 5 stem_cells
+- 100 amino_acids
+- 50 micronutrients
+- 80 atp
+- 60 antigens
+Cost growth: 1.22  
+Defense:
+- bacteria: 2.5
+- viruses: 1.0
+- fungi: 2.0
+- parasites: 0.5
+- toxins: 0.5
+- altered_self: 0.8
+Upkeep:
+- atp: 0.022/s
+Inflammation:
+- +0.01/s per unit
+Special effects:
+- bonus in mucosal sectors
+- faster local response
+- synergizes with microbiome and barrier tech
+Unlock:
+- mucosal_memory or tissue niches
+Notes:
+- Эндгейм-специалист по слизистым.
+- Силен в лёгких, кишечнике, горле.
+- Не универсален, но excellent для барьерно-экологического билда.
+
+---
+
+## 2.14. car_t / Химерный T-рецепторный клетка, CAR-T
+
+Tier: T4  
+Category: synthetic adaptive  
+Role: engineered precision killer  
+Base cost:
+- 8 stem_cells
+- 200 amino_acids
+- 100 chimeric_receptors
+- 150 atp
+- 100 antigens
+Cost growth: 1.25  
+Defense:
+- bacteria: 1.0
+- viruses: 3.5
+- fungi: 1.0
+- parasites: 1.0
+- toxins: 0.5
+- altered_self: 5.0
+Upkeep:
+- atp: 0.04/s
+Inflammation:
+- +0.02/s per unit
+Special effects:
+- customizable target bonus
+- extremely strong against selected pathogen family
+- expensive and politically/ethically weird in lore
+Unlock:
+- synthetic_immunity_lab and receptor_editing
+Notes:
+- Финальная инженерная клетка.
+- Может быть заточена под конкретную угрозу.
+- Требует контроля, иначе может вызывать чрезмерный иммунный ответ.
+
+---
+
+## 2.15. engineered_dc / Модифицированная дендритная клетка
+
+Tier: T4  
+Category: synthetic support  
+Role: super presenter and vaccine accelerator  
+Base cost:
+- 8 stem_cells
+- 250 amino_acids
+- 120 lipids
+- 100 chimeric_receptors
+- 80 atp
+- 80 antigens
+Cost growth: 1.25  
+Defense:
+- bacteria: 0.5
+- viruses: 1.0
+- fungi: 0.5
+- parasites: 0.5
+- toxins: 0.5
+- altered_self: 0.5
+Upkeep:
+- atp: 0.035/s
+Inflammation:
+- +0.004/s per unit
+Special effects:
+- +100% antigen gain
+- faster B/T priming
+- improves vaccine creation speed
+- boosts memory consolidation
+Unlock:
+- synthetic_immunity_lab and synthetic_dc_program
+Notes:
+- Эндгейм-поддержка для адаптивной империи.
+- Превращает знание о врагах в очень быстрый прогресс.
+- Идеальна для completionist-билда и кодекса патогенов.
+
+---
+
+# 3. Special / Hybrid Units
+
+## 3.1. tissue_resident_sentinel / Тканевый резидентный страж
+
+Tier: T3  
+Category: hybrid, local defense  
+Role: long-term organ-specific guard  
+Base cost:
+- 5 stem_cells
+- 90 amino_acids
+- 40 lipids
+- 50 atp
+- 30 antigens
+Cost growth: 1.22  
+Defense:
+- bacteria: 1.2
+- viruses: 1.5
+- fungi: 1.0
+- parasites: 0.8
+- toxins: 0.5
+- altered_self: 1.0
+Upkeep:
+- atp: 0.02/s
+Inflammation:
+- +0.006/s per unit
+Special effects:
+- +25% effectiveness in assigned organ/sector
+- does not move between sectors unless tech allows
+- improves local outbreak prediction
+Unlock:
+- tissue_niches or mucosal_memory
+Notes:
+- Клетка, привязанная к конкретному органу.
+- Слабее как глобальная армия, но сильна локально.
+- Хороша для игры через карту органов и секторов.
+
+---
+
+## 3.2. trained_neutrophil / Тренированный нейтрофил
+
+Tier: T2/T3  
+Category: innate memory-lite  
+Role: innate cell with partial recall  
+Base cost:
+- conversion from 1 neutrophil
+- 60 amino_acids
+- 30 antigens
+- 25 atp
+Cost growth: 1.18  
+Defense:
+- previously fought bacteria: +25%
+- previously fought fungi: +15%
+- viruses: unchanged or slightly improved via tech
+Upkeep:
+- atp: 0.008/s
+Inflammation:
+- +0.018/s per unit
+Special effects:
+- benefits from trained_immunity tech
+- bridges innate and memory systems
+Unlock:
+- trained_immunity
+Notes:
+- Не настоящая адаптивная память, но игрово объясняет «тренированный врождённый иммунитет».
+- Даёт игроку раннее ощущение прогресса без полного перехода в B/T-ветку.
+
+---
+
+## 3.3. emergency_granulocyte / Экстренный гранулоцит
+
+Tier: T2/T3  
+Category: innate burst unit  
+Role: temporary mass defender during outbreaks  
+Base cost:
+- 2 stem_cells
+- 20 amino_acids
+- 15 glucose
+- 10 atp
+Cost growth: 1.14  
+Defense:
+- bacteria: 1.3
+- fungi: 0.4
+- viruses: 0.15
+Upkeep:
+- atp: 0.009/s
+Inflammation:
+- +0.03/s per unit
+Special effects:
+- produced faster during emergency_myelopoiesis
+- high short-term power
+- decays or becomes less efficient over time
+Unlock:
+- emergency_myelopoiesis
+Notes:
+- Временный «призыв» массовой защиты.
+- Отлично против внезапных вспышек.
+- Плох как постоянная армия из-за воспаления и стоимости поддержки.
+
+---
+
+# 4. Recommended Starter Cell Set for MVP
+
+Для первой играбельной версии достаточно следующих клеток:
+
+1. neutrophil  
+2. macrophage  
+3. dendritic_cell  
+4. nk_cell  
+5. b_cell  
+6. cytotoxic_t  
+
+Эти шесть клеток уже дают понятный треугольник:
+
+- нейтрофил/макрофаг → бактерии и грибки;
+- NK → вирусы и скрытые угрозы;
+- дендритная клетка → антигены и переход к адаптации;
+- B-клетка → антитела и изученные враги;
+- цитотоксический T → заражённые клетки и точечное уничтожение.
+
+Остальные клетки можно добавлять как Alpha/Beta/Endgame контент.
+
+---
+
+# 5. Cell Synergy Examples
+
+## Swarm Sovereign
+
+Основные клетки:
+
+- neutrophil
+- macrophage
+- emergency_granulocyte
+- trained_neutrophil
+- macrophage_m1
+
+Стиль:
+
+- быстро давить бактерии массой;
+-高 воспаление;
+- риск повреждения тканей;
+- сильны против обычных вспышек;
+- слабы против латентных вирусов и паразитов.
+
+Ключевые технологии:
+
+- chemotaxis_1
+- oxidative_burst_1
+- granulopoiesis_1
+- emergency_myelopoiesis
+- neutrophil_netting
+- macrophage_polarization
+
+---
+
+## Adaptive Archivist
+
+Основные клетки:
+
+- dendritic_cell
+- b_cell
+- plasma_cell
+- memory_b
+- helper_t
+- cytotoxic_t
+- memory_t
+- tfh
+
+Стиль:
+
+- медленно на старте;
+- собирает антигены;
+- становится очень сильным против изученных врагов;
+- хорош для вакцин и кодекса;
+- уязвим к мутирующим патогенам без разнообразия.
+
+Ключевые технологии:
+
+- antigen_presentation_1
+- clonal_expansion_1
+- antibody_neutralization
+- affinity_maturation
+- memory_consolidation
+- cross_protective_immunity
+
+---
+
+## Barrier Gardener
+
+Основные клетки:
+
+- mast_cell
+- eosinophil
+- ilc
+- th17
+- mait
+- tissue_resident_sentinel
+
+Стиль:
+
+- не пускать врага;
+- усиливать слизистые и кожу;
+- контролировать микробиом;
+- меньше больших армий;
+- уязвим к токсинам и внутренним мутациям.
+
+Ключевые технологии:
+
+- mucus_production
+- tight_junctions
+- skin_lipid_armor
+- competitive_exclusion
+- mucosal_memory
+- antifungal_peptides
+
+---
+
+## Metabolic Warlord
+
+Основные клетки:
+
+- neutrophil
+- macrophage
+- nk_cell
+- cytotoxic_t
+
+Стиль:
+
+- кормить армию АТФ;
+- включать лихорадку;
+- держать высокий темп;
+- сильно зависеть от глюкозы и кислорода;
+- риск энергетического кризиса.
+
+Ключевые технологии:
+
+- glycolytic_flux
+- mitochondrial_biogenesis
+- fever_setpoint
+- oxidative_efficiency
+- immunometabolism_switch
+- perpetual_forge
+
+---
+
+## Tolerance Diplomat
+
+Основные клетки:
+
+- treg
+- macrophage_m2
+- neutrophil_n2
+- memory_b
+- memory_t
+
+Стиль:
+
+- низкое повреждение тканей;
+- стабильная долгая игра;
+- защита от аутоиммунных вспышек;
+- меньше пиковой агрессии;
+- хорош против хронических инфекций.
+
+Ключевые технологии:
+
+- anti_inflammatory_signals
+- treg_induction
+- resolution_mediators
+- tolerance_checkpoint
+- tissue_repair_program
+- autoimmune_firewall
+
+---
+
+## Viral Hunter
+
+Основные клетки:
+
+- nk_cell
+- cytotoxic_t
+- memory_t
+- th1
+- gamma_delta_t
+- engineered_dc
+
+Стиль:
+
+- охота на скрытые вирусные инфекции;
+- сильны против латентных и внутриклеточных угроз;
+- слабее против крупных паразитов и токсинов;
+- требуют антигенной информации.
+
+Ключевые технологии:
+
+- interferon_pathway
+- cytotoxic_precision
+- antiviral_memory
+- cross_presentation
+- receptor_editing
+- car_t
+
+---
+
+# 6. Balancing Notes
+
+## Stem cells are the main army limiter
+
+Не делай стволовые клетки слишком дешёвыми. Если игрок может бесконечно спамить клетки, игра теряет смысл баланса.
+
+Костный мозг должен быть узким местом, который игрок решает через:
+
+- аминокислоты;
+- микронутриенты;
+- АТФ;
+- технологии;
+- ниши костного мозга;
+- экстренный миелопоэз.
+
+---
+
+## ATP is the sustainability limiter
+
+Клетки должны потреблять АТФ. Это создаётreason не просто покупать армию, а строить экономику энергии.
+
+Если АТФ мало:
+
+- клетки работают медленнее;
+- воспаление растет быстрее из-за неэффективного очищения;
+- органы производят меньше;
+- лихорадка становится опасной.
+
+---
+
+## Inflammation should be useful but dangerous
+
+Не делай воспаление только штрафом. Игрок должен иногда хотеть его поднять.
+
+Высокое воспаление:
+
+- +урон по бактериям;
+- +скорость врождённых клеток;
+- +приток ресурсов в очаг;
+- но -эффективность органов;
+- -барьеры;
+- +риск аутоиммунности;
+- +расход АТФ.
+
+---
+
+## Tolerance should not be pure debuff
+
+Treg и регуляция не должны быть «слабыми» клетками. Они должны давать долгосрочную силу:
+
+- меньше случайных катастроф;
+- лучше оффлайн-стабильность;
+- меньше рубцовой ткани;
+- возможность держать высокую армию дольше;
+- доступ к поздним vaccinated/memory билдам.
+
+---
+
+## Adaptive cells should reward knowledge
+
+B-клетки, T-клетки и память должны быть заметно слабее против неизвестных врагов, но очень сильны против изученных.
+
+Это создаёт reason:
+
+- собирать антигены;
+- вести кодекс;
+- создавать вакцины;
+- не убегать полностью в врождённый спам.
+
+---
+
+## Specialized cells should have clear counters
+
+Паразиты, грибки, вирусы, токсины и изменённые клетки должны требовать разных ответов.
+
+Но не делай контр-билд обязательным до боли. Лучше:
+
+- универсальная армия проходит медленно;
+- специализированная армия проходит быстро, но уязвима к неожиданным типам угроз;
+- разнообразие даёт стабильный бонус.
+
+---
+
+# 7. Short Descriptions for UI Tooltips
+
+## neutrophil
+
+Быстрый врождённый защитник. Массово реагирует на бактерии, но повышает воспаление и слабо работает против скрытых вирусов.
+
+## macrophage
+
+Крупный поглотитель. Уничтожает бактерии и обломки клеток, собирает антигены и помогает запускать адаптивный иммунитет.
+
+## dendritic_cell
+
+Разведчик иммунитета. Почти не сражается, но переносит информацию о враге в лимфоузлы и ускоряет обучение B- и T-клеток.
+
+## nk_cell
+
+Ранний анти-вирусный убийца. Находит заражённые клетки без предварительного обучения и также следит за изменёнными собственными клетками.
+
+## eosinophil
+
+Специалист по паразитам. Мощен против крупных угроз, но может усиливать аллергические реакции.
+
+## mast_cell
+
+Сигнальная клетка барьеров. Быстро реагирует на паразитов и проникновение, но выброс гистамина может повредить ткани.
+
+## b_cell
+
+Адаптивный производитель антител. Слаба против неизвестных врагов, но становится очень сильной, если патоген уже изучен.
+
+## plasma_cell
+
+Фабрика антител. Производит защитные белки, нейтрализует токсины и усиливает ответ против знакомых угроз.
+
+## memory_b
+
+Клетка гуморальной памяти. Помнит изученных врагов и ускоряет ответ при повторной встрече.
+
+## helper_t
+
+Координатор адаптивного иммунитета. Усиливает другие клетки и открывает специализации Th1, Th2, Th17 и Tfh.
+
+## cytotoxic_t
+
+Точечный убийца заражённых клеток. Критичен против вирусов и изменённых собственных клеток.
+
+## memory_t
+
+Клетка клеточной памяти. Быстро реагирует на уже изученные вирусные и внутриклеточные угрозы.
+
+## treg
+
+Регуляторная T-клетка. Гасит избыточный иммунный ответ и снижает риск аутоиммунных вспышек.
+
+## th1
+
+Хелпер для внутриклеточных угроз. Усиливает макрофаги, NK и цитотоксические T-клетки.
+
+## th2
+
+Хелпер для паразитарных угроз. Усиливает эозинофилы, тучные клетки и IgE-ответ, но повышает аллергический риск.
+
+## th17
+
+Хелпер барьеров. Усиливает нейтрофилы и слизистую защиту, особенно против грибков и внеклеточных бактерий.
+
+## tfh
+
+Фолликулярный хелпер. Улучшает качество B-клеток, антител и иммунной памяти.
+
+## gamma_delta_t
+
+Быстрая тканевая страж-клетка. Работает между врождённым и адаптивным иммунитетом и меньше зависит от классического представления антигена.
+
+## mait
+
+Специалист слизистых. Быстро реагирует на бактерии и грибки в кишечнике, лёгких и горле.
+
+## car_t
+
+Инженерная T-клетка с химерным рецептором. Чрезвычайно сильна против выбранного класса угроз, но дорога и требует контроля.
+
+## engineered_dc
+
+Модифицированная дендритная клетка. Превращает антигены в знание с огромной скоростью и ускоряет вакцины, память и адаптивный ответ.

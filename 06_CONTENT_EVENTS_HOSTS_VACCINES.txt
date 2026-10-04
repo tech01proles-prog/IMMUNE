@@ -1,0 +1,436 @@
+# Immune Empire: Internal Front — Content Tables Part 5
+# Events, Host Archetypes, Vaccines, Prestige/Meta, Achievements, Journal
+# File: 06_CONTENT_EVENTS_HOSTS_VACCINES.txt
+
+## Legend / Уровни контента
+
+T0 = Tutorial: первые 1–3 минуты.
+T1 = MVP: первые 15–30 минут, полный базовый цикл и первый престиж.
+T2 = Alpha: 1–3 часа, углубление веток, воспаление, память, барьеры.
+T3 = Beta: несколько дней, разные хозяева, вакцины, специализированные войны.
+T4 = Endgame / Live: долгая игра, синтетический иммунитет, фаги, нейро-контроль, редкие угрозы.
+
+## General Rules
+
+- События хозяина должны создавать мягкие выборы, а не наказывать за отсутствие реакции.
+- Для MVP достаточно 6–10 событий.
+- События не должны ломать экономику: лучше кратковременные баффы/дебаффы.
+- Типы хозяев открываются через престиж и дают реиграбельность.
+- Вакцины — постоянные бонусы внутри забега и/или после престижа.
+- Мета-улучшения покупаются за иммунную память.
+- Достижения нужны для удержания и ощущения коллекционирования.
+
+---
+
+# 1. Host Events / События хозяина
+
+## 1.1. Nutrition Events
+
+- meal_protein | Белковая еда | T0 | instant | +AA burst, small +stem cell chance | notes: базовое питание для армии.
+- meal_sugar | Сахарная еда | T0 | instant | +glucose burst, +chance of opportunistic bacterial growth | notes: быстрый ресурс, но риск для микробиома и бактерий.
+- meal_fiber | Клетчатка | T1 | 120s | +microbiome metabolites, +competitive exclusion vs gut pathogens | notes: экологическое питание, поддерживает барьеры.
+- meal_fat | Жировая еда | T1 | instant | +lipids, small +ATP reserve | notes: поддерживает мембраны и крупные клетки.
+- meal_micros | Микронутриенты | T1 | instant | +micronutrients, small quality bonus to next cells | notes: витамины/минералы, качество клеток.
+- hydration | Гидратация | T1 | 90s | toxin drain faster, mucosa efficiency +10% | notes: простая поддержка детокса и слизистых.
+- fasting | Голодание | T2 | 180s | -glucose income, +autophagy/repair bonus, +tolerance | notes: риск/награда, полезно для регуляции.
+- overeating | Переедание | T2 | 120s | +nutrient burst, +metabolic waste, +inflammation risk | notes: наказание за жадность, но даёт ресурсы.
+- probiotic_meal | Пробиотическая еда | T2 | 180s | +commensal strength, +microbiome metabolites | notes: поддержка микробиомного сада.
+- contaminated_food | Загрязнённая еда | T2 | instant | +stomach_acid challenge, possible gut pathogen spawn | notes: проверяет кислотный барьер и кишечную защиту.
+
+## 1.2. Lifestyle Events
+
+- sleep_cycle | Цикл сна | T1 | offline or timed | +memory consolidation, -stress, +repair | notes: ключевое idle-событие.
+- stress_spike | Стрессовый спайк | T2 | 120s | +cortisol effect, -immune efficiency, possible latent reactivation | notes: создаёт давление на нейро-иммунную ветку.
+- fever_request | Просьба жара | T2 | 180s | +defense vs bacteria/viruses, +ATP cost, +inflammation | notes: тактический бафф, опасен при слабой энергии.
+- host_exercise | Тренировка хозяина | T2 | 180s | +ATP production temporarily, +glucose drain, +mood/tolerance | notes: метаболическая синергия.
+- rest_day | День отдыха | T2 | 300s | +repair, +tolerance, -stress, slower pathogen growth | notes: стабильность.
+- allergen_exposure | Контакт с аллергеном | T3 | 120s | mast/IgE stress test, possible barrier disruption | notes: проверка толерантности.
+- antibiotic_course | Курс антибиотика | T3 | 300s | kills many bacteria, damages microbiome, possible yeast overgrowth | notes: серьёзное экологическое событие.
+- vaccine_campaign | Вакцинация | T3 | 600s | +antigen gain, +memory training speed | notes: мета/коллекционное событие.
+- circadian_peak | Циркадный пик | T3 | periodic | selected cell types +15% depending on host schedule | notes: ритмичный idle-бонус.
+- sleep_deprivation | Недосып | T3 | 300s | -memory consolidation, +stress, -repair | notes: риск для оффлайн-прогресса.
+- toxin_spill | Токсический разлив | T4 | 300s | toxin spike, detox challenge | notes: эндгейм-проверка печени и антител.
+- phage_bloom | Фаговое цветение | T4 | 300s | targeted bacteria cleanup, possible microbiome side effects | notes: дружелюбные вирусы.
+- blood_donation | Донорство крови | T3 | instant | -stem cells temporarily, +emergency myelopoiesis later | notes: риск/награда для армии.
+- transplant_reaction | Реакция трансплантата | T4 | 600s | high tolerance challenge, possible autoimmune flare | notes: эндгейм регуляция.
+- space_radiation | Космическая радиация | T4 | periodic | +altered_self risk, +antioxidant demand | notes: special host/environment.
+
+---
+
+# 2. Sector / Organ Events
+
+- throat_irritation | Раздражение горла | T1 | temporary | +chance respiratory pathogen, mucosa check | notes: ранний секторный триггер.
+- gut_flush | Кишечное очищение | T1 | instant | removes small gut infection, costs glucose | notes: простой «сейв» для кишечника.
+- skin_wound | Кожная рана | T2 | timed | external bacteria/fungus entry chance, barrier damage | notes: проверяет кожу и нейтрофилы.
+- lung_spore | Споровый вдох | T2 | instant | possible fungal lung infection | notes: air sector threat.
+- blood_contamination | Загрязнение крови | T3 | timed | bloodstream pathogen, spleen/complement check | notes: серьёзная ранняя угроза.
+- liver_toxic_load | Токсическая нагрузка печени | T3 | timed | reduces micronutrient/lipid output until detoxed | notes: экономический дебафф.
+- marrow_stress | Стресс костного мозга | T3 | timed | stem cell production penalty, emergency response later | notes: армейский bottleneck.
+- lymph_alert | Лимфатическая тревога | T2 | timed | +antigen preview, faster adaptive training | notes: информационное событие.
+- tissue_damage | Повреждение ткани | T3 | timed | +scar risk, repair demand, inflammation | notes: последствия боя.
+- granuloma_form | Образование гранулёмы | T4 | persistent | contains pathogen but reduces organ efficiency | notes: хроническое управление.
+- organ_crisis | Кризис органа | T4 | timed | major debuff until resolved | notes: boss-like event, not game over.
+
+---
+
+# 3. Retention / Session Events
+
+- daily_login | Ежедневный вход | T1 | once/day | small AA/glucose/ATP pack, possible antigen | notes: простой возврат.
+- offline_return | Возвращение оффлайн | T1 | on load | show offline summary, optional double via ad | notes: ключевая idle-петля.
+- weekly_codex | Недельный кодекс | T3 | once/week | bonus for discovering new pathogen entries | notes: коллекционирование.
+- streak_reward | Серия входов | T2 | day 1/3/7 | escalating small bonuses | notes: удержание.
+- outbreak_forecast | Прогноз вспышки | T2 | periodic | warns next pathogen type | notes: даёт игроку время подготовиться.
+- emergency_cache | Аварийный запас | T2 | rare | instant resource pack during crisis | notes: preventing frustration.
+- memory_flashback | Вспышка памяти | T3 | rare | known pathogen temporarily weaker | notes: награда за кодекс.
+- host_mood_shift | Смена настроения хозяина | T3 | periodic | stress/sleep modifiers change | notes: живость мира.
+
+---
+
+# 4. Host Archetypes / Типы хозяев
+
+## Unlock pattern
+
+Hosts unlock through prestige, achievements, or codex progress. Each host changes early economy and threat profile.
+
+- host_default | Обычный хозяин | T0 | start | Сбалансированный, без особых бонусов | notes: tutorial host.
+- host_child | Ребёнок | T2 | 50 immune_memory | +20% antigen gain, faster learning | -15% barrier integrity, frequent infections | notes: быстрый прогресс, хрупкие барьеры.
+- host_athlete | Атлет | T2 | 75 immune_memory | +25% ATP, faster recovery | +20% glucose consumption, exercise stress | notes: метаболический билд.
+- host_sleeper | Спящий учёный | T2 | 100 immune_memory | +30% offline memory, calm | slower active events, lower early aggression | notes: idle-focused.
+- host_stressed_worker | Стрессовый работник | T3 | 150 immune_memory | +20% resource spikes from events | cortisol suppresses immunity, autoimmune risk | notes: risk/reward.
+- host_traveler | Путешественник | T3 | 200 immune_memory | +25% new pathogen encounters, better codex rewards | harder outbreaks, exotic threats | notes: collector host.
+- host_elder | Пожилой хозяин | T3 | 250 immune_memory | +30% starting memory, stable | lower stem cell production, slower marrow | notes: slow but wise.
+- host_biohacker | Биохакер | T4 | 500 immune_memory | synthetic lab cheaper, custom receptor discounts | random mutation events, unstable resources | notes: endgame engineering.
+- host_symbiote | Хозяин-симбионт | T4 | 750 immune_memory | microbiome/phage bonuses doubled | normal pathogens adapt faster | notes: ecology endgame.
+- host_void | Пустотный хозяин | T4 | completion | strange resources, extreme rarity | all systems unstable, no safe default | notes: secret/endgame challenge.
+
+---
+
+# 5. Starting Doctrines / Стартовые доктрины
+
+Doctrines are chosen at run start. They give a bonus and one starter tech, but do not lock other branches.
+
+- doctrine_swarm | Рой нейтрофилов | T0 | start | neutrophils cheaper, early bacterial defense stronger | inflammation rises faster | starter tech: chemotaxis_1 | notes: aggressive innate start.
+- doctrine_academy | Академия лимфоузлов | T0 | start | more antigens, faster B/T unlock | weaker early innate defense | starter tech: antigen_presentation_1 | notes: slow but scalable adaptive.
+- doctrine_fortress | Крепость барьеров | T0 | start | less pathogen entry, microbiome bonus | slower army accumulation | starter tech: mucus_production | notes: peaceful economy.
+- doctrine_forge | Печь метаболизма | T0 | start | more ATP, fever cheaper | higher glucose consumption | starter tech: glycolytic_flux | notes: sustained war.
+- doctrine_diplomat | Дипломат толерантности | T0 | start | lower autoimmune risk, Treg stronger | lower peak aggression | starter tech: anti_inflammatory_signals | notes: stability.
+- doctrine_hunter | Охотник на вирусы | T0 | start | NK/interferon stronger, antiviral branch faster | weaker against parasites/large fungi | starter tech: interferon_pathway | notes: reactive specialist.
+
+---
+
+# 6. Vaccines / Вакцины
+
+## Vaccine rules
+
+- Vaccines are created using antigens and sometimes codex progress.
+- Some vaccines affect current run only.
+- Some can persist through prestige if unlocked via meta upgrades.
+- Vaccines should not be mandatory, but should make known threats easier.
+
+- vaccine_swarm_coccus | Вакцина: Кокк-рой | T1 | 50 antigens | next run: -20% initial growth of swarm_coccus | basic early vaccine.
+- vaccine_shell_variant | Вакцина: Оболочечный вариант | T1 | 75 antigens | NK and early antiviral +10% vs shell_variant | first virus vaccine.
+- vaccine_thread_bloom | Вакцина: Нитчатое цветение | T2 | 150 antigens | macrophage fungal defense +15% vs thread_bloom | fungus intro.
+- vaccine_capsule_staph | Вакцина: Капсульный стафилококк | T2 | 200 antigens | complement/opsonization vs capsule +20% | innate upgrade.
+- vaccine_respiratory_rhino | Вакцина: Респираторный риновирус | T2 | 250 antigens | mucosal interferon faster, throat outbreaks weaker | respiratory sector.
+- vaccine_enteric_virus | Вакцина: Кишечный вирус | T2 | 250 antigens | gut virus nutrient drain reduced 20% | economy protection.
+- vaccine_intracellular_listria | Вакцина: Внутриклеточная листерия | T3 | 400 antigens | CTL priming +15% vs intracellular bacteria | adaptive bridge.
+- vaccine_latent_herpeslike | Вакцина: Латентный герпес-подобный | T3 | 600 antigens | reactivation chance -20%, memory T faster | stress/sleep synergy.
+- vaccine_mutating_flu | Вакцина: Мутирующий грипп | T3 | 800 antigens | cross-reactive antibodies +10%, drift slower | anti-static.
+- vaccine_helminth_thread | Вакцина: Гельминтная нить | T3 | 900 antigens | eosinophil parasite damage +20% | Th2 branch.
+- vaccine_hepatotropic | Вакцина: Гепатотропный вирус | T3 | 1000 antigens | liver infection damage -25% | organ protection.
+- vaccine_superbug | Вакцина: Устойчивый супербак | T4 | 2000 antigens | diversity penalty reduced, phage efficiency +10% | endgame antibacterial.
+- vaccine_oncovirus | Вакцина: Онковирус | T4 | 3000 antigens | altered_self surveillance +25% | cancer-lite.
+- vaccine_neurotropic | Вакцина: Нейротропный вирус | T4 | 3500 antigens | nervous system hiding reduced, early warning | late virus.
+- universal_adjuvant | Универсальный адъювант | T4 | 5000 antigens + codex insight | all vaccines +5% potency | capstone.
+- pan_vaccine_platform | Пан-вакцинная платформа | T4 | 10000 antigens, memory archive | related pathogens partially affected by any vaccine | completionist.
+
+---
+
+# 7. Prestige / Meta Progression
+
+## Prestige name
+
+- New Host / Новый хозяин
+- Ascend to New Host
+- Generate Immune Epoch
+
+## Prestige formula options
+
+MVP simple:
+
+- immune_memory = floor(total_antigens_collected / 50)
+
+Better scaling:
+
+- immune_memory = floor(sqrt(total_antigens_collected / 100))
+
+Optional bonus:
+
+- +10% memory for unique pathogen families cleared
+- +25% memory for completing codex chapter
+- -10% memory if run ended in severe autoimmune collapse, but still positive
+
+## What resets
+
+- resources
+- organs/buildings
+- cells/units
+- active infections
+- current-run technologies
+- current inflammation/tolerance/barrier states
+- temporary event buffs
+
+## What persists
+
+- immune_memory currency
+- permanent upgrades
+- codex entries
+- vaccines if unlocked permanently
+- discovered cell/pathogen types
+- achievements
+- cosmetics
+- host archetype unlocks
+- statistics
+
+---
+
+# 8. Permanent Upgrades / Вечные улучшения
+
+## Purchase currency: immune_memory
+
+- start_aa_boost | Стартовый запас аминокислот | 5 memory | +100 AA at run start | smooth early game.
+- start_glucose_boost | Стартовый запас глюкозы | 5 memory | +100 glucose at run start | early energy.
+- start_atp_buffer | Стартовый АТФ-буфер | 10 memory | +50 ATP at run start | prevents early stall.
+- start_stem_boost | Стартовые стволовые клетки | 10 memory | +5 stem_cells at start | faster first army.
+- marrow_headstart | Костный мозг с уровня 2 | 25 memory | bone_marrow begins level 2 | reduces bottleneck.
+- antigen_siphon | Антигенный сифон | 30 memory | +10% antigens from wins | economy.
+- inflammation_damping | Демпфер воспаления | 40 memory | inflammation damage -10% | safety.
+- tolerance_seed | Семя толерантности | 40 memory | start with +10 tolerance | stable runs.
+- barrier_seed | Семя барьеров | 50 memory | start with +10 barrier_integrity | defensive runs.
+- metabolic_seed | Метаболическое семя | 50 memory | start with small ATP buffer | energy runs.
+- adaptive_seed | Адаптивное семя | 60 memory | start with small antigen archive | knowledge runs.
+- vaccine_slot_permanent | Вечный слот вакцины | 75 memory | +1 vaccine slot | meta collection.
+- pathogen_softener | Смягчение патогенов | 100 memory | T0/T1 pathogens start weaker | accessibility.
+- offline_memory | Оффлайн-память | 120 memory | offline consolidation +25% | idle.
+- codex_echo | Эхо кодекса | 150 memory | known pathogen bonuses carry further | completionist.
+- emergency_protocol | Аварийный протокол | 200 memory | once per run, prevent total organ collapse | insurance.
+- host_menu_unlock | Меню хозяев | 250 memory | choose unlocked host at start | replayability.
+- doctrine_memory | Память доктрин | 300 memory | start with one extra doctrine tech | build depth.
+- synthetic_preview | Предвкушение синтетики | 500 memory | unlock a small synthetic material trickle | endgame teaser.
+- living_library_pass | Пропуск в живую библиотеку | 1000 memory + codex | secret lore and unique rewards | completion.
+
+---
+
+# 9. Achievements / Достижения
+
+## Achievement rules
+
+- Achievements should reward experimentation, not only grinding.
+- Some achievements unlock cosmetics, titles, or small permanent bonuses.
+- Avoid achievements that force painful playstyles.
+
+- first_neutrophil | Первый защитник | buy first neutrophil | unlock tooltip lore.
+- first_outbreak_cleared | Первая победа | clear first infection | unlock codex entry.
+- ten_cells | Малая армия | have 10 immune cells | small AA bonus.
+- hundred_cells | Клеточный легион | have 100 immune cells | title.
+- first_virus | Скрытый враг | defeat first virus | unlock NK lore.
+- first_fungus | Упорный рост | defeat first fungus | unlock macrophage bonus.
+- first_antigen | Коллекционер знания | collect first antigen | unlock codex UI.
+- adaptive_awakening | Пробуждение адаптивности | unlock B or T cell | doctrine hint.
+- memory_keeper | Хранитель памяти | create first memory cell | vaccine slot discount.
+- first_vaccine | Первая вакцина | create first vaccine | permanent vaccine slot? optional.
+- first_host_reset | Новый хозяин | perform first prestige | unlock host menu preview.
+- five_memories | Иммунная память | earn 5 immune_memory | start bonus.
+- no_click_minute | Idle доверие | let defense work for 60 seconds without clicking | small offline bonus.
+- inflammation_master |Control огня | keep inflammation above 50 for 5 minutes without autoimmune flare | title.
+- tolerance_sage | Мудрость толерантности | finish a run with zero autoimmune flares | permanent tolerance seed discount.
+- barrier_gardener | Садовник барьеров | reach barrier_integrity 80 | mucosal layer discount.
+- microbiome_farmer | Фермер микробиома | keep microbiome healthy through antibiotic event | metabolite bonus.
+- metabolic_engine | Метаболический двигатель | maintain positive ATP with 50+ cells | mitochondria discount.
+- viral_hunter | Охотник на вирусы | defeat 10 viruses | NK upgrade discount.
+- parasite_slayer | Убийца паразитов | defeat 5 parasites | eosinophil discount.
+- toxin_filter | Фильтр токсинов | clear 10 toxin events | liver discount.
+- surveillance_eye | Око надзора | defeat 5 altered_self threats | immune surveillance discount.
+- codex_chapter | Глава кодекса | record 10 unique pathogens | codex UI theme.
+- codex_complete | Полный кодекс | record all MVP pathogens | secret lore.
+- three_doctrines | Три пути | complete runs with 3 doctrines | unlock extra doctrine slot.
+- all_hosts | Все хозяева | unlock all standard hosts | cosmetic body silhouette.
+- offline_week | Неделя покоя | accumulate 7 days offline total | offline cap increase.
+- balanced_empire | Сбалансированная империя | have active units from 5 categories | global diversity bonus.
+- synthetic_dawn | Рассвет синтетики | unlock first engineered cell | synthetic lab discount.
+- living_fortress | Живая крепость | build all core T4 organs | final title.
+
+---
+
+# 10. Journal Messages / Сообщения журнала
+
+## Tone
+
+Journal should be short, slightly clinical, occasionally poetic or humorous. It teaches without a tutorial wall.
+
+- «Кишечные ворсинки усваивают питание.»
+- «Митохондрии зажигают первую энергию.»
+- «Костный мозг выпускает стволовые клетки.»
+- «Нейтрофил выпущен в кровоток.»
+- «Обнаружена бактериальная вспышка: Swarm Coccus.»
+- «Вспышка подавлена. Организм запоминает врага.»
+- «Получен антиген: Shell Variant.»
+- «Вирус скрывается внутри клеток. Обычные фагоциты малоэффективны.»
+- «Макрофаг поглощает обломки и представляет антиген.»
+- «Дендритная клетка несёт знание в лимфоузел.»
+- «Лимфоузел обучил B-клетку.»
+- «Цитотоксический T нашёл заражённую клетку.»
+- «Воспаление растёт. Ткани получают повреждения.»
+- «Риск аутоиммунной реакции повышен. Нужна регуляция.»
+- «Treg гасит лишний огонь.»
+- «Барьерная целостность восстановлена.»
+- «Микробиом производит полезные метаболиты.»
+- «Антибиотик прошёлся по кишечнику. Полезные бактерии пострадали.»
+- «Лихорадка включена. Враги слабее, но энергия горит быстрее.»
+- «Хозяин уснул. Память консолидируется.»
+- «Стресс хозяина подавляет часть иммунитета.»
+- «Новый патоген записан в кодекс.»
+- «Вакцина сохранена в архиве памяти.»
+- «Доступен переход к новому хозяину.»
+- «Новый организм заселён. Иммунная память переносится.»
+- «Ты больше не просто реагируешь. Ты помнишь.»
+- «Тело стало крепостью. Но крепость должна дышать.»
+- «Слишком много огня сожгло бы и защитника.»
+- «Каждая побеждённая угроза делает следующую встречу короче.»
+
+---
+
+# 11. Event Scheduling Notes
+
+## MVP event weights
+
+For first 30 minutes:
+
+- meal_protein: high
+- meal_sugar: medium
+- sleep_cycle: medium
+- first bacterial outbreak: scripted or high weight
+- first virus: after player has macrophage or 10 neutrophils
+- fever_request: unlock after inflammation tech or first big outbreak
+- stress_spike: low until T2
+
+## Cooldowns
+
+- Major negative events should have cooldowns.
+- Do not stack two organ crises at once in MVP.
+- Resource-positive events can be more frequent.
+- Antibiotic event should not appear before microbiome_garden exists.
+
+## Difficulty scaling
+
+Event severity can scale by:
+
+- total antigens collected
+- run time
+- host archetype
+- prestige count
+- current immune diversity
+
+Example:
+
+- pathogen_growth *= 1 + 0.02 * prestige_count
+- pathogen_reward *= 1 + 0.05 * prestige_count
+
+Keep rewards scaling slightly faster than difficulty to avoid frustration.
+
+---
+
+# 12. Optional CrazyGames Rewarded Ad Hooks
+
+Use only as optional boosts.
+
+- ad_cytokine_surge | Цитокиновый всплеск | 2x defense for 5 minutes.
+- ad_emergency_nutrition | Экстренное питание | +2 hours resource production.
+- ad_research_boost | Ускорение исследования | instantly complete current tech timer.
+- ad_antigen_scan | Антигенная разведка | reveal next pathogen and gain small antigens.
+- ad_offline_double | Двойной оффлайн | double offline income on return.
+- ad_fever_control | Контроль жара | fever buff without extra inflammation for 3 minutes.
+- ad_microbiome_restore | Восстановление микробиома | heal microbiome damage after antibiotic event.
+
+Rules:
+
+- Never required to progress.
+- Never block saving.
+- Never force ad during active crisis unless player clicks helper button.
+- Cap ads per session to avoid fatigue.
+
+---
+
+# 13. Optional itch.io Donation / Deluxe Ideas
+
+- Cosmetic host silhouettes.
+- Extra doctrine slots.
+- Exclusive codex lore entries.
+- “Biohacker” host pack.
+- “Deep Space Immunity” themed organ skins.
+- Offline cap increase in paid/donation version.
+- Early access to experimental branches.
+- Name a pathogen in credits or codex joke entry.
+
+---
+
+# 14. Content Integration Checklist
+
+When adding a new pathogen, define:
+
+- id
+- tier
+- type
+- growth or damage
+- resistance
+- threshold
+- weakness cell types
+- weakness technologies
+- reward resources
+- codex description
+- journal message
+- icon prompt
+- outbreak sector
+- possible modifier variants
+
+When adding a new cell, define:
+
+- id
+- tier
+- category
+- cost
+- cost growth
+- defense profile
+- upkeep
+- inflammation effect
+- special effects
+- unlock condition
+- tooltip
+- icon prompt
+- synergy techs
+
+When adding a new tech, define:
+
+- id
+- tier
+- cost
+- effect
+- requires
+- cluster
+- visible description
+- hidden balancing notes
+- whether it unlocks another system
+
+When adding a host event, define:
+
+- id
+- tier
+- trigger condition
+- duration
+- positive effects
+- negative effects
+- resource changes
+- possible pathogen spawn
+- cooldown
+- journal message
+- icon or visual cue

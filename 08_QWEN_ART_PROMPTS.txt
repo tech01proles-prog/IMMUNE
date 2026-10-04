@@ -1,0 +1,1555 @@
+# Immune Empire: Internal Front — Qwen Image 3.0 Art Prompt Pack
+# File: 08_QWEN_ART_PROMPTS.txt
+
+Purpose:
+- Generate a coherent visual set for an incremental immune-system game using Qwen Image 3.0.
+- Optimized for a solo developer with limited drawing skills.
+- Focus on icons, cards, UI elements, abstract biology, and readable game assets.
+- Avoid complex character animation, faces, hands, or crowded scenes.
+
+Important:
+- Check the current Qwen Image 3.0 license and platform policy before commercial use.
+- On itch.io / CrazyGames, disclose AI-assisted art if required by platform or model terms.
+- Use prompts mainly in English because image models often respond better to English tags.
+- Generate many candidates, then select the best 20–30% and unify them in post-processing.
+
+---
+
+# 1. Global Style Guide
+
+## Core visual direction
+
+Stylized biomedical sci-fi / bioluminescent flat illustration.
+
+The game should feel like:
+- living microscopic world;
+- clean but alien;
+- not horror medicine;
+- not cartoon childish;
+- readable at small icon size;
+- beautiful as cards and UI symbols.
+
+## Mood keywords
+
+bioluminescent, cellular, organic machinery, immune civilization, microscopic fortress, elegant biology, glowing tissues, speculative medical sci-fi, calm danger, living architecture.
+
+## Shape language
+
+- rounded organic forms;
+- membrane curves;
+- nucleus circles;
+- spike proteins;
+- filament strands;
+- capsule shells;
+- signal waves;
+- soft particles;
+- clear silhouettes.
+
+## Avoid
+
+- realistic gore;
+- bloody wounds;
+- detailed human faces;
+- complex hands;
+- too many tiny details;
+- text inside images;
+- logos;
+- watermarks;
+- cluttered backgrounds;
+- photorealistic medical photos;
+- overly cute anthropomorphic cells with eyes unless used as a special cosmetic style.
+
+---
+
+# 2. Master Palette
+
+Use these colors in prompts and post-processing.
+
+## Tissue / background
+
+- deep burgundy: #2a0711
+- dark violet-red: #3b0d2a
+- muted maroon: #4a1020
+- dark indigo: #12102a
+
+## Immune cells / protection
+
+- cyan: #5ce1e6
+- ice blue: #8fdcff
+- white-blue: #e8fbff
+- soft teal: #36cfc0
+
+## Pathogens / danger
+
+- toxic green: #8cff4f
+- acid green: #b6ff3c
+- magenta virus: #ff4fd8
+- deep purple: #9b4dff
+- fungal orange: #ff9f43
+- parasite red-brown: #d94f4f
+
+## Energy / metabolism
+
+- amber: #ffc14d
+- gold: #ffd166
+- warm orange: #ff8c42
+
+## Signals / memory / prestige
+
+- luminous gold: #ffe066
+- pale silver: #dfe7ef
+- holographic cyan: #7bf1ff
+
+## UI
+
+- dark glass: rgba(10, 14, 24, 0.85)
+- neon cyan lines: #5ce1e6
+- danger red: #ff5470
+- success green: #6ee7b7
+- neutral text: #e8f1ff
+
+---
+
+# 3. Universal Prompt Template
+
+Use this as the base for icons.
+
+Prompt template:
+
+flat vector game icon of [SUBJECT], [COLOR PALETTE], thick clean outline, centered composition, isolated on pure white background, minimal detail, readable silhouette, mobile game asset, stylized biomedical sci-fi, bioluminescent glow, no text, no watermark, no logo, no signature
+
+Negative prompt:
+
+text, letters, words, watermark, logo, signature, blurry, low resolution, realistic photo, gore, blood, human face, hands, cluttered background, multiple objects, deformed anatomy, extra limbs, noisy, jpeg artifacts
+
+## Card template
+
+Prompt template:
+
+stylized game card illustration of [SUBJECT], [MOOD], flat vector with subtle glow, centered subject, dark transparent background, ornate organic border, biomedical sci-fi, bioluminescent, limited palette, readable at small size, no text, no watermark, no logo
+
+Negative prompt:
+
+text, letters, words, numbers, watermark, logo, signature, photorealistic, gore, blood, human face, busy background, low contrast, blurry
+
+## UI element template
+
+Prompt template:
+
+minimal sci-fi game UI element, [SUBJECT], dark glass panel, neon cyan edges, rounded corners, subtle inner glow, flat vector, clean interface, mobile game asset, no text, no watermark
+
+Negative prompt:
+
+text, letters, numbers, watermark, logo, realistic photo, cluttered, gradient mesh, complex shadows
+
+---
+
+# 4. Asset Naming Convention
+
+Generate and export with predictable names.
+
+Icons:
+- icon_resource_amino_acids.png
+- icon_resource_glucose.png
+- icon_resource_atp.png
+- icon_resource_stem_cells.png
+- icon_resource_antigens.png
+- icon_organ_gut_villi.png
+- icon_organ_bone_marrow.png
+- icon_cell_neutrophil.png
+- icon_pathogen_swarm_coccus.png
+- icon_tech_chemotaxis_1.png
+
+Cards:
+- card_cell_macrophage.png
+- card_pathogen_shell_variant.png
+- card_tech_interferon_pathway.png
+- card_event_sleep_cycle.png
+
+Backgrounds:
+- bg_body_abstract_dark.png
+- bg_sector_gut.png
+- bg_sector_bloodstream.png
+- bg_sector_lymph_node.png
+
+UI:
+- ui_panel_dark_glass.png
+- ui_button_primary_cyan.png
+- ui_progress_infection_red.png
+- ui_icon_pause.png
+- ui_icon_settings.png
+
+Sizes:
+- resource icons: 256x256
+- organ icons: 256x256 or 512x512
+- cell/pathogen cards: 512x512 or 768x1024
+- tech icons: 256x256
+- event icons: 256x256
+- backgrounds: 1920x1080 for PC, crop-safe for web
+- UI panels: 9-slice friendly, simple borders
+
+---
+
+# 5. MVP Priority Asset List
+
+Generate these first.
+
+## 5.1. Resources
+
+1. amino_acids
+2. glucose
+3. atp
+4. stem_cells
+5. antigens
+6. lipids
+7. micronutrients
+
+## 5.2. Organs
+
+1. gut_villi
+2. mitochondrial_network
+3. bone_marrow
+4. liver
+5. lymph_node
+
+## 5.3. Cells
+
+1. neutrophil
+2. macrophage
+3. dendritic_cell
+4. nk_cell
+5. b_cell
+6. cytotoxic_t
+
+## 5.4. Pathogens
+
+1. swarm_coccus
+2. shell_variant
+3. thread_bloom
+4. metabolic_waste
+5. altered_self_cell
+
+## 5.5. Techs
+
+1. chemotaxis_1
+2. oxidative_burst_1
+3. granulopoiesis_1
+4. glycolytic_flux
+5. mitochondrial_biogenesis
+6. antigen_presentation_1
+7. clonal_expansion_1
+8. interferon_pathway
+9. complement_cascade
+10. mucus_production
+11. anti_inflammatory_signals
+12. codex_entry
+13. antigen_archive
+14. trained_immunity
+
+## 5.6. UI
+
+1. dark glass panel
+2. primary button
+3. danger button
+4. infection progress bar
+5. inflammation meter
+6. tolerance meter
+7. resource row background
+8. journal log background
+9. settings icon
+10. save/cloud icon
+
+---
+
+# 6. Resource Icon Prompts
+
+## amino_acids
+
+Prompt:
+
+flat vector game icon of an amino acid molecule, glowing cyan and soft blue, ball-and-stick structure simplified, thick clean outline, centered on pure white background, minimal detail, readable silhouette, mobile game asset, stylized biomedical sci-fi, bioluminescent glow, no text, no watermark
+
+Negative:
+
+text, letters, formulas, realistic chemistry diagram, cluttered bonds, watermark, logo, blurry
+
+## glucose
+
+Prompt:
+
+flat vector game icon of a glucose sugar ring, warm amber and gold, hexagonal molecular ring simplified, thick clean outline, centered on pure white background, minimal detail, glowing energy feel, mobile game asset, stylized biomedical sci-fi, no text, no watermark
+
+Negative:
+
+text, numbers, realistic photo, complex molecule, watermark, blurry
+
+## atp
+
+Prompt:
+
+flat vector game icon of ATP energy molecule, glowing yellow-orange, phosphate tail simplified, lightning-like energy accent, thick clean outline, centered on pure white background, minimal detail, mobile game asset, bioluminescent biomedical sci-fi, no text, no watermark
+
+Negative:
+
+text, letters, realistic battery, watermark, logo, cluttered
+
+## stem_cells
+
+Prompt:
+
+flat vector game icon of a stem cell, pale blue and white, round cell with soft nucleus, subtle dividing hint, thick clean outline, centered on pure white background, minimal detail, mobile game asset, stylized biomedical sci-fi, bioluminescent, no text, no watermark
+
+Negative:
+
+human face, realistic microscope photo, blood, gore, text, watermark
+
+## antigens
+
+Prompt:
+
+flat vector game icon of an antigen fragment, purple spiked shard, glowing magenta edges, simplified pathogen piece, thick clean outline, centered on pure white background, minimal detail, mobile game asset, stylized biomedical sci-fi, no text, no watermark
+
+Negative:
+
+text, virus whole organism, realistic photo, gore, watermark
+
+## lipids
+
+Prompt:
+
+flat vector game icon of a lipid droplet membrane, soft orange and peach, rounded fat globule with phospholipid hint, thick clean outline, centered on pure white background, minimal detail, mobile game asset, stylized biomedical sci-fi, no text, no watermark
+
+Negative:
+
+realistic oil, food photo, text, watermark, cluttered
+
+## micronutrients
+
+Prompt:
+
+flat vector game icon of micronutrients, small vitamin crystal and mineral shard combined, cyan-green and gold, thick clean outline, centered on pure white background, minimal detail, mobile game asset, stylized biomedical sci-fi, no text, no watermark
+
+Negative:
+
+pill bottle, pharmacy label, text, watermark, realistic supplement
+
+---
+
+# 7. Organ Icon Prompts
+
+## gut_villi
+
+Prompt:
+
+flat vector game icon of intestinal villi cross-section, warm red tissue with cyan nutrient sparks, finger-like absorptive shapes simplified, thick clean outline, centered on pure white background, minimal detail, mobile game asset, stylized biomedical sci-fi, bioluminescent, no text, no watermark
+
+Negative:
+
+realistic intestine, gore, blood, human organs photo, text, watermark
+
+## mitochondrial_network
+
+Prompt:
+
+flat vector game icon of mitochondria organelle, amber energy glow inside bean-shaped organelle, simplified cristae lines, thick clean outline, centered on pure white background, minimal detail, mobile game asset, stylized biomedical sci-fi, no text, no watermark
+
+Negative:
+
+realistic cell biology textbook, text labels, watermark, cluttered
+
+## bone_marrow
+
+Prompt:
+
+flat vector game icon of bone marrow cavity, glowing blue stem cells inside porous bone structure, warm ivory bone edges, thick clean outline, centered on pure white background, minimal detail, mobile game asset, stylized biomedical sci-fi, no text, no watermark
+
+Negative:
+
+broken bone, gore, blood, realistic skeleton, text, watermark
+
+## liver
+
+Prompt:
+
+flat vector game icon of liver lobule, dark red-purple organic shape with cyan detox spark, simplified hexagonal lobule, thick clean outline, centered on pure white background, minimal detail, mobile game asset, stylized biomedical sci-fi, no text, no watermark
+
+Negative:
+
+realistic organ, disease, blood, text, watermark
+
+## lymph_node
+
+Prompt:
+
+flat vector game icon of lymph node, cyan-purple bean shape with immune cell dots inside, filtered network lines, thick clean outline, centered on pure white background, minimal detail, mobile game asset, stylized biomedical sci-fi, bioluminescent, no text, no watermark
+
+Negative:
+
+realistic anatomy, cancer, text, watermark, cluttered
+
+---
+
+# 8. Cell Icon and Card Prompts
+
+## neutrophil icon
+
+Prompt:
+
+flat vector game icon of a neutrophil immune cell, cyan and white, round cell with multilobed nucleus simplified, granules as small dots, thick clean outline, centered on pure white background, minimal detail, mobile game asset, stylized biomedical sci-fi, bioluminescent, no text, no watermark
+
+Negative:
+
+human face, eyes, mouth, realistic blood smear, text, watermark
+
+## neutrophil card
+
+Prompt:
+
+stylized immune cell game card illustration, neutrophil with multilobed nucleus, cyan and white, dynamic floating pose, subtle granule sparks, dark transparent background, ornate organic border, flat vector with glow, biomedical sci-fi, limited palette, no text, no watermark
+
+Negative:
+
+text, letters, realistic photo, gore, human face, watermark
+
+## macrophage icon
+
+Prompt:
+
+flat vector game icon of a macrophage immune cell, blue-teal, large irregular cell with pseudopods engulfing a small particle, thick clean outline, centered on pure white background, minimal detail, mobile game asset, stylized biomedical sci-fi, bioluminescent, no text, no watermark
+
+Negative:
+
+monster, teeth, eyes, realistic phagocytosis photo, text, watermark
+
+## macrophage card
+
+Prompt:
+
+stylized immune cell game card illustration, macrophage extending pseudopods around a glowing debris particle, teal and deep blue, calm powerful mood, dark transparent background, organic border, flat vector with subtle glow, biomedical sci-fi, no text, no watermark
+
+Negative:
+
+text, gore, blood, realistic microscopy, watermark
+
+## dendritic_cell icon
+
+Prompt:
+
+flat vector game icon of a dendritic cell, gold and cyan, star-like branching projections, antigen fragments on tips, thick clean outline, centered on pure white background, minimal detail, mobile game asset, stylized biomedical sci-fi, no text, no watermark
+
+Negative:
+
+tree, plant, realistic neuron, text, watermark
+
+## dendritic_cell card
+
+Prompt:
+
+stylized immune cell game card illustration, dendritic cell with branching antennae carrying glowing antigen shards, gold cyan palette, messenger/scout mood, dark transparent background, ornate organic border, flat vector with glow, no text, no watermark
+
+Negative:
+
+text, letters, realistic neuron, human figure, watermark
+
+## nk_cell icon
+
+Prompt:
+
+flat vector game icon of a natural killer cell, purple and cyan, compact cell with glowing receptor spikes, sharp but elegant silhouette, thick clean outline, centered on pure white background, minimal detail, mobile game asset, stylized biomedical sci-fi, no text, no watermark
+
+Negative:
+
+assassin, weapon, human ninja, blood, text, watermark
+
+## nk_cell card
+
+Prompt:
+
+stylized immune cell game card illustration, natural killer cell detecting an infected cell, purple cyan contrast, glowing receptor beams, vigilant hunter mood, dark transparent background, organic border, flat vector with subtle glow, no text, no watermark
+
+Negative:
+
+text, gore, weapon, realistic virus, watermark
+
+## b_cell icon
+
+Prompt:
+
+flat vector game icon of a B cell, soft blue and white, round lymphocyte with antibody Y symbols orbiting subtly, thick clean outline, centered on pure white background, minimal detail, mobile game asset, stylized biomedical sci-fi, no text, no watermark
+
+Negative:
+
+letters B, text, realistic lab, watermark
+
+## b_cell card
+
+Prompt:
+
+stylized immune cell game card illustration, B cell producing glowing antibody Y shapes, soft blue and silver, scholarly adaptive immunity mood, dark transparent background, ornate organic border, flat vector with glow, no text, no watermark
+
+Negative:
+
+text, letters, labels, realistic photo, watermark
+
+## cytotoxic_t icon
+
+Prompt:
+
+flat vector game icon of a cytotoxic T cell, red-cyan contrast, angular lymphocyte with piercing receptor tips, targeted strike silhouette, thick clean outline, centered on pure white background, minimal detail, mobile game asset, stylized biomedical sci-fi, no text, no watermark
+
+Negative:
+
+weapon, sword, blood, human soldier, text, watermark
+
+## cytotoxic_t card
+
+Prompt:
+
+stylized immune cell game card illustration, cytotoxic T cell engaging an infected host cell, red and cyan contrast, precise lethal touch, glowing contact point, dark transparent background, organic border, flat vector with subtle glow, no text, no watermark
+
+Negative:
+
+text, gore, explosion, realistic apoptosis, watermark
+
+---
+
+# 9. Pathogen Icon and Card Prompts
+
+## swarm_coccus icon
+
+Prompt:
+
+flat vector game icon of a simple bacterium, toxic green spherical cluster, capsule glow, tiny flagella hints, thick clean outline, centered on pure white background, minimal detail, mobile game asset, stylized biomedical sci-fi, no text, no watermark
+
+Negative:
+
+realistic bacteria, disease poster, text, watermark
+
+## swarm_coccus card
+
+Prompt:
+
+stylized pathogen game card illustration, swarm coccus bacteria cluster, toxic green and dark purple, multiplying colony mood, simple capsule shapes, dark transparent background, organic border, flat vector with glow, no text, no watermark
+
+Negative:
+
+text, gore, realistic petri dish, watermark
+
+## shell_variant icon
+
+Prompt:
+
+flat vector game icon of a virus, magenta and black, icosahedral capsid with spike proteins, minimal glowing shell, thick clean outline, centered on pure white background, minimal detail, mobile game asset, stylized biomedical sci-fi, no text, no watermark
+
+Negative:
+
+corona symbol, real virus photo, disease warning, text, watermark
+
+## shell_variant card
+
+Prompt:
+
+stylized virus game card illustration, shell variant virus with spike proteins, magenta purple and black, hidden intruder mood, geometric capsid, dark transparent background, ornate organic border, flat vector with glow, no text, no watermark
+
+Negative:
+
+text, biological hazard sign, realistic electron microscope, watermark
+
+## thread_bloom icon
+
+Prompt:
+
+flat vector game icon of a fungus, sickly orange and green, hyphae threads with small spore bulbs, thick clean outline, centered on pure white background, minimal detail, mobile game asset, stylized biomedical sci-fi, no text, no watermark
+
+Negative:
+
+moldy food, realistic mushroom, text, watermark
+
+## thread_bloom card
+
+Prompt:
+
+stylized fungus game card illustration, thread bloom hyphae spreading with glowing spores, orange green palette, slow persistent growth mood, dark transparent background, organic border, flat vector with subtle glow, no text, no watermark
+
+Negative:
+
+text, rotting flesh, realistic mold, watermark
+
+## metabolic_waste icon
+
+Prompt:
+
+flat vector game icon of metabolic waste, murky green-yellow sludge droplet with small toxin bubbles, thick clean outline, centered on pure white background, minimal detail, mobile game asset, stylized biomedical sci-fi, no text, no watermark
+
+Negative:
+
+feces, urine, gross realistic waste, text, watermark
+
+## altered_self_cell icon
+
+Prompt:
+
+flat vector game icon of an altered self cell, pale white-red mutated cell, irregular nucleus, subtle crack glow, thick clean outline, centered on pure white background, minimal detail, mobile game asset, stylized biomedical sci-fi, no text, no watermark
+
+Negative:
+
+cancer word, tumor realistic, gore, text, watermark
+
+---
+
+# 10. Technology Icon Prompts
+
+## chemotaxis_1
+
+Prompt:
+
+flat vector game icon of chemotaxis, cyan immune cell following a glowing dotted trail toward a green pathogen signal, minimal arrows, thick clean outline, centered on white background, mobile game asset, biomedical sci-fi, no text, no watermark
+
+Negative:
+
+text, compass, map, watermark
+
+## oxidative_burst_1
+
+Prompt:
+
+flat vector game icon of oxidative burst, macrophage emitting small orange reactive sparks, controlled explosion symbol, thick clean outline, centered on white background, mobile game asset, biomedical sci-fi, no text, no watermark
+
+Negative:
+
+fireworks, bomb, realistic fire, text, watermark
+
+## granulopoiesis_1
+
+Prompt:
+
+flat vector game icon of granulopoiesis, bone marrow producing multiple neutrophil cells, blue-white cluster, thick clean outline, centered on white background, mobile game asset, biomedical sci-fi, no text, no watermark
+
+Negative:
+
+factory machines, text, watermark
+
+## glycolytic_flux
+
+Prompt:
+
+flat vector game icon of glycolytic flux, glucose ring splitting into amber ATP sparks, simple pathway arrow, thick clean outline, centered on white background, mobile game asset, biomedical sci-fi, no text, no watermark
+
+Negative:
+
+chemical equations, text, watermark
+
+## mitochondrial_biogenesis
+
+Prompt:
+
+flat vector game icon of mitochondrial biogenesis, multiple amber mitochondria budding from one organelle, energy growth motif, thick clean outline, centered on white background, mobile game asset, biomedical sci-fi, no text, no watermark
+
+Negative:
+
+plants, leaves, text, watermark
+
+## antigen_presentation_1
+
+Prompt:
+
+flat vector game icon of antigen presentation, dendritic cell holding a purple antigen shard toward a lymph node, gold signal line, thick clean outline, centered on white background, mobile game asset, biomedical sci-fi, no text, no watermark
+
+Negative:
+
+teacher student, human figures, text, watermark
+
+## clonal_expansion_1
+
+Prompt:
+
+flat vector game icon of clonal expansion, one blue lymphocyte dividing into multiple identical cells, soft duplication glow, thick clean outline, centered on white background, mobile game asset, biomedical sci-fi, no text, no watermark
+
+Negative:
+
+clone text, lab flask, watermark
+
+## interferon_pathway
+
+Prompt:
+
+flat vector game icon of interferon pathway, cyan signal wave passing between cells, antiviral shield hint, magenta virus blocked, thick clean outline, centered on white background, mobile game asset, biomedical sci-fi, no text, no watermark
+
+Negative:
+
+wifi symbol, text, watermark
+
+## complement_cascade
+
+Prompt:
+
+flat vector game icon of complement cascade, chain of golden protein arcs attacking a green bacterium, lysis pores, thick clean outline, centered on white background, mobile game asset, biomedical sci-fi, no text, no watermark
+
+Negative:
+
+waterfall, food complement, text, watermark
+
+## mucus_production
+
+Prompt:
+
+flat vector game icon of mucus production, translucent cyan gel layer protecting tissue, droplet shield, thick clean outline, centered on white background, mobile game asset, biomedical sci-fi, no text, no watermark
+
+Negative:
+
+snot cartoon, gross mucus, text, watermark
+
+## anti_inflammatory_signals
+
+Prompt:
+
+flat vector game icon of anti-inflammatory signals, cool blue droplets calming a red inflammation flame, thick clean outline, centered on white background, mobile game asset, biomedical sci-fi, no text, no watermark
+
+Negative:
+
+medicine pills, text, watermark
+
+## codex_entry
+
+Prompt:
+
+flat vector game icon of immune codex, glowing book made of holographic cell diagrams and antigen shards, gold cyan palette, thick clean outline, centered on white background, mobile game asset, biomedical sci-fi, no text, no watermark
+
+Negative:
+
+readable pages, letters, book title, watermark
+
+## antigen_archive
+
+Prompt:
+
+flat vector game icon of antigen archive, crystalline shelves storing purple antigen fragments, cyan glow, thick clean outline, centered on white background, mobile game asset, biomedical sci-fi, no text, no watermark
+
+Negative:
+
+warehouse boxes, text, watermark
+
+## trained_immunity
+
+Prompt:
+
+flat vector game icon of trained immunity, innate cell with a faint memory halo and previous pathogen silhouette, teal gold palette, thick clean outline, centered on white background, mobile game asset, biomedical sci-fi, no text, no watermark
+
+Negative:
+
+muscle arm, gym, text, watermark
+
+---
+
+# 11. Event Icon Prompts
+
+## meal_protein
+
+Prompt:
+
+flat vector game icon of protein nutrition event, stylized amino acid-rich food abstracted into cyan molecular chunks, no recognizable brand, thick clean outline, centered on white background, mobile game asset, biomedical sci-fi, no text, no watermark
+
+Negative:
+
+meat, fish, realistic food, text, watermark
+
+## meal_sugar
+
+Prompt:
+
+flat vector game icon of sugar intake, amber glucose crystals with subtle green bacterial risk spark, thick clean outline, centered on white background, mobile game asset, biomedical sci-fi, no text, no watermark
+
+Negative:
+
+candy wrapper, text, watermark
+
+## meal_fiber
+
+Prompt:
+
+flat vector game icon of fiber meal, green-gold plant-fiber strands feeding microbiome dots, thick clean outline, centered on white background, mobile game asset, biomedical sci-fi, no text, no watermark
+
+Negative:
+
+vegetable realistic, text, watermark
+
+## sleep_cycle
+
+Prompt:
+
+flat vector game icon of sleep cycle, dark indigo crescent with cyan memory threads and soft stars, thick clean outline, centered on white background, mobile game asset, biomedical sci-fi, no text, no watermark
+
+Negative:
+
+bed, pillow, zzz letters, text, watermark
+
+## stress_spike
+
+Prompt:
+
+flat vector game icon of stress spike, red jagged cortisol wave over a tense tissue background, thick clean outline, centered on white background, mobile game asset, biomedical sci-fi, no text, no watermark
+
+Negative:
+
+anxious human face, text, watermark
+
+## fever_request
+
+Prompt:
+
+flat vector game icon of fever, red-orange thermal aura around a body silhouette, controlled heat rings, thick clean outline, centered on white background, mobile game asset, biomedical sci-fi, no text, no watermark
+
+Negative:
+
+thermometer numbers, sick person, text, watermark
+
+## antibiotic_course
+
+Prompt:
+
+flat vector game icon of antibiotic course, blue capsule-like molecule disrupting green bacteria but also dimming microbiome dots, thick clean outline, centered on white background, mobile game asset, biomedical sci-fi, no text, no watermark
+
+Negative:
+
+pill bottle label, text, watermark
+
+## vaccine_campaign
+
+Prompt:
+
+flat vector game icon of vaccination campaign, syringe abstracted into a cyan shield delivering antigen spark, no medical branding, thick clean outline, centered on white background, mobile game asset, biomedical sci-fi, no text, no watermark
+
+Negative:
+
+needle blood, text, logo, watermark
+
+## allergen_exposure
+
+Prompt:
+
+flat vector game icon of allergen exposure, pale pollen dust particles triggering a mast cell histamine burst, orange-red warning glow, thick clean outline, centered on white background, mobile game asset, biomedical sci-fi, no text, no watermark
+
+Negative:
+
+hay fever person, text, watermark
+
+## toxin_spill
+
+Prompt:
+
+flat vector game icon of toxin spill, acid green droplet cloud with jagged chemical edges, liver detox shield nearby, thick clean outline, centered on white background, mobile game asset, biomedical sci-fi, no text, no watermark
+
+Negative:
+
+radioactive symbol, skull poison, text, watermark
+
+---
+
+# 12. UI Element Prompts
+
+## dark_glass_panel
+
+Prompt:
+
+minimal sci-fi game UI panel, dark glass rectangle, rounded corners, neon cyan edge glow, subtle inner noise, semi-transparent, 9-slice friendly, no text, no watermark
+
+Negative:
+
+text, buttons inside, logo, watermark, complex ornament
+
+## primary_button
+
+Prompt:
+
+minimal sci-fi game button, rounded cyan glow capsule, dark glass base, clean highlight, 9-slice friendly, no text, no watermark
+
+Negative:
+
+text, label, arrow, watermark
+
+## danger_button
+
+Prompt:
+
+minimal sci-fi game button, rounded red-orange glow capsule, dark glass base, warning accent, 9-slice friendly, no text, no watermark
+
+Negative:
+
+text, skull, watermark
+
+## infection_progress_bar
+
+Prompt:
+
+game UI progress bar, dark organic track, red-green infection fill, subtle pulsing glow, segmented microscopic style, no text, no watermark
+
+Negative:
+
+numbers, percentage, text, watermark
+
+## inflammation_meter
+
+Prompt:
+
+game UI circular meter, red-orange flame core inside a cool glass ring, minimal biomedical sci-fi, no text, no watermark
+
+Negative:
+
+fire realism, text, watermark
+
+## tolerance_meter
+
+Prompt:
+
+game UI circular meter, calm cyan-blue shield core inside a glass ring, minimal biomedical sci-fi, no text, no watermark
+
+Negative:
+
+peace symbol, text, watermark
+
+## journal_log_background
+
+Prompt:
+
+game UI log panel, dark translucent strip with faint cell texture, cyan scanline accents, readable empty space, no text, no watermark
+
+Negative:
+
+written lines, letters, watermark
+
+## settings_icon
+
+Prompt:
+
+flat vector game icon of settings, gear merged with organic cell membrane, cyan and dark blue, thick outline, centered on white background, no text, no watermark
+
+Negative:
+
+realistic gears, text, watermark
+
+## save_cloud_icon
+
+Prompt:
+
+flat vector game icon of save cloud, cyan cloud with DNA-like thread inside, minimal, centered on white background, no text, no watermark
+
+Negative:
+
+brand logo, text, watermark
+
+---
+
+# 13. Background Prompts
+
+## main_body_abstract_background
+
+Prompt:
+
+dark biomedical sci-fi background, abstract tissue environment, deep burgundy and indigo gradients, soft glowing cell membranes, subtle particles, empty center for UI, no characters, no text, no watermark
+
+Negative:
+
+realistic anatomy, blood, gore, text, watermark, busy foreground
+
+## sector_gut_background
+
+Prompt:
+
+abstract gut interior game background, warm red-purple tissue folds, cyan nutrient sparks, soft mucus glow, calm but alive, empty center for UI, no text, no watermark
+
+Negative:
+
+realistic intestine, feces, gore, text, watermark
+
+## sector_bloodstream_background
+
+Prompt:
+
+abstract bloodstream game background, dark crimson flow channels, floating pale cells as silhouettes, cyan immune glints, motion blur subtle, no text, no watermark
+
+Negative:
+
+blood splatter, realistic veins, text, watermark
+
+## sector_lymph_node_background
+
+Prompt:
+
+abstract lymph node interior game background, violet-cyan filtering chambers, antigen shards suspended in gel, scholarly calm mood, no text, no watermark
+
+Negative:
+
+medical diagram, text, watermark
+
+## prestige_new_host_background
+
+Prompt:
+
+mysterious biomedical sci-fi background, silhouette of a new human host formed from glowing cells, dark indigo and gold memory threads, epic calm mood, no face details, no text, no watermark
+
+Negative:
+
+realistic person, face, blood, text, watermark
+
+---
+
+# 14. Optional Character-like Host Silhouettes
+
+Only if you want host archetypes visually.
+
+Rule: avoid faces. Use silhouettes, icons, and abstract bodies.
+
+## host_default
+
+Prompt:
+
+minimal human silhouette made of glowing cyan cells, neutral pose, dark background, no face, no features, biomedical sci-fi icon, no text, no watermark
+
+Negative:
+
+face, eyes, fingers, realistic person, text
+
+## host_child
+
+Prompt:
+
+small human silhouette made of bright blue cells, playful rounded posture, no face, no features, dark background, biomedical sci-fi icon, no text, no watermark
+
+Negative:
+
+child face, toy, realistic kid, text
+
+## host_athlete
+
+Prompt:
+
+athletic human silhouette made of amber energy cells, dynamic stance, no face, no features, dark background, biomedical sci-fi icon, no text, no watermark
+
+Negative:
+
+sports equipment, face, muscle anatomy, text
+
+## host_sleeper
+
+Prompt:
+
+resting human silhouette made of indigo and silver memory threads, calm horizontal pose, no face, no features, dark background, biomedical sci-fi icon, no text, no watermark
+
+Negative:
+
+bed, pillow, face, text
+
+## host_stressed_worker
+
+Prompt:
+
+tense human silhouette made of red-orange cortisol sparks, slouched posture, no face, no features, dark background, biomedical sci-fi icon, no text, no watermark
+
+Negative:
+
+office desk, face, realistic stress, text
+
+## host_traveler
+
+Prompt:
+
+walking human silhouette made of multicolored pathogen-aware cells, backpack-like abstract shape, no face, no features, dark background, biomedical sci-fi icon, no text, no watermark
+
+Negative:
+
+suitcase, passport, face, text
+
+## host_elder
+
+Prompt:
+
+wise human silhouette made of pale gold memory cells, calm curved posture, no face, no features, dark background, biomedical sci-fi icon, no text, no watermark
+
+Negative:
+
+old person face, cane, text
+
+## host_biohacker
+
+Prompt:
+
+cybernetic human silhouette made of cyan and magenta synthetic cells, abstract implant glow, no face, no features, dark background, biomedical sci-fi icon, no text, no watermark
+
+Negative:
+
+cyborg face, weapons, text
+
+## host_symbiote
+
+Prompt:
+
+symbiotic human silhouette intertwined with green microbiome vines and phage particles, no face, no features, dark background, biomedical sci-fi icon, no text, no watermark
+
+Negative:
+
+alien parasite horror, face, text
+
+---
+
+# 15. Animation Strategy Without Complex Art
+
+Do not ask AI to generate perfect frame-by-frame animations. Instead generate static assets and animate in Godot.
+
+## Safe animations
+
+- pulse scale: 1.0 to 1.05;
+- glow opacity oscillation;
+- rotation of outer ring;
+- particle emission;
+- shader outline flicker;
+- floating offset with sin();
+- infection marker breathing;
+- cell icons drifting slightly.
+
+## Prompt for optional sprite sheet
+
+Use only if you accept inconsistency.
+
+Prompt:
+
+simple 8-frame sprite sheet of a neutrophil immune cell floating, cyan white, flat vector, consistent size, transparent background, minimal motion, loop animation, no text, no watermark
+
+Negative:
+
+text, changing design, multiple rows, perspective change, realistic photo
+
+Better approach:
+
+Generate one clean cell icon, then animate in Godot with:
+- Tween;
+- shader;
+- CPUParticles2D;
+- small rotation/scale/position offsets.
+
+---
+
+# 16. Post-Processing Pipeline
+
+After generating images:
+
+1. Select best candidates.
+2. Remove white background if icon.
+3. Crop to square with padding.
+4. Normalize brightness.
+5. Apply shared palette map.
+6. Add shared outline shader or stroke.
+7. Add subtle noise/grain.
+8. Export as PNG with transparency.
+9. Import into Godot with correct compression.
+
+## Shared look targets
+
+- outline thickness similar;
+- saturation similar;
+- glow intensity similar;
+- subject centered;
+- background removed;
+- no embedded text;
+- consistent icon padding.
+
+## Godot shader ideas
+
+- outline pass;
+- color tint by category;
+- rim glow;
+- scanline/noise overlay;
+- desaturate locked assets;
+- pulse shader for active infections.
+
+---
+
+# 17. Batch Generation Workflow
+
+## Batch 1: MVP icons
+
+Generate 4 variants per asset. Keep only the most readable silhouette.
+
+Priority order:
+1. resources
+2. organs
+3. cells
+4. pathogens
+5. techs
+6. events
+7. UI
+8. backgrounds
+
+## Batch 2: Cards
+
+Generate cards only for important unlock moments:
+- first macrophage;
+- first dendritic cell;
+- first virus;
+- first vaccine;
+- first prestige;
+- each new pathogen family.
+
+Cards can be larger and more artistic than icons.
+
+## Batch 3: Polish
+
+Add:
+- host silhouettes;
+- sector backgrounds;
+- achievement badges;
+- premium cosmetic variants.
+
+---
+
+# 18. Prompt Variables
+
+Replace [SUBJECT] with one of:
+
+- amino acid molecule
+- glucose sugar ring
+- ATP energy molecule
+- stem cell
+- antigen fragment
+- lipid droplet
+- micronutrient crystal
+- intestinal villi
+- mitochondria
+- bone marrow cavity
+- liver lobule
+- lymph node
+- neutrophil
+- macrophage
+- dendritic cell
+- natural killer cell
+- B cell
+- cytotoxic T cell
+- bacterium cluster
+- virus capsid
+- fungus hyphae
+- toxin droplet
+- altered cell
+- chemotaxis trail
+- oxidative burst
+- antigen presentation
+- interferon signal
+- complement cascade
+- mucus shield
+- sleep memory threads
+- stress cortisol wave
+- fever heat aura
+- vaccine shield
+- codex hologram
+
+---
+
+# 19. Category Color Tags
+
+Add these to prompts to keep consistency.
+
+## Resources
+
+- amino_acids: cyan and soft blue
+- glucose: warm amber and gold
+- atp: glowing yellow-orange
+- stem_cells: pale blue and white
+- antigens: purple and magenta
+- lipids: soft orange and peach
+- micronutrients: cyan-green and gold
+
+## Organs
+
+- gut_villi: warm red tissue with cyan nutrient sparks
+- mitochondrial_network: amber energy glow
+- bone_marrow: glowing blue cells in ivory bone
+- liver: dark red-purple with cyan detox spark
+- lymph_node: cyan-purple filtering glow
+
+## Cells
+
+- neutrophil: cyan and white
+- macrophage: blue-teal
+- dendritic_cell: gold and cyan
+- nk_cell: purple and cyan
+- b_cell: soft blue and silver
+- cytotoxic_t: red-cyan contrast
+
+## Pathogens
+
+- bacteria: toxic green and dark purple
+- viruses: magenta, black, deep purple
+- fungi: sickly orange and green
+- parasites: red-brown and violet
+- toxins: acid green and yellow
+- altered_self: pale white-red
+
+## Techs
+
+- innate swarm: cyan and red-orange
+- adaptive precision: blue, silver, gold
+- barriers: teal and soft green
+- metabolism: amber and orange
+- regulation: cool blue and white
+- specialized warfare: purple and cyan
+- memory/vaccines: gold and holographic cyan
+- neuro-endocrine: indigo and silver
+- synthetic: magenta-cyan chrome
+- endgame ecology: green-gold bioluminescence
+
+---
+
+# 20. Itch.io / CrazyGames Thumbnail Prompts
+
+## itch cover
+
+Prompt:
+
+video game cover art for an incremental immune system strategy game, abstract human body interior glowing with cyan immune cells and magenta pathogens, dark burgundy background, futuristic biomedical sci-fi, dramatic but clean, central empty space for title, no text, no watermark
+
+Negative:
+
+title text, logo, gore, realistic blood, human face, watermark
+
+## CrazyGames thumbnail
+
+Prompt:
+
+mobile web game thumbnail, bright cyan macrophage fighting green bacteria and magenta virus, dark organic background, simple bold shapes, high contrast, playful sci-fi, no text, no watermark
+
+Negative:
+
+text, tiny details, gore, realistic medical photo, watermark
+
+## Steam capsule style optional
+
+Prompt:
+
+wide game capsule artwork, immune system civilization inside a glowing body, left side dark tissue, right side cyan defensive cells, purple virus threat, cinematic but flat vector, no text, no watermark
+
+Negative:
+
+text, logo, faces, gore, watermark
+
+---
+
+# 21. Social Media / Devlog Image Prompts
+
+## concept shot
+
+Prompt:
+
+concept art for an idle game about immune system empire, abstract organs as glowing stations, immune cells traveling along vessel roads, pathogens as invasive colored storms, dark biomedical sci-fi, clean composition, no text, no watermark
+
+## upgrade tree
+
+Prompt:
+
+game tech tree visualization, glowing immune technology nodes connected by cyan and gold pathways, dark organic background, futuristic biology, no readable text, no watermark
+
+Negative:
+
+letters, numbers, labels, watermark
+
+## prestige moment
+
+Prompt:
+
+prestige transition artwork for immune game, old body dissolving into golden memory particles, new host silhouette forming from cyan cells, emotional calm sci-fi, no face details, no text, no watermark
+
+---
+
+# 22. What Not to Generate
+
+Avoid asking Qwen for:
+
+- a full animated character with consistent identity;
+- complex battle scenes with many interacting cells;
+- realistic medical diagrams with labels;
+- readable UI text inside images;
+- logos or brand-like icons;
+- gore-heavy infection imagery;
+- children/faces in medical context;
+- photorealistic viruses/bacteria;
+- too many small objects in one icon.
+
+Instead generate:
+- one subject;
+- clear silhouette;
+- simple background;
+- icon/card format;
+- composite scenes in Godot.
+
+---
+
+# 23. Minimum Viable Art Set
+
+If you only have time for 30 images, generate these:
+
+Resources:
+1. amino_acids
+2. glucose
+3. atp
+4. stem_cells
+5. antigens
+
+Organs:
+6. gut_villi
+7. mitochondrial_network
+8. bone_marrow
+9. liver
+10. lymph_node
+
+Cells:
+11. neutrophil
+12. macrophage
+13. dendritic_cell
+14. nk_cell
+15. b_cell
+16. cytotoxic_t
+
+Pathogens:
+17. swarm_coccus
+18. shell_variant
+19. thread_bloom
+20. metabolic_waste
+21. altered_self_cell
+
+Techs:
+22. chemotaxis_1
+23. oxidative_burst_1
+24. glycolytic_flux
+25. antigen_presentation_1
+26. interferon_pathway
+27. complement_cascade
+
+UI:
+28. dark_glass_panel
+29. infection_progress_bar
+30. main_body_abstract_background
+
+This is enough for a publishable web alpha if the UI is clean.
+
+---
+
+# 24. Expanded Art Set for Alpha
+
+Add after MVP:
+
+Resources:
+- lipids
+- micronutrients
+- cytokines
+- nucleotides
+- antibodies
+
+Organs:
+- skin_barrier
+- mucosal_layer
+- microbiome_garden
+- spleen
+- thymus
+- hypothalamus_center
+
+Cells:
+- monocyte
+- eosinophil
+- mast_cell
+- plasma_cell
+- memory_b
+- helper_t
+- memory_t
+- treg
+
+Pathogens:
+- capsule_staph
+- intracellular_listria
+- biofilm_colony
+- respiratory_rhino
+- enteric_virus
+- yeast_overgrowth
+- helminth_thread
+- environmental_toxin
+
+Techs:
+- all MVP techs plus one icon per cluster:
+  - innate swarm
+  - adaptive precision
+  - barriers
+  - metabolism
+  - regulation
+  - specialized warfare
+  - memory/vaccines
+  - neuro-endocrine
+  - synthetic immunity
+  - endgame ecology
+
+Events:
+- meal_protein
+- meal_sugar
+- meal_fiber
+- sleep_cycle
+- stress_spike
+- fever_request
+- antibiotic_course
+- vaccine_campaign
+
+UI:
+- inflammation meter
+- tolerance meter
+- codex book icon
+- vaccine vial icon
+- host silhouette set
+
+---
+
+# 25. Final Prompt Quality Checklist
+
+Before accepting an generated image, check:
+
+- Is the silhouette readable at 64x64?
+- Does it fit the palette?
+- Is there no accidental text?
+- Is the background removable?
+- Is it not too realistic/gory?
+- Is it distinct from similar assets?
+- Can it be tinted by category?
+- Does it look okay on dark UI?
+- Does it look okay on light tooltip background?
+- Can it be animated with simple pulse/glow?
+
+If an image fails readability, regenerate simpler.
+
+---
+
+# 26. Suggested First Prompt Run
+
+Copy this batch first:
+
+1. flat vector game icon of an amino acid molecule, glowing cyan and soft blue, ball-and-stick structure simplified, thick clean outline, centered on pure white background, minimal detail, readable silhouette, mobile game asset, stylized biomedical sci-fi, bioluminescent glow, no text, no watermark
+
+2. flat vector game icon of a glucose sugar ring, warm amber and gold, hexagonal molecular ring simplified, thick clean outline, centered on pure white background, minimal detail, glowing energy feel, mobile game asset, stylized biomedical sci-fi, no text, no watermark
+
+3. flat vector game icon of ATP energy molecule, glowing yellow-orange, phosphate tail simplified, lightning-like energy accent, thick clean outline, centered on pure white background, minimal detail, mobile game asset, bioluminescent biomedical sci-fi, no text, no watermark
+
+4. flat vector game icon of a stem cell, pale blue and white, round cell with soft nucleus, subtle dividing hint, thick clean outline, centered on pure white background, minimal detail, mobile game asset, stylized biomedical sci-fi, bioluminescent, no text, no watermark
+
+5. flat vector game icon of an antigen fragment, purple spiked shard, glowing magenta edges, simplified pathogen piece, thick clean outline, centered on pure white background, minimal detail, mobile game asset, stylized biomedical sci-fi, no text, no watermark
+
+6. flat vector game icon of intestinal villi cross-section, warm red tissue with cyan nutrient sparks, finger-like absorptive shapes simplified, thick clean outline, centered on pure white background, minimal detail, mobile game asset, stylized biomedical sci-fi, bioluminescent, no text, no watermark
+
+7. flat vector game icon of mitochondria organelle, amber energy glow inside bean-shaped organelle, simplified cristae lines, thick clean outline, centered on pure white background, minimal detail, mobile game asset, stylized biomedical sci-fi, no text, no watermark
+
+8. flat vector game icon of bone marrow cavity, glowing blue stem cells inside porous bone structure, warm ivory bone edges, thick clean outline, centered on pure white background, minimal detail, mobile game asset, stylized biomedical sci-fi, no text, no watermark
+
+9. flat vector game icon of a neutrophil immune cell, cyan and white, round cell with multilobed nucleus simplified, granules as small dots, thick clean outline, centered on pure white background, minimal detail, mobile game asset, stylized biomedical sci-fi, bioluminescent, no text, no watermark
+
+10. flat vector game icon of a macrophage immune cell, blue-teal, large irregular cell with pseudopods engulfing a small particle, thick clean outline, centered on pure white background, minimal detail, mobile game asset, stylized biomedical sci-fi, bioluminescent, no text, no watermark
+
+11. flat vector game icon of a simple bacterium, toxic green spherical cluster, capsule glow, tiny flagella hints, thick clean outline, centered on pure white background, minimal detail, mobile game asset, stylized biomedical sci-fi, no text, no watermark
+
+12. flat vector game icon of a virus, magenta and black, icosahedral capsid with spike proteins, minimal glowing shell, thick clean outline, centered on pure white background, minimal detail, mobile game asset, stylized biomedical sci-fi, no text, no watermark
+
+13. minimal sci-fi game UI panel, dark glass rectangle, rounded corners, neon cyan edge glow, subtle inner noise, semi-transparent, 9-slice friendly, no text, no watermark
+
+14. dark biomedical sci-fi background, abstract tissue environment, deep burgundy and indigo gradients, soft glowing cell membranes, subtle particles, empty center for UI, no characters, no text, no watermark
+
+Start with these. If they look cohesive after palette normalization, expand to the rest.

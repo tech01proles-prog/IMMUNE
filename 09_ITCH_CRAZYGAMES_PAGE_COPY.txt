@@ -1,0 +1,1233 @@
+# Immune Empire: Internal Front — itch.io / CrazyGames Page Copy Pack
+# File: 09_ITCH_CRAZYGAMES_PAGE_COPY.txt
+
+Purpose:
+- Ready-to-use store text for itch.io and CrazyGames.
+- Includes English primary copy, Russian secondary copy, short pitches, feature lists, FAQ, tags, update notes, social posts and page structure.
+- Designed for a web incremental/idle game with biological immune-system theme.
+
+---
+
+# 1. Title Options
+
+## Main recommended title
+
+Immune Empire: Internal Front
+
+## Alternative titles
+
+- Immune Empire
+- Internal Front: Immune Idle
+- Cellular Sovereign
+- Bodyguard Idle
+- Leuko Lords
+- Immune Civilization
+- Internal Defense Idle
+
+## Russian title options
+
+- Иммунная Империя: Внутренний Фронт
+- Иммунная Империя
+- Внутренний Фронт: Иммунитет
+- Клеточный Суверен
+- Хранители Тела
+
+## Recommendation for platforms
+
+For itch.io / CrazyGames use English title as primary:
+
+Immune Empire: Internal Front
+
+Subtitle:
+
+Build an immune civilization inside the body.
+
+Russian localized subtitle:
+
+Построй иммунную цивилизацию внутри тела.
+
+---
+
+# 2. Short Pitch / Tagline
+
+## English short pitch
+
+Build an immune civilization inside the body. Mine nutrients, train leukocytes, contain outbreaks, balance inflammation, and evolve defenses against ever-new pathogens.
+
+## English ultra-short
+
+Command your immune system. Contain outbreaks. Evolve defenses. Remember every enemy.
+
+## Russian short pitch
+
+Построй иммунную цивилизацию внутри тела. Добывай нутриенты, обучай лейкоцитов, сдерживай вспышки, балансируй воспаление и развивай защиту от новых патогенов.
+
+## Russian ultra-short
+
+Управляй иммунитетом. Сдерживай инфекции. Запоминай врагов. Становись сильнее после каждого нового хозяина.
+
+---
+
+# 3. One-Line Description
+
+## English
+
+An incremental strategy game where you grow an immune system into a living fortress.
+
+## Russian
+
+Инкрементальная стратегия, в которой ты развиваешь иммунную систему в живую крепость.
+
+---
+
+# 4. itch.io Page Copy — English
+
+## Section: Intro
+
+Immune Empire: Internal Front is an incremental strategy game about building a living defense civilization inside a human body.
+
+You do not click monsters or manage a factory. You command an immune system.
+
+Digest nutrients, grow stem cells, train leukocytes, contain bacterial and viral outbreaks, balance inflammation, unlock adaptive immunity, collect antigens, create vaccines, and ascend to a new host with permanent immune memory.
+
+Every defeated pathogen becomes knowledge. Every new host makes your empire stronger.
+
+## Section: What makes it different
+
+Most incremental games are about buying more generators.
+
+Immune Empire is about ecological balance.
+
+- Too little defense? Outbreaks overwhelm your organs.
+- Too much inflammation? Your own tissues suffer.
+- Too narrow an army? Pathogens adapt.
+- Too little regulation? Autoimmune flares begin.
+- Too little energy? Even the strongest cells slow down.
+
+You can develop many viable strategies:
+
+- Swarm Sovereign: mass neutrophils, aggressive innate response, fast bacterial suppression.
+- Adaptive Archivist: dendritic cells, lymph nodes, B/T cells, antibodies, immune memory.
+- Barrier Gardener: skin, mucosa, microbiome, competitive exclusion, fewer incoming infections.
+- Metabolic Warlord: mitochondria, ATP, glucose, fever, sustained high-energy defense.
+- Tolerance Diplomat: regulatory T cells, resolution mediators, stability, long-term survival.
+- Viral Hunter: NK cells, interferons, cytotoxic T cells, surveillance against hidden infections.
+
+There is no single “best” build. The body is an ecosystem, and you are its strategist.
+
+## Section: Core loop
+
+1. Organs produce nutrients: amino acids, glucose, lipids, micronutrients.
+2. Mitochondria convert fuel into ATP.
+3. Bone marrow creates stem cells.
+4. Stem cells train immune defenders.
+5. Pathogens appear as outbreaks in sectors and organs.
+6. Your cells automatically fight infections.
+7. Victories yield antigens.
+8. Antigens unlock adaptive immunity, vaccines and codex entries.
+9. When ready, reset through a New Host prestige and keep immune memory.
+
+## Section: Features
+
+- Incremental idle gameplay with biological strategy depth.
+- Multiple immune branches: innate, adaptive, barrier, metabolic, regulatory, specialized warfare.
+- Pathogen variety: bacteria, viruses, fungi, parasites, toxins, altered self cells, autoimmune events.
+- Immune memory and codex collection.
+- Vaccines and meta-progression.
+- Prestige system: ascend to new host archetypes.
+- Offline progress.
+- Clean web-friendly UI.
+- Stylized biomedical sci-fi art direction.
+- No aggressive pay-to-win. Optional rewarded ads or donations only.
+
+## Section: How to play
+
+- Buy organs to produce resources.
+- Train immune cells to raise defense.
+- Watch infection bars and pathogen types.
+- Match your army to the threat:
+  - bacteria prefer innate phagocytes;
+  - viruses need NK and cytotoxic responses;
+  - fungi require sustained pressure;
+  - parasites need specialized barrier/Th2 tools;
+  - toxins need antibodies and detox.
+- Keep ATP income above cell upkeep.
+- Balance inflammation and tolerance.
+- Collect antigens to unlock adaptive technologies.
+- Reset via New Host when you want permanent memory bonuses.
+
+## Section: Good for players who like
+
+- idle/incremental games;
+- resource management;
+- biological simulations;
+- tech trees;
+- strategy without twitch reflexes;
+- collecting codex entries;
+- prestige loops;
+- weird science themes;
+- clean web games.
+
+## Section: Current status
+
+Early access / playable web demo.
+
+The current build focuses on the core immune loop: nutrients, organs, innate cells, early viruses, antigens, basic technologies and first prestige.
+
+More pathogens, host archetypes, vaccines, microbiome mechanics and endgame synthetic immunity are planned.
+
+## Section: Support / feedback
+
+Feedback is very welcome. Especially:
+
+- first 10 minutes clarity;
+- infection difficulty;
+- resource pacing;
+- which build you tried;
+- whether prestige feels rewarding.
+
+---
+
+# 5. itch.io Page Copy — Russian
+
+## Раздел: Вступление
+
+Immune Empire: Internal Front — инкрементальная стратегия о построении живой оборонительной цивилизации внутри тела.
+
+Ты не кликаешь по монстрам и не управляешь обычным заводом. Ты командуешь иммунной системой.
+
+Перерабатывай питательные вещества, выращивай стволовые клетки, обучай лейкоцитов, сдерживай бактериальные и вирусные вспышки, балансируй воспаление, открывай адаптивный иммунитет, собирай антигены, создавай вакцины и переходи к новому хозяину с вечной иммунной памятью.
+
+Каждый побеждённый патоген становится знанием. Каждый новый хозяин делает твою империю сильнее.
+
+## Раздел: Чем игра отличается
+
+В большинстве инкременталок нужно просто покупать больше генераторов.
+
+В Immune Empire важен экологический баланс.
+
+- Мало защиты? Вспышки захлёстывают органы.
+- Слишком много воспаления? Страдают собственные ткани.
+- Узкая армия? Патогены адаптируются.
+- Мало регуляции? Начинаются аутоиммунные всплески.
+- Мало энергии? Даже сильные клетки работают медленнее.
+
+Можно развивать несколько жизнеспособных стратегий:
+
+- Рой Суверен: массовые нейтрофилы, агрессивный врождённый ответ, быстрое подавление бактерий.
+- Архивист Адаптации: дендритные клетки, лимфоузлы, B/T-клетки, антитела, иммунная память.
+- Садовник Барьеров: кожа, слизистые, микробиом, конкурентное исключение, меньше входящих инфекций.
+- Метаболический Военачальник: митохондрии, АТФ, глюкоза, лихорадка, выносливая оборона.
+- Дипломат Толерантности: Treg, резолвины, стабильность, долгосрочное выживание.
+- Охотник на Вирусы: NK-клетки, интерфероны, цитотоксические T, надзор за скрытыми инфекциями.
+
+Нет одного «правильного» билда. Тело — это экосистема, а ты её стратег.
+
+## Раздел: Основной цикл
+
+1. Органы производят нутриенты: аминокислоты, глюкозу, липиды, микронутриенты.
+2. Митохондрии превращают топливо в АТФ.
+3. Костный мозг создаёт стволовые клетки.
+4. Стволовые клетки обучают иммунных защитников.
+5. Патогены появляются как вспышки в органах и секторах.
+6. Клетки автоматически сражаются с инфекциями.
+7. Победы дают антигены.
+8. Антигены открывают адаптивный иммунитет, вакцины и записи кодекса.
+9. Когда готов, соверши престиж «Новый Хозяин» и сохрани иммунную память.
+
+## Раздел: Особенности
+
+- Инкрементальный idle-геймплей с глубиной биологической стратегии.
+- Несколько веток иммунитета: врождённый, адаптивный, барьеры, метаболизм, регуляция, специализированная война.
+- Разнообразие угроз: бактерии, вирусы, грибки, паразиты, токсины, изменённые клетки, аутоиммунные события.
+- Иммунная память и кодекс патогенов.
+- Вакцины и мета-прогрессия.
+- Престиж: переход к новым типам хозяев.
+- Оффлайн-прогресс.
+- Читаемый веб-интерфейс.
+- Стилизованная биомедицинская sci-fi графика.
+- Без агрессивного pay-to-win. Только необязательная реклама или донаты.
+
+## Раздел: Как играть
+
+- Покупай органы для производства ресурсов.
+- Обучай иммунные клетки для роста защиты.
+- Следи за полосками инфекции и типами патогенов.
+- Подбирай армию под угрозу:
+  - бактерии лучше давятся врождёнными фагоцитами;
+  - вирусы требуют NK и цитотоксического ответа;
+  - грибки нуждаются в длительном давлении;
+  - паразиты требуют специализированных барьерных/Th2 инструментов;
+  - токсины нейтрализуются антителами и детоксом.
+- Держи доход АТФ выше потребления клеток.
+- Балансируй воспаление и толерантность.
+- Собирай антигены для адаптивных технологий.
+- Сбрасывай прогресс через Нового Хозяина, когда хочешь вечные бонусы памяти.
+
+## Раздел: Кому понравится
+
+- фанатам idle/incremental;
+- любителям ресурсного менеджмента;
+- биологическим симуляторам;
+- техдеревьям;
+- стратегиям без рефлексов;
+- коллекционированию записей;
+- престиж-петлям;
+- странным научным темам;
+- чистым веб-играм.
+
+## Раздел: Статус
+
+Ранний доступ / играбельная веб-демо.
+
+Текущая сборка сосредоточена на базовом иммунном цикле: нутриенты, органы, врождённые клетки, ранние вирусы, антигены, простые технологии и первый престиж.
+
+В планах больше патогенов, типы хозяев, вакцины, микробиом и эндгейм синтетический иммунитет.
+
+## Раздел: Обратная связь
+
+Очень жду фидбек, особенно:
+
+- понятны ли первые 10 минут;
+- сложность вспышек;
+- темп ресурсов;
+- какой билд ты пробовал;
+- ощущается ли престиж полезным.
+
+---
+
+# 6. CrazyGames Page Copy — English
+
+CrazyGames pages benefit from shorter, clearer copy. Use this version.
+
+## Description
+
+Immune Empire: Internal Front is an incremental idle strategy game where you build and command an immune system inside a living body.
+
+Collect nutrients, grow organs, train leukocytes, contain outbreaks, balance inflammation, and evolve defenses against bacteria, viruses, fungi, toxins and hidden cellular threats.
+
+Unlike ordinary clickers, your army can become too aggressive. High inflammation boosts defense but damages tissues. Neglect regulation and autoimmune flares may appear. Focus on one unit type for too long and pathogens adapt.
+
+Choose your path:
+
+- swarm innate defenders;
+- precise adaptive immunity;
+- barrier and microbiome ecology;
+- metabolic fever warfare;
+- tolerant regulatory stability;
+- antiviral hunter builds.
+
+Defeat pathogens to collect antigens, unlock immune memory, create vaccines and ascend to a new host with permanent bonuses.
+
+Play in browser. Suitable for short sessions and long idle progress.
+
+## Short description
+
+Build an immune civilization inside the body. Train cells, contain outbreaks, balance inflammation and evolve defenses in this incremental biology strategy idle game.
+
+---
+
+# 7. CrazyGames Page Copy — Russian
+
+Immune Empire: Internal Front — инкрементальная idle-стратегия, где ты строишь и командуешь иммунной системой внутри живого тела.
+
+Собирай нутриенты, развивай органы, обучай лейкоцитов, сдерживай вспышки, балансируй воспаление и эволюционируй защиту от бактерий, вирусов, грибков, токсинов и скрытых клеточных угроз.
+
+В отличие от обычных кликеров, твоя армия может стать слишком агрессивной. Высокое воспаление усиливает защиту, но повреждает ткани. Пренебрегай регуляцией — и начнутся аутоиммунные всплески. Слишком долго спамь один тип клеток — и патогены адаптируются.
+
+Выбирай путь:
+
+- массовый врождённый рой;
+- точный адаптивный иммунитет;
+- барьеры и микробиом;
+- метаболическая война и лихорадка;
+- толерантная регуляторная стабильность;
+- охота на вирусы.
+
+Побеждай патогены, собирай антигены, открывай иммунную память, создавай вакцины и переходи к новому хозяину с вечными бонусами.
+
+Играй в браузере. Подходит для коротких сессий и долгого idle-прогресса.
+
+---
+
+# 8. Metadata Fields
+
+## itch.io title
+
+Immune Empire: Internal Front
+
+## itch.io URL slug suggestion
+
+immune-empire-internal-front
+
+## itch.io classification
+
+Game
+
+## itch.io genre
+
+Simulation, Strategy, Idle, Incremental, Management
+
+## itch.io tags
+
+idle, incremental, simulation, strategy, management, biology, medical, sci-fi, web, singleplayer, resource-management, crafting, prestige, immune-system, cellular, pathogen, science, browser-game
+
+## itch.io visual style
+
+Abstract, Cyberpunk / Sci-Fi, Minimalist, Stylized
+
+## itch.io platform
+
+Web, Windows, Linux, macOS optional
+
+## itch.io inputs
+
+Mouse, Touchscreen, Keyboard
+
+## itch.io average session length
+
+5–30 minutes active, long-term idle
+
+## itch.io languages
+
+English, Russian
+
+## itch.io accessibility
+
+Colorblind-friendly UI planned, large clickable areas, no quick-time events, pausable, text size option planned.
+
+## CrazyGames category
+
+Idle / Simulation / Strategy / Management
+
+## CrazyGames tags
+
+idle, incremental, simulation, strategy, biology, medical, science, management, web, singleplayer, browser, prestige, resource
+
+## CrazyGames controls
+
+Mouse, Touch
+
+## CrazyGames player count
+
+Singleplayer
+
+## CrazyGames offline play
+
+Local save supported, browser storage required.
+
+---
+
+# 9. Feature Bullets for Store Page
+
+## English compact bullets
+
+- Build an immune system as a living civilization.
+- Train neutrophils, macrophages, NK cells, B cells and T cells.
+- Contain bacteria, viruses, fungi, parasites and toxins.
+- Balance inflammation, tolerance, energy and barriers.
+- Collect antigens and unlock adaptive immunity.
+- Create vaccines and immune memory.
+- Prestige into new host archetypes.
+- Idle/offline progress.
+- Clean web UI and stylized biomedical sci-fi art.
+
+## Russian compact bullets
+
+- Строй иммунную систему как живую цивилизацию.
+- Обучай нейтрофилов, макрофагов, NK, B- и T-клетки.
+- Сдерживай бактерии, вирусы, грибки, паразитов и токсины.
+- Балансируй воспаление, толерантность, энергию и барьеры.
+- Собирай антигены и открывай адаптивный иммунитет.
+- Создавай вакцины и иммунную память.
+- Совершай престиж с новыми типами хозяев.
+- Idle/оффлайн-прогресс.
+- Чистый веб-UI и стилизованная биомедицинская графика.
+
+---
+
+# 10. How to Play Block
+
+## English
+
+How to Play
+
+1. Buy organs to produce nutrients.
+2. Convert glucose and lipids into ATP.
+3. Grow stem cells in bone marrow.
+4. Train immune cells to defend sectors.
+5. Watch outbreak bars and pathogen types.
+6. Adapt your army:
+   - bacteria: neutrophils, macrophages, complement;
+   - viruses: NK cells, interferon, cytotoxic T;
+   - fungi: sustained macrophage/neutrophil pressure;
+   - parasites: eosinophils, mast cells, Th2/IgE;
+   - toxins: antibodies, liver detox.
+7. Keep ATP income above upkeep.
+8. Manage inflammation: strong but dangerous.
+9. Collect antigens to unlock adaptive tech.
+10. Reset via New Host for permanent immune memory.
+
+## Russian
+
+Как играть
+
+1. Покупай органы для производства нутриентов.
+2. Превращай глюкозу и липиды в АТФ.
+3. Выращивай стволовые клетки в костном мозге.
+4. Обучай иммунные клетки для защиты секторов.
+5. Следи за полосками вспышек и типами патогенов.
+6. Адаптируй армию:
+   - бактерии: нейтрофилы, макрофаги, комплемент;
+   - вирусы: NK-клетки, интерферон, цитотоксические T;
+   - грибки: длительное давление макрофагов/нейтрофилов;
+   - паразиты: эозинофилы, тучные клетки, Th2/IgE;
+   - токсины: антитела, детокс печени.
+7. Держи доход АТФ выше потребления.
+8. Управляй воспалением: оно сильное, но опасное.
+9. Собирай антигены для адаптивных технологий.
+10. Сбрасывай прогресс через Нового Хозяина ради вечной иммунной памяти.
+
+---
+
+# 11. FAQ
+
+## English FAQ
+
+Q: Is this a medical simulator?
+A: No. It is a stylized incremental strategy inspired by immunology. Real biology is simplified for gameplay clarity.
+
+Q: Do I need to click constantly?
+A: No. The game supports idle and offline progress. Active play helps early on and during special events.
+
+Q: Can I lose permanently?
+A: No. Bad balance causes setbacks, organ debuffs, inflammation damage or autoimmune flares, but not save deletion.
+
+Q: Are there multiple builds?
+A: Yes. Innate swarm, adaptive memory, barriers, metabolism, regulation and antiviral specialization are all viable.
+
+Q: Does prestige erase everything?
+A: No. Immune memory, codex, vaccines, permanent upgrades and unlocks persist.
+
+Q: Is AI art used?
+A: Yes, AI-assisted concept/icon generation may be used, followed by manual selection, cropping, palette normalization and integration. Final art direction is human-curated.
+
+Q: Will it be free?
+A: The web demo is intended to be free. Optional donations or rewarded ads may support development.
+
+## Russian FAQ
+
+В: Это медицинский симулятор?
+О: Нет. Это стилизованная инкрементальная стратегия, вдохновлённая иммунологией. Реальная биология упрощена ради игрового ясности.
+
+В: Нужно ли постоянно кликать?
+О: Нет. Игра поддерживает idle и оффлайн-прогресс. Активная игра помогает в начале и во время специальных событий.
+
+В: Можно ли навсегда проиграть?
+О: Нет. Плохой баланс вызывает неудачи, дебаффы органов, повреждение воспалением или аутоиммунные всплески, но не удаляет сохранение.
+
+В: Есть несколько билдов?
+О: Да. Врождённый рой, адаптивная память, барьеры, метаболизм, регуляция и antiviral-специализация жизнеспособны.
+
+В: Престиж стирает всё?
+О: Нет. Иммунная память, кодекс, вакцины, вечные улучшения и открытия сохраняются.
+
+В: Используется ли AI-арт?
+О: Да, возможно AI-ассистированная генерация концептов/иконок с последующим ручным отбором, обрезкой, приведением к палитре и интеграцией. Финальный арт-надзор человеческий.
+
+В: Игра будет бесплатной?
+О: Веб-демо планируется бесплатной. Возможны необязательные донаты или rewarded ads.
+
+---
+
+# 12. Update Note Templates
+
+## Update 0.1 — First Playable
+
+Title: First Playable Immune Loop
+
+Body:
+This build adds the core incremental loop: nutrient organs, stem cells, innate immune cells, first bacterial and viral outbreaks, antigens, basic technologies and local saving.
+
+Known focus:
+- early pacing;
+- infection readability;
+- save stability in browser.
+
+Feedback welcome on first 10 minutes and difficulty curve.
+
+## Update 0.2 — Adaptive Awakening
+
+Title: Adaptive Immunity Preview
+
+Body:
+Added dendritic cells, lymph node progression, early B-cell concept, antigen economy improvements and first codex entries.
+
+Changes:
+- viruses now require more than basic phagocytes;
+- antigen rewards are clearer;
+- tech panel reorganized;
+- offline summary added.
+
+## Update 0.3 — New Host Prestige
+
+Title: Prestige: New Host
+
+Body:
+First prestige loop is live. Ascend to a new host to convert antigens into immune memory and permanent bonuses.
+
+Added:
+- immune memory currency;
+- permanent upgrade shop;
+- host reset confirmation;
+- basic achievements;
+- settings and save export/import placeholder.
+
+## Update 0.4 — Barriers and Microbiome
+
+Title: Barrier Ecology Update
+
+Body:
+Added skin/mucosa barrier organs, microbiome garden, competitive exclusion and early ecology events.
+
+You can now play more defensively: reduce incoming infections instead of only killing them after entry.
+
+## Update 0.5 — Vaccines and Codex
+
+Title: Immune Memory Update
+
+Body:
+Added vaccine slots, codex pathogen records, memory bonuses and first host archetype previews.
+
+Defeating unique pathogens now feels more permanent and rewarding.
+
+---
+
+# 13. Social Media Posts
+
+## itch.io post English
+
+New web build: Immune Empire: Internal Front.
+
+It’s an incremental strategy where you build an immune civilization inside the body: nutrients, organs, leukocytes, outbreaks, antigens, inflammation balance and prestige into new hosts.
+
+Current goal: test the first 10 minutes and infection readability.
+
+Feedback welcome.
+
+## Twitter/X English post 1
+
+I’m making an incremental game where you don’t build a factory.
+
+You build an immune system.
+
+Train leukocytes, contain outbreaks, balance inflammation, collect antigens, evolve adaptive immunity and ascend to a new host.
+
+Web build coming soon. #indiedev #gamedev #Godot #incremental
+
+## Twitter/X English post 2
+
+Most idle games: buy more drones.
+
+Immune Empire: your drones are neutrophils, your factory is bone marrow, your enemy is a virus hiding inside your own cells, and if you overheat the system you get autoimmune flares.
+
+Biological incremental strategy in Godot. #gamedev #indiedev #webgame
+
+## Twitter/X English post 3
+
+Prototype loop for Immune Empire:
+
+nutrients → ATP → stem cells → leukocytes → outbreaks → antigens → adaptive tech → memory → new host.
+
+Trying to make prestige feel like evolution, not just a reset. #indiedev #Godot
+
+## Russian VK/Telegram post
+
+Делаю инкременталку, где ты строишь не завод, а иммунную систему внутри тела.
+
+Нутриенты, органы, лейкоциты, вспышки бактерий и вирусов, антигены, воспаление, адаптивный иммунитет, вакцины и престиж через нового хозяина.
+
+Скоро веб-прототип. Интересно проверить первые 10 минут.
+
+## Russian short post
+
+Идея игры: ты управляешь иммунитетом как цивилизацией.
+
+Нейтрофилы — массовый ответ.
+Макрофаги — пожиратели и учителя.
+NK — охотники на вирусы.
+B/T-клетки — точная память.
+Воспаление — сила, которая может сжечь тебя изнутри.
+
+Инкременталка на Godot для веба.
+
+---
+
+# 14. Devlog Snippets
+
+## Devlog 1: Concept
+
+Working title: Immune Empire: Internal Front.
+
+The idea is an incremental game where the player manages an immune system as a living civilization. Instead of generic generators, the production chain is biological: nutrients, ATP, stem cells, leukocytes, antigens, immune memory.
+
+The key twist is balance. More defense is not always better. Inflammation increases power but damages tissues. Narrow armies allow pathogens to adapt. Lack of regulation causes autoimmune events.
+
+The game is being built in Godot for PC/web, targeting itch.io and CrazyGames.
+
+## Devlog 2: Why this is not just another clicker
+
+Classic incremental games reward linear scaling: buy more, get more.
+
+Immune Empire wants to reward ecological tuning:
+
+- feed the army with ATP;
+- match cell types to pathogen types;
+- use inflammation as a risky multiplier;
+- invest in tolerance to survive your own success;
+- collect antigens to turn enemies into knowledge.
+
+The fantasy is not “I clicked faster.” It is “I understood the organism.”
+
+## Devlog 3: Art pipeline with limited drawing skills
+
+Since I am not a strong artist, the game uses icon/card-based biomedical sci-fi visuals instead of character animation.
+
+Plan:
+1. Generate candidate icons/cards with Qwen Image 3.0.
+2. Select readable silhouettes.
+3. Remove backgrounds.
+4. Normalize palette and outline in post.
+5. Animate simply in Godot with pulses, particles and shaders.
+
+The goal is coherence, not hand-drawn complexity.
+
+## Devlog 4: Web export priorities
+
+For itch.io/CrazyGames, the build must be lightweight and iframe-safe.
+
+Priorities:
+- local save with fallback;
+- offline progress capped;
+- pause on hidden tab;
+- large touch targets;
+- release export;
+- limited particles;
+- no SDK dependency for first demo;
+- optional rewarded ads later.
+
+The core loop must be fun even with colored rectangles.
+
+---
+
+# 15. Store Page Structure — itch.io
+
+Suggested page order:
+
+1. Cover image / GIF.
+2. Short pitch.
+3. 2–3 screenshots.
+4. “What makes it different” section.
+5. Core loop.
+6. Features list.
+7. How to play.
+8. Builds/archetypes.
+9. FAQ.
+10. Status / roadmap.
+11. Support / feedback.
+12. Credits / AI disclosure if needed.
+
+## itch.io embed notes
+
+- Upload HTML5 build.
+- Set viewport to fit window or fixed 1280x720 with responsive scaling.
+- Enable “Play in browser”.
+- Provide keyboard/mouse/touch support.
+- Make sure fullscreen button is optional, not required.
+- Add external page link if needed for updates/discord.
+
+---
+
+# 16. Store Page Structure — CrazyGames
+
+Suggested page order:
+
+1. Thumbnail.
+2. Short description.
+3. Gameplay GIF/video.
+4. Controls.
+5. Tags.
+6. About game.
+7. Tips.
+8. FAQ optional.
+
+## CrazyGames-specific copy
+
+### Controls
+
+Mouse / Touch:
+- Click organs to buy or upgrade.
+- Click cells to train defenders.
+- Open tabs for technologies, threats, codex and prestige.
+- Game supports idle progress.
+
+### Tips
+
+- Do not ignore ATP. A big army without energy slows down.
+- Viruses hide inside cells. Early neutrophils are not enough.
+- Inflammation is powerful but dangerous.
+- Diversify your defenders to reduce pathogen adaptation.
+- Antigens are knowledge. Save them for adaptive unlocks.
+- Prestige is not failure. It is evolution.
+
+---
+
+# 17. SEO Keywords
+
+## English keywords
+
+immune system idle game, biological incremental game, medical idle strategy, cell defense incremental, white blood cell game, virus defense idle, bacteria outbreak game, immune simulator browser game, Godot idle web game, science incremental game, resource management idle, prestige idle game, offline browser game, CrazyGames idle, itch.io incremental.
+
+## Russian keywords
+
+идл про иммунитет, инкременталка про иммунную систему, игра про лейкоциты, биологическая инкременталка, игра про вирусы и бактерии, симулятор иммунитета браузер, idle стратегия тело, игра про клетки, Godot инкременталка, оффлайн игра браузер, престиж инкременталка, медицинская idle игра.
+
+---
+
+# 18. Screenshot / GIF Captions
+
+## Screenshot 1
+
+Caption: Early immune economy: nutrients, ATP, stem cells and first defenders.
+
+RU: Ранняя иммунная экономика: нутриенты, АТФ, стволовые клетки и первые защитники.
+
+## Screenshot 2
+
+Caption: Outbreaks require matching your defense to the pathogen type.
+
+RU: Вспышки требуют подбирать защиту под тип патогена.
+
+## Screenshot 3
+
+Caption: Innate swarm, adaptive precision, barriers, metabolism and regulation branches.
+
+RU: Ветки врождённого роя, адаптивной точности, барьеров, метаболизма и регуляции.
+
+## Screenshot 4
+
+Caption: Antigens turn defeated enemies into immune memory and vaccines.
+
+RU: Антигены превращают побеждённых врагов в иммунную память и вакцины.
+
+## Screenshot 5
+
+Caption: Prestige: ascend to a new host and keep permanent immune memory.
+
+RU: Престиж: перейди к новому хозяину и сохрани вечную иммунную память.
+
+## GIF idea 1
+
+Show 10 seconds:
+- buy gut villi;
+- buy mitochondria;
+- train neutrophils;
+- infection bar decreases;
+- antigen reward pops up.
+
+## GIF idea 2
+
+Show pathogen mismatch:
+- neutrophils vs virus low effectiveness;
+- train NK cell;
+- infection starts clearing;
+- journal says “Hidden enemy detected.”
+
+## GIF idea 3
+
+Show prestige:
+- memory gain preview;
+- New Host button;
+- dissolve animation;
+- new host silhouette;
+- permanent bonus list.
+
+---
+
+# 19. AI Art Disclosure Text
+
+Use if required or if you want transparency.
+
+## English
+
+Art note: This project uses AI-assisted image generation for concept exploration and icon/card assets. Generated images are manually selected, cropped, palette-normalized and integrated into a curated visual style.
+
+## Russian
+
+Примечание об арте: в проекте используется AI-ассистированная генерация изображений для концептов и иконок/карточек. Сгенерированные изображения отбираются вручную, обрезаются, приводятся к единой палитре и интегрируются вcurated визуальный стиль.
+
+Fix typo: curated = курируемый/отобранный. Use:
+
+...интегрируются в отобранный художественный стиль.
+
+---
+
+# 20. Support / Donation Copy
+
+## English
+
+If you enjoy the prototype, feedback is the most valuable support.
+
+Optional support:
+- report bugs;
+- share your favorite build;
+- leave a comment;
+- donate via Ko-fi / Patreon if available.
+
+Donations help with assets, testing and development time. They do not affect core gameplay balance.
+
+## Russian
+
+Если тебе понравился прототип, самая ценная поддержка — фидбек.
+
+Опционально:
+- сообщить о багах;
+- рассказать, какой билд тебе зашёл;
+- оставить комментарий;
+- поддержать через Ko-fi / Patreon, если доступно.
+
+Донаты помогают с ассетами, тестами и временем разработки. На базовый баланс они не влияют.
+
+---
+
+# 21. Roadmap Copy
+
+## English roadmap
+
+Now:
+- core resource loop;
+- innate cells;
+- first bacteria/viruses;
+- basic techs;
+- save/offline;
+- first prestige.
+
+Next:
+- adaptive B/T cells;
+- codex and antigens depth;
+- inflammation/tolerance tuning;
+- barrier organs;
+- microbiome events;
+- more pathogen families.
+
+Later:
+- vaccines;
+- host archetypes;
+- specialized warfare;
+- organ sectors;
+- synthetic immunity;
+- phage ecology;
+- endgame tech web.
+
+## Russian roadmap
+
+Сейчас:
+- базовый цикл ресурсов;
+- врождённые клетки;
+- первые бактерии/вирусы;
+- простые технологии;
+- сохранение/оффлайн;
+- первый престиж.
+
+Дальше:
+- адаптивные B/T-клетки;
+- углубление кодекса и антигенов;
+- баланс воспаления/толерантности;
+- барьерные органы;
+- события микробиома;
+- больше семейств патогенов.
+
+Позже:
+- вакцины;
+- типы хозяев;
+- специализированная война;
+- органы/сектора;
+- синтетический иммунитет;
+- фаговая экология;
+- эндгейм техдерево.
+
+---
+
+# 22. Review Response Templates
+
+## Positive review English
+
+Thanks! The first 10 minutes are the hardest part to tune. If you have a moment, I’d love to know which branch you tried and whether the first virus felt fair.
+
+## Positive review Russian
+
+Спасибо! Первые 10 минут — самое сложное в настройке. Если будет момент, расскажи, какую ветку пробовал и был ли первый вирус честным.
+
+## Negative: too confusing English
+
+Sorry it felt unclear. I’m planning a shorter intro and better early hints. If you can specify where it became confusing — resources, infections or techs — that would help a lot.
+
+## Negative: too confusing Russian
+
+Жаль, что показалось непонятно. Планирую короче вступление и лучше ранние подсказки. Если уточнишь, где именно запутался — ресурсы, инфекции или технологии — очень поможет.
+
+## Negative: too slow English
+
+Thanks for the honesty. Idle pacing is tricky. I’m testing faster early organ costs and clearer first-goal markers. What part felt slowest?
+
+## Negative: too slow Russian
+
+Спасибо за честность. Темп idle — сложная штука. Тестирую более ранние дешёвые органы и понятнее первую цель. Что казалось самым медленным?
+
+## Bug report English
+
+Thanks, I’ll look into it. If possible, include browser, approximate time of bug, and whether it happened after tab switch/offline return. Saves are important, so I’ll prioritize anything near save/load.
+
+## Bug report Russian
+
+Спасибо, посмотрю. Если можешь, укажи браузер, примерное время бага и было ли это после переключения вкладки/возвращения оффлайн. Сохранения важны, поэтому всё около save/load буду чинить в первую очередь.
+
+---
+
+# 23. Community Post: Asking for Playtest
+
+## English
+
+Looking for a few web playtesters for Immune Empire: Internal Front, an incremental immune-system strategy.
+
+I specifically want feedback on:
+- first 5 minutes clarity;
+- whether bacteria/viruses feel different;
+- ATP/stem cell bottleneck fairness;
+- prestige motivation.
+
+It’s browser-based, no install. If interested, comment or DM.
+
+## Russian
+
+Ищу несколько веб-плейтестеров для Immune Empire: Internal Front — инкрементальной стратегии про иммунную систему.
+
+Особенно нужен фидбек по:
+- первым 5 минутам;
+- ощущаются ли бактерии и вирусы по-разному;
+- честный ли bottleneck АТФ/стволовых клеток;
+- мотивирует ли престиж.
+
+Игра в браузере, без установки. Если интересно — пиши в комменты/личку.
+
+---
+
+# 24. Launch Announcement Copy
+
+## English launch post
+
+Immune Empire: Internal Front is now playable in browser.
+
+It’s an incremental strategy where you grow an immune civilization inside a living host. Produce nutrients, train leukocytes, contain outbreaks, collect antigens, balance inflammation and ascend to new hosts with permanent immune memory.
+
+Current build focuses on the core loop and early prestige. Feedback welcome.
+
+Play here: [link]
+
+## Russian launch post
+
+Immune Empire: Internal Front теперь доступна в браузере.
+
+Это инкрементальная стратегия, где ты выращиваешь иммунную цивилизацию внутри живого хозяина. Производи нутриенты, обучай лейкоцитов, сдерживай вспышки, собирай антигены, балансируй воспаление и переходи к новым хозяевам с вечной иммунной памятью.
+
+Текущая сборка сфокусирована на базовом цикле и первом престиже. Жду фидбек.
+
+Играть: [ссылка]
+
+---
+
+# 25. CrazyGames SDK Placeholder Copy
+
+Use only after core game is stable.
+
+## Rewarded ad descriptions
+
+- Cytokine Surge: Watch a short video to gain 2× defense for 5 minutes.
+- Emergency Nutrition: Get 2 hours of resource production instantly.
+- Antigen Scan: Reveal the next outbreak and receive bonus antigens.
+- Research Boost: Instantly complete the current technology timer.
+- Offline Double: Double your offline earnings when you return.
+- Fever Control: Activate a fever buff with reduced inflammation cost for 3 minutes.
+- Microbiome Restore: Heal microbiome damage after an antibiotic event.
+
+## Policy wording
+
+Ads are optional. They never block progress, saving or core gameplay.
+
+---
+
+# 26. itch.io “Support this game” Copy
+
+## English
+
+If you like the concept, you can support development via optional donations. Support helps with art, sound, testing and more content. All core gameplay remains free and balanced without payment.
+
+## Russian
+
+Если концепция тебе нравится, можно поддержать разработку добровольным донатом. Поддержка помогает с артом, звуком, тестами и новым контентом. Основной геймплей остаётся бесплатным и сбалансированным без платежей.
+
+---
+
+# 27. Legal / Credit Snippets
+
+## Credits English
+
+Design, code and curation: [Your Name]
+AI-assisted concept/icon generation: Qwen Image 3.0
+Additional art cleanup, palette normalization and integration: [Your Name]
+Music/SFX: [Names or placeholders]
+Playtesters: [Names or community]
+
+## Credits Russian
+
+Дизайн, код и курирование: [Твоё имя]
+AI-ассистированная генерация концептов/иконок: Qwen Image 3.0
+Дополнительная обработка арта, палитра и интеграция: [Твоё имя]
+Музыка/звуки: [имена или заглушки]
+Плейтестеры: [имена или сообщество]
+
+---
+
+# 28. Page Copy Assembly Example — itch.io Final
+
+Use this as a compact ready page.
+
+Immune Empire: Internal Front
+
+Build an immune civilization inside the body. Mine nutrients, train leukocytes, contain outbreaks, balance inflammation, and evolve defenses against ever-new pathogens.
+
+Immune Empire: Internal Front is an incremental strategy game about commanding an immune system. You digest nutrients, grow stem cells, train defenders, contain bacterial and viral outbreaks, collect antigens, unlock adaptive immunity, create vaccines and ascend to a new host with permanent immune memory.
+
+Unlike ordinary clickers, more defense is not always better. High inflammation boosts power but damages tissues. Neglect regulation and autoimmune flares appear. Spam one unit type and pathogens adapt. The body is an ecosystem, and you are its strategist.
+
+Features:
+- Incremental idle gameplay with biological strategy depth.
+- Multiple viable builds: innate swarm, adaptive precision, barriers, metabolism, regulation, viral hunting.
+- Pathogen variety: bacteria, viruses, fungi, parasites, toxins, altered self cells.
+- Antigens, codex, immune memory and vaccines.
+- Prestige into new host archetypes.
+- Offline progress.
+- Clean web UI and stylized biomedical sci-fi art.
+
+How to play:
+Buy organs, produce ATP, grow stem cells, train immune cells, match your defense to pathogen types, manage inflammation and tolerance, collect antigens, then reset via New Host for permanent bonuses.
+
+Current status:
+Early playable web demo focused on core loop and first prestige. Feedback welcome on pacing, clarity and difficulty.
+
+Free to play. Optional donations/rewarded ads do not affect core balance.
+
+---
+
+# 29. Page Copy Assembly Example — CrazyGames Final
+
+Immune Empire: Internal Front is an incremental idle strategy where you build an immune system inside a living body.
+
+Collect nutrients, grow organs, train leukocytes, contain outbreaks, balance inflammation and evolve defenses against bacteria, viruses, fungi, toxins and hidden cellular threats.
+
+Your army can become too aggressive. Inflammation boosts defense but damages tissues. Poor regulation causes autoimmune flares. Monoculture lets pathogens adapt. Choose your path: innate swarm, adaptive memory, barrier ecology, metabolic fever warfare, tolerance diplomacy or antiviral hunting.
+
+Defeat pathogens to collect antigens, unlock immune memory, create vaccines and ascend to a new host with permanent bonuses.
+
+Controls: Mouse / Touch.
+Session: Short active play plus long idle progress.
+Save: Browser local save.
+Ads: Optional rewarded boosts only.
+
+---
+
+# 30. Recommended First Publish Checklist
+
+Before publishing:
+
+- Title and subtitle set.
+- Short description ready.
+- Long description pasted.
+- Tags filled.
+- Cover image uploaded.
+- At least 3 screenshots uploaded.
+- 1 gameplay GIF or video if possible.
+- Controls listed.
+- Language set to English + Russian.
+- itch.io HTML5 embed tested.
+- CrazyGames iframe tested.
+- Save works after refresh.
+- Offline progress does not duplicate time.
+- Audio starts after first click.
+- Settings menu has mute/reset.
+- AI art disclosure added if needed.
+- Feedback link or comment section enabled.
+- First update note prepared.
+- Roadmap text added.
+- FAQ added.
+- Social post drafted.
+
+---
+
+# 31. Optional Localized UI Strings for Store Buttons
+
+English:
+- Play
+- Install
+- Download
+- Support
+- Feedback
+- Roadmap
+- Changelog
+- Settings
+- Save
+- Reset
+- New Host
+- Continue
+- Offline Summary
+
+Russian:
+- Играть
+- Установить
+- Скачать
+- Поддержать
+- Отзыв
+- Роадмап
+- Обновления
+- Настройки
+- Сохранить
+- Сброс
+- Новый Хозяин
+- Продолжить
+- Итог оффлайна
+
+---
+
+# 32. Final Tone Guide
+
+Keep the store copy:
+- clear;
+- curious;
+- slightly scientific;
+- not too medical;
+- not too grim;
+- not childish;
+- honest about early access;
+- focused on the unique balance mechanic.
+
+Avoid:
+- overpromising full simulation;
+- claiming medical accuracy;
+- saying “realistic immune system” without caveat;
+- too much jargon in first paragraph;
+- aggressive monetization language;
+- long tutorial text on store page.
+
+Best hook:
+
+You are not building a factory. You are building an immune civilization.
