@@ -1,0 +1,9 @@
+{
+  "amino_acids":    {"name_ru": "Аминокислоты",    "color": "#e8fbff"},
+  "glucose":        {"name_ru": "Глюкоза",         "color": "#ffd166"},
+  "lipids":         {"name_ru": "Липиды",          "color": "#f4a261"},
+  "micronutrients": {"name_ru": "Микронутриенты",  "color": "#a8e6cf"},
+  "atp":            {"name_ru": "АТФ",             "color": "#5ce1e6"},
+  "stem_cells":     {"name_ru": "Стволовые клетки","color": "#c8b6ff"},
+  "antigens":       {"name_ru": "Антигены",        "color": "#ff6b6b"}
+}

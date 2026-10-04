@@ -1,0 +1,65 @@
+{
+  "neutrophil": {
+    "name_ru": "Нейтрофил",
+    "tier": 0, "category": "innate",
+    "base_cost": {"stem_cells": 1, "amino_acids": 10, "glucose": 5, "atp": 5},
+    "cost_growth": 1.12,
+    "defense": {"bacteria": 1.0, "virus": 0.1, "fungus": 0.2},
+    "upkeep_atp": 0.005,
+    "inflammation": 0.02,
+    "unlock": "start"
+  },
+  "macrophage": {
+    "name_ru": "Макрофаг",
+    "tier": 1, "category": "innate",
+    "base_cost": {"stem_cells": 2, "amino_acids": 25, "lipids": 10, "micronutrients": 5, "atp": 10},
+    "cost_growth": 1.14,
+    "defense": {"bacteria": 2.0, "virus": 0.3, "fungus": 0.8},
+    "upkeep_atp": 0.01,
+    "inflammation": 0.01,
+    "special": "antigen_bonus",
+    "unlock": "bone_marrow"
+  },
+  "dendritic_cell": {
+    "name_ru": "Дендритная клетка",
+    "tier": 1, "category": "innate",
+    "base_cost": {"stem_cells": 3, "amino_acids": 40, "lipids": 20, "atp": 25},
+    "cost_growth": 1.16,
+    "defense": {"bacteria": 0.3, "virus": 0.5, "fungus": 0.2},
+    "upkeep_atp": 0.012,
+    "inflammation": 0.005,
+    "special": "antigen_gain_25",
+    "unlock": "macrophage"
+  },
+  "nk_cell": {
+    "name_ru": "NK-клетка",
+    "tier": 1, "category": "innate",
+    "base_cost": {"stem_cells": 2, "amino_acids": 30, "micronutrients": 10, "atp": 20},
+    "cost_growth": 1.15,
+    "defense": {"bacteria": 0.5, "virus": 2.0, "fungus": 0.3},
+    "upkeep_atp": 0.012,
+    "inflammation": 0.008,
+    "unlock": "first_outbreak_cleared"
+  },
+  "b_cell": {
+    "name_ru": "B-клетка",
+    "tier": 1, "category": "adaptive",
+    "base_cost": {"stem_cells": 4, "amino_acids": 50, "lipids": 20, "atp": 30, "antigens": 10},
+    "cost_growth": 1.15,
+    "defense": {"bacteria": 1.5, "virus": 1.5, "fungus": 0.8},
+    "upkeep_atp": 0.015,
+    "inflammation": 0.004,
+    "special": "known_pathogen_bonus",
+    "unlock": "dendritic_cell_and_lymph_node"
+  },
+  "cytotoxic_t": {
+    "name_ru": "Цитотоксический T-киллер",
+    "tier": 2, "category": "adaptive",
+    "base_cost": {"stem_cells": 5, "amino_acids": 70, "micronutrients": 20, "atp": 50, "antigens": 25},
+    "cost_growth": 1.17,
+    "defense": {"bacteria": 0.5, "virus": 4.0, "fungus": 0.5},
+    "upkeep_atp": 0.022,
+    "inflammation": 0.01,
+    "unlock": "antigen_presentation_1"
+  }
+}

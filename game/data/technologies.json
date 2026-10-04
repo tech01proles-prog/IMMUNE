@@ -1,0 +1,17 @@
+{
+  "chemotaxis_1":            {"name_ru": "Хемотаксис I",              "tier": 0, "cost": {"amino_acids": 50, "glucose": 20}, "effect": "neutrophil_defense_15", "unlock": "start"},
+  "glycolytic_flux":         {"name_ru": "Гликолитический поток",     "tier": 0, "cost": {"glucose": 50, "amino_acids": 20}, "effect": "atp_production_10", "unlock": "mitochondrial_network"},
+  "oxidative_burst_1":       {"name_ru": "Окислительный взрыв I",     "tier": 1, "cost": {"amino_acids": 100, "atp": 50, "micronutrients": 10}, "effect": "macrophage_bacteria_20", "unlock": "macrophage"},
+  "granulopoiesis_1":        {"name_ru": "Гранулопоэз I",             "tier": 1, "cost": {"amino_acids": 150, "stem_cells": 50, "atp": 30}, "effect": "neutrophil_cost_10", "unlock": "bone_marrow"},
+  "mitochondrial_biogenesis":{"name_ru": "Митохондриальный биогенез","tier": 1, "cost": {"amino_acids": 200, "glucose": 100, "micronutrients": 50}, "effect": "atp_production_15", "unlock": "glycolytic_flux"},
+  "mucus_production":        {"name_ru": "Продукция слизи",            "tier": 1, "cost": {"amino_acids": 100, "lipids": 50, "micronutrients": 20}, "effect": "infection_pressure_10", "unlock": "gut_villi"},
+  "anti_inflammatory_signals":{"name_ru": "Противовоспалительные сигналы","tier": 1, "cost": {"amino_acids": 200, "atp": 80}, "effect": "inflammation_damage_10", "unlock": "macrophage"},
+  "complement_cascade":      {"name_ru": "Каскад комплемента",         "tier": 1, "cost": {"amino_acids": 300, "lipids": 100}, "effect": "bacteria_kill_20", "unlock": "liver"},
+  "antigen_presentation_1":  {"name_ru": "Представление антигена I",   "tier": 1, "cost": {"amino_acids": 200, "antigens": 50, "atp": 100}, "effect": "dendritic_antigen_25", "unlock": "dendritic_cell"},
+  "clonal_expansion_1":      {"name_ru": "Клональная экспансия I",     "tier": 1, "cost": {"amino_acids": 300, "atp": 100}, "effect": "adaptive_cost_10", "unlock": "lymph_node"},
+  "interferon_pathway":      {"name_ru": "Интерфероновый путь",        "tier": 1, "cost": {"amino_acids": 200, "antigens": 50, "atp": 100}, "effect": "virus_defense_25", "unlock": "nk_cell"},
+  "trained_immunity":        {"name_ru": "Тренированный иммунитет",    "tier": 2, "cost": {"amino_acids": 300, "antigens": 50, "atp": 100}, "effect": "cleared_kind_10", "unlock": "dendritic_cell"},
+  "antigen_archive":         {"name_ru": "Архив антигенов",            "tier": 1, "cost": {"antigens": 200, "amino_acids": 100}, "effect": "antigen_gain_5", "unlock": "lymph_node"},
+  "resolution_mediators":    {"name_ru": "Резолвины",                  "tier": 2, "cost": {"lipids": 600, "atp": 200}, "effect": "inflammation_decay_50", "unlock": "anti_inflammatory_signals"},
+  "vaccine_slot_1":          {"name_ru": "Вакцинный слот I",           "tier": 2, "cost": {"antigens": 300, "atp": 200, "stem_cells": 100}, "effect": "starting_defense_bonus", "unlock": "antigen_archive"}
+}
